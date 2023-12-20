@@ -1,78 +1,29 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email.",
-  }),
-  addressLine1: z.string().min(2, {
-    message: "Address Line 1 must be at least 2 characters.",
-  }),
-  addressLine2: z.string().min(2, {
-    message: "Address Line 2 must be at least 2 characters.",
-  }),
-  phoneNo: z.string().min(2, {
-    message: "Phone Number must be at least 2 characters.",
-  }),
-  website: z.string().min(2, {
-    message: "Website must be at least 2 characters.",
-  }),
-});
+import ItemDetails from "./form/itemDetails";
+import { UserDetails } from "./form/userDetails";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Editor() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
-  });
-
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
-
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+    <div>
+      <h1 className="my-4 text-2xl font-bold">Editor</h1>
+      <Tabs defaultValue="user">
+        <TabsList>
+          <TabsTrigger value="user">User details</TabsTrigger>
+          <TabsTrigger value="client">Client details</TabsTrigger>
+          <TabsTrigger value="items">Items</TabsTrigger>
+          <TabsTrigger value="extra">Extras</TabsTrigger>
+        </TabsList>
+        <TabsContent value="user">
+          <UserDetails />
+        </TabsContent>
+        <TabsContent value="client">Change your password here.</TabsContent>
+        <TabsContent value="items">
+          <ItemDetails />
+        </TabsContent>
+        <TabsContent value="extra">Change your password here.</TabsContent>
+      </Tabs>
+    </div>
   );
 }
