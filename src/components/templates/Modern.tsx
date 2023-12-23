@@ -1,25 +1,42 @@
+"use client";
+
 import { EyeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { basicDetails, useTemplateStrore } from "@/store/templateStore";
 
-interface ModernTemplateProps {}
+interface ModernTemplateProps {
+  isEditing?: boolean;
+}
 
 const templateProps = {
-  name: "Alivish Baldha",
-  website: "www.website.com",
-  email: "asdasd@example.com",
-  phoneno: "1234567890",
-  currency: "INR",
-  address: {
-    addressLine1: "City, State, IN - 000 000",
-    addressLine2: "TAX ID 00XXXXX1234X0XX",
-    taxID: "00XXXXX1234X0XX",
-  },
-  Billedto: {
-    name: "Manish Bisht",
-    addressLine1: "City, State, IN - 000 000",
-    addressLine2: "TAX ID 00XXXXX1234X0XX",
-    phoneNumber: "1234567890",
+  basicDetails: {
+    from: {
+      name: "Your Name",
+      website: "Your Website",
+      email: "your.email@example.com",
+      phoneno: "123-456-7890",
+      address: {
+        address: "123 Main St",
+        city: "Your City",
+        state: "Your State",
+        country: "Your Country",
+        zipCode: "12345",
+      },
+    },
+    to: {
+      name: "Recipient's Name",
+      website: "Recipient's Website",
+      email: "recipient.email@example.com",
+      phoneno: "987-654-3210",
+      address: {
+        address: "456 Oak St",
+        city: "Recipient's City",
+        state: "Recipient's State",
+        country: "Recipient's Country",
+        zipCode: "54321",
+      },
+    },
   },
   Invoiceno: "1234567890",
   InvoiceDate: "12/12/2021",
@@ -58,22 +75,36 @@ const templateProps = {
 
 const TemplateName = "modern";
 
-export default function Modern({}: ModernTemplateProps) {
+export default function Modern({ isEditing }: ModernTemplateProps) {
+  let templateValues;
+
+  const { basicDetails } = useTemplateStrore();
+
+  if (isEditing)
+    templateValues = {
+      basicDetails: basicDetails,
+    };
+  else templateValues = templateProps;
+
+  console.log(templateValues);
+
   return (
-    <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative cursor-pointer">
+    <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative">
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-[#1A1C21] font-semibold text-lg">
-            {templateProps.name}
-          </h1>
-          <p>{templateProps.website}</p>
-          <p>{templateProps.email}</p>
-          <p>{templateProps.phoneno}</p>
+          <h1 className="text-[#1A1C21] font-semibold text-lg">{}</h1>
+          <p>{templateValues.basicDetails.from?.website}</p>
+          <p>{templateProps.basicDetails.from.email}</p>
+          <p>{templateProps.basicDetails.from.phoneno}</p>
         </div>
         <div>
-          <p>{templateProps.address.addressLine1}</p>
-          <p>{templateProps.address.addressLine2}</p>
-          <p>{templateProps.address.taxID}</p>
+          <p>{templateProps.basicDetails.from.address.address}</p>
+          <p>{templateProps.basicDetails.from.address.city}</p>
+          <p>{templateProps.basicDetails.from.address.country}</p>
+          <p>
+            {templateProps.basicDetails.from.address.state} -{" "}
+            {templateProps.basicDetails.from.address.zipCode}
+          </p>
         </div>
       </div>
 
@@ -82,10 +113,13 @@ export default function Modern({}: ModernTemplateProps) {
           <div>
             <h1>Billed to</h1>
             <h2 className="text-[#1A1C21]  font-semibold mt-2">Client Name</h2>
-            <p>{templateProps.Billedto.name}</p>
-            <p>{templateProps.Billedto.addressLine1}</p>
-            <p>{templateProps.Billedto.addressLine2}</p>
-            <p>{templateProps.Billedto.phoneNumber}</p>
+            <p>{templateProps.basicDetails.to.name}</p>
+            <p>{templateProps.basicDetails.to.address.address}</p>
+            <p>{templateProps.basicDetails.to.address.city}</p>
+            <p>{templateProps.basicDetails.to.address.country}</p>
+            <p>{templateProps.basicDetails.to.address.state}</p>
+            <p>{templateProps.basicDetails.to.address.zipCode}</p>
+            <p>{templateProps.basicDetails.to.phoneno}</p>
           </div>
           <div>
             <h2>Invoice Number</h2>
@@ -94,7 +128,7 @@ export default function Modern({}: ModernTemplateProps) {
             </p>
           </div>
           <div>
-            <p>Invoice of {templateProps.currency}</p>
+            <p>Invoice of 1200</p>
             <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
           </div>
         </div>
@@ -159,7 +193,7 @@ export default function Modern({}: ModernTemplateProps) {
         <p>Please pay within 15 days of receiving this invoice.</p>
       </div>
 
-      <div className="group-hover:flex absolute hidden transition-all w-full h-40 left-0 bottom-0 backdrop-blur justify-center items-center gap-4">
+      {/* <div className="group-hover:flex absolute hidden transition-all w-full h-40 left-0 bottom-0 backdrop-blur justify-center items-center gap-4">
         <Button>View</Button>
         <Button>
           <Link
@@ -169,7 +203,7 @@ export default function Modern({}: ModernTemplateProps) {
             <EyeIcon className="mr-2 w-4 h-4" /> Use Template
           </Link>
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
