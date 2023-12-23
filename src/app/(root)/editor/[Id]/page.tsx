@@ -1,7 +1,5 @@
 import Editor from "@/components/Editor";
 import Modern from "@/components/templates/Modern";
-import { GetTemplate, TemplateType } from "@/config/Config";
-import { redirect } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Props {

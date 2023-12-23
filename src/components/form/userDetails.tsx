@@ -78,7 +78,7 @@ export function UserDetails() {
     },
   });
 
-  const { setBaiscDetails } = useTemplateStrore();
+  const { setBaiscDetails, basicDetails } = useTemplateStrore();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
@@ -99,7 +99,19 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's name">Name</Label>
                     <FormControl>
-                      <Input placeholder="Manish bisht" {...field} />
+                      <Input
+                        placeholder="Manish bisht"
+                        // {...field}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              name: e.target.value,
+                            },
+                          })
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

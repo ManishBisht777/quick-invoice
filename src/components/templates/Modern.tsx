@@ -76,7 +76,12 @@ const templateProps = {
 const TemplateName = "modern";
 
 export default function Modern({ isEditing }: ModernTemplateProps) {
-  let templateValues;
+  let templateValues: {
+    basicDetails: {
+      from: basicDetails | undefined;
+      to: basicDetails | undefined;
+    };
+  };
 
   const { basicDetails } = useTemplateStrore();
 
@@ -92,7 +97,9 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
     <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative">
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-[#1A1C21] font-semibold text-lg">{}</h1>
+          <h1 className="text-[#1A1C21] font-semibold text-xl">
+            {templateValues.basicDetails.from?.name}
+          </h1>
           <p>{templateValues.basicDetails.from?.website}</p>
           <p>{templateProps.basicDetails.from.email}</p>
           <p>{templateProps.basicDetails.from.phoneno}</p>

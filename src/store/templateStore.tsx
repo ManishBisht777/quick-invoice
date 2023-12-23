@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface basicDetails {
+export interface basicDetails {
   name: string;
   website: string;
   email: string;
@@ -42,42 +42,42 @@ interface additionalDetails {
 
 interface templateStore {
   basicDetails: {
-    from: basicDetails | {};
-    to: basicDetails | {};
+    from: basicDetails | undefined;
+    to: basicDetails | undefined;
   };
-  invoiceDetails: invoiceDetails | {};
+  invoiceDetails: invoiceDetails | undefined;
   items: items[] | [];
-  paymentDetails: paymentDetails | {};
-  additionalDetails: {};
+  paymentDetails: paymentDetails | undefined;
+  //   additionalDetails: ;
 
   setBaiscDetails: (basicDetails: {
-    from: basicDetails | {};
-    to: basicDetails | {};
+    from: basicDetails | undefined;
+    to: basicDetails | undefined;
   }) => void;
   setInvoiceDetails: (invoiceDetails: invoiceDetails) => void;
   setItems: (items: items[]) => void;
   setPaymentDetails: (paymentDetails: paymentDetails) => void;
-  setAdditionalDetails: (additionalDetails: additionalDetails) => void;
+  //   setAdditionalDetails: (additionalDetails: additionalDetails) => void;
 }
 
 export const useTemplateStrore = create<templateStore>((set) => ({
   basicDetails: {
-    from: {},
-    to: {},
+    from: undefined,
+    to: undefined,
   },
-  invoiceDetails: {},
+  invoiceDetails: undefined,
   items: [],
-  paymentDetails: {},
-  additionalDetails: {},
+  paymentDetails: undefined,
+  //   additionalDetails: undefined,
   setBaiscDetails: (basicDetails: {
-    from: basicDetails | {};
-    to: basicDetails | {};
+    from: basicDetails | undefined;
+    to: basicDetails | undefined;
   }) => set({ basicDetails }),
   setInvoiceDetails: (invoiceDetails: invoiceDetails) =>
     set({ invoiceDetails }),
   setItems: (items: items[]) => set({ items }),
   setPaymentDetails: (paymentDetails: paymentDetails) =>
     set({ paymentDetails }),
-  setAdditionalDetails: (additionalDetails: additionalDetails) =>
-    set({ additionalDetails }),
+  //   setAdditionalDetails: (additionalDetails: additionalDetails) =>
+  //     set({ additionalDetails }),
 }));
