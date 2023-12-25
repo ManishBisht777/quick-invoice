@@ -7,31 +7,29 @@ export interface basicDetails {
   phoneno: string;
   address: {
     address: string;
-    city: string;
     state: string;
     country: string;
     zipCode: string;
   };
 }
 
-interface invoiceDetails {
+export interface invoiceDetails {
   issueDate: string;
   dueDate: string;
   currency: string;
-  template: string;
 }
 
-interface items {
+export interface items {
   name: string;
   description: string;
   quantity: number;
   price: number;
 }
 
-interface paymentDetails {
+export interface paymentDetails {
   bankName: string;
   accountName: string;
-  accountNummber: string;
+  accountNumber: string;
 }
 
 interface additionalDetails {

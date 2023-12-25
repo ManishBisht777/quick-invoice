@@ -3,7 +3,13 @@
 import { EyeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { basicDetails, useTemplateStrore } from "@/store/templateStore";
+import {
+  basicDetails,
+  invoiceDetails,
+  items,
+  paymentDetails,
+  useTemplateStrore,
+} from "@/store/templateStore";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
@@ -38,10 +44,13 @@ const templateProps = {
       },
     },
   },
+  invoiceDetails: {
+    issueDate: "12/12/2021",
+    dueDate: "12/12/2021",
+    currency: "USD",
+  },
   Invoiceno: "1234567890",
-  InvoiceDate: "12/12/2021",
-  DueDate: "12/12/2021",
-  Items: [
+  items: [
     {
       name: "Item 1",
       description: "Item 1 description",
@@ -71,6 +80,12 @@ const templateProps = {
       amount: 100,
     },
   ],
+
+  paymentDetails: {
+    bankName: "Bank Name",
+    accountName: "Account Name",
+    accountNumber: "Account Number",
+  },
 };
 
 const TemplateName = "modern";
@@ -81,13 +96,20 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
       from: basicDetails | undefined;
       to: basicDetails | undefined;
     };
+    invoiceDetails: invoiceDetails | undefined;
+    items: items[] | [];
+    paymentDetails: paymentDetails | undefined;
   };
 
-  const { basicDetails } = useTemplateStrore();
+  const { basicDetails, invoiceDetails, items, paymentDetails } =
+    useTemplateStrore();
 
   if (isEditing)
     templateValues = {
       basicDetails: basicDetails,
+      invoiceDetails: invoiceDetails,
+      items: items,
+      paymentDetails: paymentDetails,
     };
   else templateValues = templateProps;
 
@@ -101,16 +123,16 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
             {templateValues.basicDetails.from?.name}
           </h1>
           <p>{templateValues.basicDetails.from?.website}</p>
-          <p>{templateProps.basicDetails.from.email}</p>
-          <p>{templateProps.basicDetails.from.phoneno}</p>
+          <p>{templateValues.basicDetails.from?.email}</p>
+          <p>{templateValues.basicDetails.from?.phoneno}</p>
         </div>
         <div>
-          <p>{templateProps.basicDetails.from.address.address}</p>
-          <p>{templateProps.basicDetails.from.address.city}</p>
-          <p>{templateProps.basicDetails.from.address.country}</p>
+          <p>{templateValues.basicDetails.from?.address?.address}</p>
           <p>
-            {templateProps.basicDetails.from.address.state} -{" "}
-            {templateProps.basicDetails.from.address.zipCode}
+            {templateValues.basicDetails.from?.address?.country}
+            {templateValues.basicDetails.from?.address?.country && ", "}
+            {templateValues.basicDetails.from?.address?.state} -{" "}
+            {templateValues.basicDetails.from?.address?.zipCode}
           </p>
         </div>
       </div>
@@ -119,14 +141,15 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
         <div className="rounded-md flex justify-between">
           <div>
             <h1>Billed to</h1>
-            <h2 className="text-[#1A1C21]  font-semibold mt-2">Client Name</h2>
-            <p>{templateProps.basicDetails.to.name}</p>
-            <p>{templateProps.basicDetails.to.address.address}</p>
-            <p>{templateProps.basicDetails.to.address.city}</p>
-            <p>{templateProps.basicDetails.to.address.country}</p>
-            <p>{templateProps.basicDetails.to.address.state}</p>
-            <p>{templateProps.basicDetails.to.address.zipCode}</p>
-            <p>{templateProps.basicDetails.to.phoneno}</p>
+            <h2 className="text-[#1A1C21]  font-semibold mt-2">
+              {templateValues.basicDetails.to?.name}
+            </h2>
+            <p>{templateValues.basicDetails.to?.email}</p>
+            <p>{templateValues.basicDetails.to?.phoneno}</p>
+            <p>{templateValues.basicDetails.to?.address?.address}</p>
+            <p>{templateValues.basicDetails.to?.address?.country}</p>
+            <p>{templateValues.basicDetails.to?.address?.state}</p>
+            <p>{templateValues.basicDetails.to?.address?.zipCode}</p>
           </div>
           <div>
             <h2>Invoice Number</h2>
@@ -144,13 +167,13 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
           <div>
             <p>Invoice Date</p>
             <p className="text-[#1A1C21] font-semibold">
-              {templateProps.InvoiceDate}
+              {templateValues.invoiceDetails?.issueDate}
             </p>
           </div>
           <div>
             <p>Due Date</p>
             <p className="text-[#1A1C21] font-semibold">
-              {templateProps.DueDate}
+              {templateValues.invoiceDetails?.dueDate}
             </p>
           </div>
         </div>
@@ -163,7 +186,7 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
             <p className="col-span-1">Amount</p>
           </div>
           <div className="flex flex-col gap-3 border-b border-[#D7DAE0] pb-3">
-            {templateProps.Items.map((item) => (
+            {templateValues.items.map((item) => (
               <div
                 key={item.name}
                 className="grid grid-cols-7 gap-1 items-center"
@@ -174,7 +197,7 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
                 </div>
                 <p className="col-span-1">{item.quantity}</p>
                 <p className="col-span-1">{item.price}</p>
-                <p className="col-span-1">{item.amount}</p>
+                <p className="col-span-1">{item.price * item.quantity}</p>
               </div>
             ))}
           </div>
@@ -192,6 +215,21 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
               <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
             </div>
           </div>
+        </div>
+
+        <div className="border-t border-[#D7DAE0] mt-4 pt-4">
+          <p>
+            <span className="text-[#1A1C21] font-semibold">Bank</span>{" "}
+            {templateValues.paymentDetails?.bankName}
+          </p>
+          <p>
+            <span className="text-[#1A1C21] font-semibold">Account name</span>{" "}
+            {templateValues.paymentDetails?.accountName}
+          </p>
+          <p>
+            <span className="text-[#1A1C21] font-semibold">account number</span>{" "}
+            {templateValues.paymentDetails?.accountNumber}
+          </p>
         </div>
       </div>
 

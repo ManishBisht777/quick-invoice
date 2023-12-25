@@ -24,7 +24,6 @@ const formSchema = z.object({
     phoneno: z.string(),
     address: z.object({
       address: z.string(),
-      city: z.string(),
       state: z.string(),
       country: z.string(),
       zipCode: z.string(),
@@ -37,7 +36,6 @@ const formSchema = z.object({
     phoneno: z.string(),
     address: z.object({
       address: z.string(),
-      city: z.string(),
       state: z.string(),
       country: z.string(),
       zipCode: z.string(),
@@ -56,7 +54,6 @@ export function UserDetails() {
         phoneno: "",
         address: {
           address: "",
-          city: "",
           state: "",
           country: "",
           zipCode: "",
@@ -69,7 +66,6 @@ export function UserDetails() {
         phoneno: "",
         address: {
           address: "",
-          city: "",
           state: "",
           country: "",
           zipCode: "",
@@ -101,7 +97,7 @@ export function UserDetails() {
                     <FormControl>
                       <Input
                         placeholder="Manish bisht"
-                        // {...field}
+                        value={basicDetails.from?.name}
                         onChange={(e) =>
                           setBaiscDetails({
                             ...basicDetails,
@@ -109,7 +105,7 @@ export function UserDetails() {
                               ...basicDetails.from,
                               name: e.target.value,
                             },
-                          })
+                          } as z.infer<typeof formSchema>)
                         }
                       />
                     </FormControl>
@@ -124,7 +120,19 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's Email">Email</Label>
                     <FormControl>
-                      <Input placeholder="Manish@example.com" {...field} />
+                      <Input
+                        placeholder="Manish@example.com"
+                        value={basicDetails.from?.email}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              email: e.target.value,
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -137,7 +145,20 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's mobile number">Phone no</Label>
                     <FormControl>
-                      <Input placeholder="+91 1234567890" {...field} />
+                      <Input
+                        placeholder="+91 1234567890"
+                        type="number"
+                        value={basicDetails.from?.phoneno}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              phoneno: e.target.value,
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -151,20 +172,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's Address">Address</Label>
                     <FormControl>
-                      <Input placeholder="Street No 45, X - Block" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={"from.address.city"}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label htmlFor="Sender's city">City</Label>
-                    <FormControl>
-                      <Input placeholder="delhi" {...field} />
+                      <Input
+                        placeholder="Street No 45, X - Block"
+                        value={basicDetails.from?.address?.address}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              address: {
+                                ...basicDetails.from?.address,
+                                address: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -177,7 +200,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's country">Country</Label>
                     <FormControl>
-                      <Input placeholder="india" {...field} />
+                      <Input
+                        placeholder="india"
+                        value={basicDetails.from?.address?.country}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              address: {
+                                ...basicDetails.from?.address,
+                                country: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -190,7 +228,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's state">State</Label>
                     <FormControl>
-                      <Input placeholder="delhi" {...field} />
+                      <Input
+                        placeholder="delhi"
+                        value={basicDetails.from?.address?.state}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              address: {
+                                ...basicDetails.from?.address,
+                                state: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -203,7 +256,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Sender's zipcode">Zipcode</Label>
                     <FormControl>
-                      <Input placeholder="110034" {...field} />
+                      <Input
+                        placeholder="110034"
+                        value={basicDetails.from?.address?.zipCode}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            from: {
+                              ...basicDetails.from,
+                              address: {
+                                ...basicDetails.from?.address,
+                                zipCode: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -221,7 +289,19 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's name">Name</Label>
                     <FormControl>
-                      <Input placeholder="Manish bisht" {...field} />
+                      <Input
+                        placeholder="Manish bisht"
+                        value={basicDetails.to?.name}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              name: e.target.value,
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -234,7 +314,19 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's Email">Email</Label>
                     <FormControl>
-                      <Input placeholder="Manish@example.com" {...field} />
+                      <Input
+                        placeholder="Manish@example.com"
+                        value={basicDetails.to?.email}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              email: e.target.value,
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -247,7 +339,19 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's mobile number">Phone no</Label>
                     <FormControl>
-                      <Input placeholder="+91 1234567890" {...field} />
+                      <Input
+                        placeholder="+91 1234567890"
+                        value={basicDetails.to?.phoneno}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              phoneno: e.target.value,
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -261,20 +365,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's Address">Address</Label>
                     <FormControl>
-                      <Input placeholder="Street No 45, X - Block" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={"to.address.city"}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label htmlFor="Reciever's city">City</Label>
-                    <FormControl>
-                      <Input placeholder="delhi" {...field} />
+                      <Input
+                        placeholder="Street No 45, X - Block"
+                        value={basicDetails.to?.address?.address}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              address: {
+                                ...basicDetails.to?.address,
+                                address: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -287,7 +393,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's country">Country</Label>
                     <FormControl>
-                      <Input placeholder="india" {...field} />
+                      <Input
+                        placeholder="india"
+                        value={basicDetails.to?.address?.country}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              address: {
+                                ...basicDetails.to?.address,
+                                country: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -300,7 +421,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's state">State</Label>
                     <FormControl>
-                      <Input placeholder="delhi" {...field} />
+                      <Input
+                        placeholder="delhi"
+                        value={basicDetails.to?.address?.state}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              address: {
+                                ...basicDetails.to?.address,
+                                state: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -313,7 +449,22 @@ export function UserDetails() {
                   <FormItem>
                     <Label htmlFor="Reciever's zipcode">Zipcode</Label>
                     <FormControl>
-                      <Input placeholder="110034" {...field} />
+                      <Input
+                        placeholder="110034"
+                        value={basicDetails.to?.address?.zipCode}
+                        onChange={(e) =>
+                          setBaiscDetails({
+                            ...basicDetails,
+                            to: {
+                              ...basicDetails.to,
+                              address: {
+                                ...basicDetails.to?.address,
+                                zipCode: e.target.value,
+                              },
+                            },
+                          } as z.infer<typeof formSchema>)
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -322,7 +473,7 @@ export function UserDetails() {
             </div>
           </div>
         </div>
-        <Button type="submit">Save</Button>
+        <Button type="submit">Next</Button>
       </form>
     </Form>
   );

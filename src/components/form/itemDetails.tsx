@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -10,19 +10,35 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { register } from "module";
-import { useEffect } from "react";
+import { useTemplateStrore } from "@/store/templateStore";
 import { TrashIcon } from "lucide-react";
+import { useEffect } from "react";
+import { Label } from "../ui/label";
 
 interface ItemDetailsProps {}
 
+const formSchema = z.object({
+  items: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      quantity: z.number(),
+      price: z.number(),
+    })
+  ),
+});
+
 export default function ItemDetails({}: ItemDetailsProps) {
-  const form = useForm({
-    defaultValues: {},
+  const { items, setItems } = useTemplateStrore();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      items,
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -30,8 +46,8 @@ export default function ItemDetails({}: ItemDetailsProps) {
     name: "items",
   });
 
-  function onSubmit(values: any) {
-    console.log(values);
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setItems(values.items);
   }
 
   useEffect(() => {
@@ -40,79 +56,93 @@ export default function ItemDetails({}: ItemDetailsProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="flex flex-col gap-2 w-full mt-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8"
+        onChange={() => setItems(form.getValues().items)}
+      >
+        <div className="space-y-2 w-full mt-6">
           {fields.map((item, index) => (
-            <div
-              className="flex gap-3 items-center bg-slate-100/60 p-3 rounded-lg"
-              key={item.id}
-            >
+            <div className="space-y-3 bg-slate-50 p-3 rounded-lg" key={item.id}>
+              <div className="flex justify-between items-center">
+                <p className="text-[#E87117]">#{index + 1}</p>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  onClick={() => remove(index)}
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </Button>
+              </div>
+              <div className="grid gap-3 grid-cols-6 ">
+                <FormField
+                  control={form.control}
+                  name={`items.${index}.name`}
+                  render={({ field }) => (
+                    <FormItem className="col-span-4">
+                      <Label htmlFor={`items.${index}.name`}>Item name</Label>
+                      <FormControl>
+                        <Input placeholder="header component" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`items.${index}.quantity`}
+                  render={({ field }) => (
+                    <FormItem className="col-span-1">
+                      <Label htmlFor={`items.${index}.quantity`}>Qty</Label>
+                      <FormControl>
+                        <Input type="number" placeholder="3" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`items.${index}.price`}
+                  render={({ field }) => (
+                    <FormItem className="col-span-1">
+                      <Label htmlFor={`items.${index}.price`}>Price</Label>
+                      <FormControl>
+                        <Input type="number" placeholder="1500" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
-                name={`items.${index}.name`}
+                name={`items.${index}.description`}
                 render={({ field }) => (
                   <FormItem>
+                    <Label htmlFor={`items.${index}.description`}>
+                      Description
+                    </Label>
                     <FormControl>
-                      <Input placeholder="Hero section" {...field} />
+                      <Input placeholder="Design and 3 iteration" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name={`items.${index}.name`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="Some description" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={`items.${index}.quantity`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input type="number" placeholder="3" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name={`items.${index}.price`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input type="number" placeholder="1500" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="button"
-                variant="destructive"
-                onClick={() => remove(index)}
-              >
-                <TrashIcon className="w-4 h-4" />
-              </Button>
             </div>
           ))}
-        </div>
 
-        <Button
-          onClick={() => {
-            append({ test: "test" });
-          }}
-        >
-          Add items
-        </Button>
+          <Button
+            onClick={() =>
+              append({ name: "", description: "", price: 0, quantity: 0 })
+            }
+          >
+            Add item
+          </Button>
+        </div>
       </form>
     </Form>
   );
