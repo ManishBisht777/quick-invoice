@@ -25,8 +25,8 @@ const formSchema = z.object({
     z.object({
       name: z.string(),
       description: z.string(),
-      quantity: z.number(),
-      price: z.number(),
+      quantity: z.string(),
+      price: z.string(),
     })
   ),
 });
@@ -37,7 +37,7 @@ export default function ItemDetails({}: ItemDetailsProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      items,
+      items: items,
     },
   });
 
@@ -59,7 +59,10 @@ export default function ItemDetails({}: ItemDetailsProps) {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
-        onChange={() => setItems(form.getValues().items)}
+        onChange={() => {
+          console.log(form.getValues().items);
+          setItems(form.getValues().items);
+        }}
       >
         <div className="space-y-2 w-full mt-6">
           {fields.map((item, index) => (
@@ -137,7 +140,7 @@ export default function ItemDetails({}: ItemDetailsProps) {
 
           <Button
             onClick={() =>
-              append({ name: "", description: "", price: 0, quantity: 0 })
+              append({ name: "", description: "", price: "", quantity: "" })
             }
           >
             Add item

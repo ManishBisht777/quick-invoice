@@ -186,11 +186,8 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
             <p className="col-span-1">Amount</p>
           </div>
           <div className="flex flex-col gap-3 border-b border-[#D7DAE0] pb-3">
-            {templateValues.items.map((item) => (
-              <div
-                key={item.name}
-                className="grid grid-cols-7 gap-1 items-center"
-              >
+            {templateValues.items.map((item, index) => (
+              <div key={index} className="grid grid-cols-7 gap-1 items-center">
                 <div className="col-span-4">
                   <p className="text-[#1A1C21] font-medium">{item.name}</p>
                   <p>{item.description}</p>

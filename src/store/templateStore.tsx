@@ -22,8 +22,8 @@ export interface invoiceDetails {
 export interface items {
   name: string;
   description: string;
-  quantity: number;
-  price: number;
+  quantity: string;
+  price: string;
 }
 
 export interface paymentDetails {
