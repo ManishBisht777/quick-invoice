@@ -39,30 +39,9 @@ export const emptyTemplateProps = {
     {
       name: "",
       description: "",
-      quantity: 0,
-      price: 0,
-      amount: 0,
-    },
-    {
-      name: "",
-      description: "",
-      quantity: 0,
-      price: 0,
-      amount: 0,
-    },
-    {
-      name: "",
-      description: "",
-      quantity: 0,
-      price: 0,
-      amount: 0,
-    },
-    {
-      name: "",
-      description: "",
-      quantity: 0,
-      price: 0,
-      amount: 0,
+      quantity: "0",
+      price: "0",
+      amount: "0",
     },
   ],
 
@@ -107,9 +86,9 @@ const invoiceDetailsSchema = z.object({
 const itemSchema = z.object({
   name: z.string(),
   description: z.string(),
-  quantity: z.number(),
-  price: z.number(),
-  amount: z.number(),
+  quantity: z.string(),
+  price: z.string(),
+  amount: z.string(),
 });
 
 const paymentDetailsSchema = z.object({

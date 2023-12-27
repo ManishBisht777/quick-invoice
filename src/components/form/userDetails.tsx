@@ -1,7 +1,5 @@
 "use client";
 
-import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -10,16 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { basicDetailsSchema } from "@/types/formSchema";
+import { BadgeIndianRupee } from "lucide-react";
 import { Label } from "../ui/label";
 interface UserDetailsProps {
-  formValues: z.infer<typeof basicDetailsSchema>;
   form: any;
 }
 
 export function UserDetails({ form }: UserDetailsProps) {
-  console.log(form.getValues().basicDetails);
-
   return (
     <>
       <div className="space-y-6 mt-6">
@@ -39,9 +34,9 @@ export function UserDetails({ form }: UserDetailsProps) {
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={form.control}
-              name={"from.email"}
+              name={"basicDetails.from.email"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's Email">Email</Label>
@@ -54,7 +49,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"from.phoneno"}
+              name={"basicDetails.from.phoneno"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's mobile number">Phone no</Label>
@@ -72,7 +67,7 @@ export function UserDetails({ form }: UserDetailsProps) {
 
             <FormField
               control={form.control}
-              name={"from.address.address"}
+              name={"basicDetails.from.address.address"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's Address">Address</Label>
@@ -85,7 +80,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"from.address.country"}
+              name={"basicDetails.from.address.country"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's country">Country</Label>
@@ -98,7 +93,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"from.address.state"}
+              name={"basicDetails.from.address.state"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's state">State</Label>
@@ -111,7 +106,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"from.address.zipCode"}
+              name={"basicDetails.from.address.zipCode"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's zipcode">Zipcode</Label>
@@ -121,15 +116,15 @@ export function UserDetails({ form }: UserDetailsProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
           </div>
         </div>
-        {/* <div className="space-y-3">
+        <div className="space-y-3">
           <h2 className="text-xl font-semibold">Reciever&apos;s details</h2>
           <div className="flex flex-wrap gap-3">
             <FormField
               control={form.control}
-              name={"to.name"}
+              name={"basicDetails.to.name"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's name">Name</Label>
@@ -142,7 +137,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"to.email"}
+              name={"basicDetails.to.email"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's Email">Email</Label>
@@ -155,7 +150,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"to.phoneno"}
+              name={"basicDetails.to.phoneno"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's mobile number">Phone no</Label>
@@ -169,7 +164,7 @@ export function UserDetails({ form }: UserDetailsProps) {
 
             <FormField
               control={form.control}
-              name={"to.address.address"}
+              name={"basicDetails.to.address.address"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's Address">Address</Label>
@@ -182,7 +177,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"to.address.country"}
+              name={"basicDetails.to.address.country"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's country">Country</Label>
@@ -195,7 +190,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"to.address.state"}
+              name={"basicDetails.to.address.state"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's state">State</Label>
@@ -208,7 +203,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"to.address.zipCode"}
+              name={"basicDetails.to.address.zipCode"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's zipcode">Zipcode</Label>
@@ -220,9 +215,12 @@ export function UserDetails({ form }: UserDetailsProps) {
               )}
             />
           </div>
-        </div> */}
+        </div>
       </div>
-      <Button type="submit">Next</Button>
+      <Button className="mt-4" type="button">
+        <BadgeIndianRupee className="mr-2" size={18} />
+        Next
+      </Button>
     </>
   );
 }
