@@ -1,6 +1,5 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -12,6 +11,12 @@ import ItemDetails from "./form/itemDetails";
 import { PaymentDetails } from "./form/paymentDetails";
 import { emptyTemplateProps } from "@/config/template";
 import Modern from "./templates/Modern";
+import {
+  EditorTabs,
+  EditorTabsContent,
+  EditorTabsList,
+  EditorTabsTrigger,
+} from "./ui/editor-tabs";
 
 export default function Editor() {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -30,26 +35,30 @@ export default function Editor() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <h1 className="text-2xl font-bold">Editor</h1>
-          {/* <Tabs defaultValue="user">
-            <TabsList>
-              <TabsTrigger value="user">Basic details</TabsTrigger>
-              <TabsTrigger value="client">Invoice details</TabsTrigger>
-              <TabsTrigger value="items">Items</TabsTrigger>
-              <TabsTrigger value="bank details">Payment info</TabsTrigger>
-            </TabsList>
-            <TabsContent value="user">
+          <EditorTabs defaultValue="user">
+            <EditorTabsList>
+              <EditorTabsTrigger value="user">Basic details</EditorTabsTrigger>
+              <EditorTabsTrigger value="client">
+                Invoice details
+              </EditorTabsTrigger>
+              <EditorTabsTrigger value="items">Items</EditorTabsTrigger>
+              <EditorTabsTrigger value="bank details">
+                Payment info
+              </EditorTabsTrigger>
+            </EditorTabsList>
+            <EditorTabsContent value="user">
               <UserDetails form={form} />
-            </TabsContent>
-            <TabsContent value="client">
+            </EditorTabsContent>
+            <EditorTabsContent value="client">
               <InvoiceDetails form={form} />
-            </TabsContent>
-            <TabsContent value="items">
+            </EditorTabsContent>
+            <EditorTabsContent value="items">
               <ItemDetails form={form} />
-            </TabsContent>
-            <TabsContent value="bank details">
+            </EditorTabsContent>
+            <EditorTabsContent value="bank details">
               <PaymentDetails form={form} />
-            </TabsContent>
-          </Tabs> */}
+            </EditorTabsContent>
+          </EditorTabs>
         </form>
         <Modern initialValue={form.watch()} />
       </Form>
