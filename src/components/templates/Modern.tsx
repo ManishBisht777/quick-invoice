@@ -3,117 +3,53 @@
 import { EyeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import {
-  basicDetails,
-  invoiceDetails,
-  items,
-  paymentDetails,
-  useTemplateStrore,
-} from "@/store/templateStore";
+import { templateProps } from "@/config/template";
+import { useEffect, useState } from "react";
+import { basicDetails } from "@/types/template";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
+  initialValue?: {
+    basicDetails: {
+      from: basicDetails;
+      to: basicDetails;
+    };
+  };
 }
 
-const templateProps = {
-  basicDetails: {
-    from: {
-      name: "Your Name",
-      website: "Your Website",
-      email: "your.email@example.com",
-      phoneno: "123-456-7890",
-      address: {
-        address: "123 Main St",
-        city: "Your City",
-        state: "Your State",
-        country: "Your Country",
-        zipCode: "12345",
-      },
-    },
-    to: {
-      name: "Recipient's Name",
-      website: "Recipient's Website",
-      email: "recipient.email@example.com",
-      phoneno: "987-654-3210",
-      address: {
-        address: "456 Oak St",
-        city: "Recipient's City",
-        state: "Recipient's State",
-        country: "Recipient's Country",
-        zipCode: "54321",
-      },
-    },
-  },
-  invoiceDetails: {
-    issueDate: "12/12/2021",
-    dueDate: "12/12/2021",
-    currency: "USD",
-  },
-  Invoiceno: "1234567890",
-  items: [
-    {
-      name: "Item 1",
-      description: "Item 1 description",
-      quantity: 1,
-      price: 100,
-      amount: 100,
-    },
-    {
-      name: "Item 2",
-      description: "Item 2 description",
-      quantity: 1,
-      price: 100,
-      amount: 100,
-    },
-    {
-      name: "Item 3",
-      description: "Item 1 description",
-      quantity: 1,
-      price: 100,
-      amount: 100,
-    },
-    {
-      name: "Item 4",
-      description: "Item 2 description",
-      quantity: 1,
-      price: 100,
-      amount: 100,
-    },
-  ],
+// const TemplateName = "modern";
 
-  paymentDetails: {
-    bankName: "Bank Name",
-    accountName: "Account Name",
-    accountNumber: "Account Number",
-  },
-};
+export default function Modern({
+  isEditing,
+  initialValue,
+}: ModernTemplateProps) {
+  // let templateValues: {
+  //   basicDetails: {
+  //     from: basicDetails;
+  //     to: basicDetails;
+  //   };
+  // };
 
-const TemplateName = "modern";
-
-export default function Modern({ isEditing }: ModernTemplateProps) {
-  let templateValues: {
+  const [templateValues, setTemplateValues] = useState<{
     basicDetails: {
-      from: basicDetails | undefined;
-      to: basicDetails | undefined;
+      from: basicDetails;
+      to: basicDetails;
     };
-    invoiceDetails: invoiceDetails | undefined;
-    items: items[] | [];
-    paymentDetails: paymentDetails | undefined;
-  };
+  }>({
+    basicDetails: templateProps.basicDetails,
+  });
 
-  const { basicDetails, invoiceDetails, items, paymentDetails } =
-    useTemplateStrore();
-
-  if (isEditing)
-    templateValues = {
-      basicDetails: basicDetails,
-      invoiceDetails: invoiceDetails,
-      items: items,
-      paymentDetails: paymentDetails,
-    };
-  else templateValues = templateProps;
-
-  console.log(templateValues);
+  useEffect(() => {
+    if (initialValue) {
+      setTemplateValues({
+        basicDetails: initialValue.basicDetails,
+      });
+    } else {
+      setTemplateValues({
+        basicDetails: templateProps.basicDetails,
+      });
+    }
+  }, [initialValue]);
 
   return (
     <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative">
@@ -124,7 +60,7 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
           </h1>
           <p>{templateValues.basicDetails.from?.website}</p>
           <p>{templateValues.basicDetails.from?.email}</p>
-          <p>{templateValues.basicDetails.from?.phoneno}</p>
+          <p>{templateValues.basicDetails.from?.phoneNumber}</p>
         </div>
         <div>
           <p>{templateValues.basicDetails.from?.address?.address}</p>
@@ -145,25 +81,25 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
               {templateValues.basicDetails.to?.name}
             </h2>
             <p>{templateValues.basicDetails.to?.email}</p>
-            <p>{templateValues.basicDetails.to?.phoneno}</p>
+            <p>{templateValues.basicDetails.to?.phoneNumber}</p>
             <p>{templateValues.basicDetails.to?.address?.address}</p>
             <p>{templateValues.basicDetails.to?.address?.country}</p>
             <p>{templateValues.basicDetails.to?.address?.state}</p>
             <p>{templateValues.basicDetails.to?.address?.zipCode}</p>
           </div>
-          <div>
+          {/* <div>
             <h2>Invoice Number</h2>
             <p className="text-[#1A1C21] font-semibold">
-              # {templateProps.Invoiceno}
+              # {templateProps.invoiceNumber}
             </p>
           </div>
           <div>
             <p>Invoice of 1200</p>
             <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
-          </div>
+          </div> */}
         </div>
 
-        <div className="flex justify-between mt-4">
+        {/* <div className="flex justify-between mt-4">
           <div>
             <p>Invoice Date</p>
             <p className="text-[#1A1C21] font-semibold">
@@ -227,13 +163,13 @@ export default function Modern({ isEditing }: ModernTemplateProps) {
             <span className="text-[#1A1C21] font-semibold">account number</span>{" "}
             {templateValues.paymentDetails?.accountNumber}
           </p>
-        </div>
+        </div> */}
       </div>
 
-      <div className="mt-6 text-xs">
+      {/* <div className="mt-6 text-xs">
         <p>Terms & Conditions</p>
         <p>Please pay within 15 days of receiving this invoice.</p>
-      </div>
+      </div> */}
 
       {/* <div className="group-hover:flex absolute hidden transition-all w-full h-40 left-0 bottom-0 backdrop-blur justify-center items-center gap-4">
         <Button>View</Button>

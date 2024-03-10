@@ -49,7 +49,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"basicDetails.from.phoneno"}
+              name={"basicDetails.from.phoneNumbermbermbermbermbermbermber"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Sender's mobile number">Phone no</Label>
@@ -150,7 +150,7 @@ export function UserDetails({ form }: UserDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"basicDetails.to.phoneno"}
+              name={"basicDetails.to.phoneNumber"}
               render={({ field }) => (
                 <FormItem>
                   <Label htmlFor="Reciever's mobile number">Phone no</Label>
