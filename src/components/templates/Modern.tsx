@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { templateProps } from "@/config/template";
 import { useEffect, useState } from "react";
-import { basicDetails, invoiceDetails } from "@/types/template";
+import { basicDetails, invoiceDetails, paymentDetails } from "@/types/template";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
@@ -15,6 +15,7 @@ interface ModernTemplateProps {
       to: basicDetails;
     };
     invoiceDetails: invoiceDetails;
+    paymentDetails: paymentDetails;
   };
 }
 
@@ -37,9 +38,11 @@ export default function Modern({
       to: basicDetails;
     };
     invoiceDetails: invoiceDetails;
+    paymentDetails: paymentDetails;
   }>({
     basicDetails: templateProps.basicDetails,
     invoiceDetails: templateProps.invoiceDetails,
+    paymentDetails: templateProps.paymentDetails,
   });
 
   useEffect(() => {
@@ -47,11 +50,13 @@ export default function Modern({
       setTemplateValues({
         basicDetails: initialValue.basicDetails,
         invoiceDetails: initialValue.invoiceDetails,
+        paymentDetails: initialValue.paymentDetails,
       });
     } else {
       setTemplateValues({
         basicDetails: templateProps.basicDetails,
         invoiceDetails: templateProps.invoiceDetails,
+        paymentDetails: templateProps.paymentDetails,
       });
     }
   }, [initialValue]);
@@ -153,7 +158,7 @@ export default function Modern({
               <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="border-t border-[#D7DAE0] mt-4 pt-4">
           <p>
@@ -168,13 +173,13 @@ export default function Modern({
             <span className="text-[#1A1C21] font-semibold">account number</span>{" "}
             {templateValues.paymentDetails?.accountNumber}
           </p>
-        </div> */}
+        </div>
       </div>
 
-      {/* <div className="mt-6 text-xs">
+      <div className="mt-6 text-xs">
         <p>Terms & Conditions</p>
         <p>Please pay within 15 days of receiving this invoice.</p>
-      </div> */}
+      </div>
 
       {/* <div className="group-hover:flex absolute hidden transition-all w-full h-40 left-0 bottom-0 backdrop-blur justify-center items-center gap-4">
         <Button>View</Button>

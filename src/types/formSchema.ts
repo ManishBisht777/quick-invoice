@@ -48,7 +48,7 @@ const paymentDetailsSchema = z.object({
 export const templatePropsSchema = z.object({
   basicDetails: basicDetailsSchema,
   invoiceDetails: invoiceDetailsSchema,
-  // invoiceNumber: z.string(),
+  invoiceNumber: z.string(),
   // items: z.array(itemSchema),
-  // paymentDetails: paymentDetailsSchema,
+  paymentDetails: paymentDetailsSchema,
 });
