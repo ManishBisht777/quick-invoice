@@ -7,10 +7,11 @@ interface Props {
 
 export default function Page({ params: { Id } }: { params: { Id: string } }) {
   return (
-    <main className="flex gap-4">
-      <ScrollArea className="h-screen rounded-md border p-4">
+    <main className="">
+      <div className="w-full bg-black h-14"></div>
+      <div className="flex">
         <Editor />
-      </ScrollArea>
+      </div>
     </main>
   );
 }

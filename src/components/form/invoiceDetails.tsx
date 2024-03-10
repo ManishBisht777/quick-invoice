@@ -18,7 +18,7 @@ interface InvoiceDetailsProps {
 export function InvoiceDetails({ form }: InvoiceDetailsProps) {
   return (
     <>
-      <div className="space-y-6 mt-6">
+      <div className="space-y-6 mt-6 w-full">
         <div className="space-y-3">
           <h2 className="text-xl font-semibold">Invoice details</h2>
           <div className="flex flex-wrap gap-3">

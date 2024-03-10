@@ -17,6 +17,14 @@ import {
   EditorTabsList,
   EditorTabsTrigger,
 } from "./ui/editor-tabs";
+import { ScrollArea } from "./ui/scroll-area";
+import {
+  FcBusinessContact,
+  FcCurrencyExchange,
+  FcMoneyTransfer,
+  FcTemplate,
+  FcViewDetails,
+} from "react-icons/fc";
 
 export default function Editor() {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -28,22 +36,33 @@ export default function Editor() {
     console.log(values);
   }
 
-  // console.log(form.getValues());
-
   return (
-    <div className="p-2">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <h1 className="text-2xl font-bold">Editor</h1>
-          <EditorTabs defaultValue="user">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <ScrollArea className="h-screen rounded-md border p-4">
+          <EditorTabs className="flex h-screen" defaultValue="user">
             <EditorTabsList>
-              <EditorTabsTrigger value="user">Basic details</EditorTabsTrigger>
-              <EditorTabsTrigger value="client">
-                Invoice details
+              <EditorTabsTrigger value="templates">
+                <FcTemplate size={40} />
+                Templates
               </EditorTabsTrigger>
-              <EditorTabsTrigger value="items">Items</EditorTabsTrigger>
+
+              <EditorTabsTrigger value="user">
+                <FcBusinessContact size={40} />
+                <p>Basic</p>
+              </EditorTabsTrigger>
+
+              <EditorTabsTrigger value="client">
+                <FcCurrencyExchange size={40} />
+                <p>Invoice</p>
+              </EditorTabsTrigger>
+              <EditorTabsTrigger value="items">
+                <FcViewDetails size={40} />
+                Items
+              </EditorTabsTrigger>
               <EditorTabsTrigger value="bank details">
-                Payment info
+                <FcMoneyTransfer size={40} />
+                Payment
               </EditorTabsTrigger>
             </EditorTabsList>
             <EditorTabsContent value="user">
@@ -59,9 +78,11 @@ export default function Editor() {
               <PaymentDetails form={form} />
             </EditorTabsContent>
           </EditorTabs>
-        </form>
+        </ScrollArea>
+      </form>
+      <div className="flex flex-1 justify-center items-center">
         <Modern initialValue={form.watch()} />
-      </Form>
-    </div>
+      </div>
+    </Form>
   );
 }

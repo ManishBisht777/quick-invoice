@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { templateProps } from "@/config/template";
 import { useEffect, useState } from "react";
-import { basicDetails } from "@/types/template";
+import { basicDetails, invoiceDetails } from "@/types/template";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
@@ -14,6 +14,7 @@ interface ModernTemplateProps {
       from: basicDetails;
       to: basicDetails;
     };
+    invoiceDetails: invoiceDetails;
   };
 }
 
@@ -35,18 +36,22 @@ export default function Modern({
       from: basicDetails;
       to: basicDetails;
     };
+    invoiceDetails: invoiceDetails;
   }>({
     basicDetails: templateProps.basicDetails,
+    invoiceDetails: templateProps.invoiceDetails,
   });
 
   useEffect(() => {
     if (initialValue) {
       setTemplateValues({
         basicDetails: initialValue.basicDetails,
+        invoiceDetails: initialValue.invoiceDetails,
       });
     } else {
       setTemplateValues({
         basicDetails: templateProps.basicDetails,
+        invoiceDetails: templateProps.invoiceDetails,
       });
     }
   }, [initialValue]);
@@ -87,7 +92,7 @@ export default function Modern({
             <p>{templateValues.basicDetails.to?.address?.state}</p>
             <p>{templateValues.basicDetails.to?.address?.zipCode}</p>
           </div>
-          {/* <div>
+          <div>
             <h2>Invoice Number</h2>
             <p className="text-[#1A1C21] font-semibold">
               # {templateProps.invoiceNumber}
@@ -96,10 +101,10 @@ export default function Modern({
           <div>
             <p>Invoice of 1200</p>
             <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
-          </div> */}
+          </div>
         </div>
 
-        {/* <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4">
           <div>
             <p>Invoice Date</p>
             <p className="text-[#1A1C21] font-semibold">
@@ -114,7 +119,7 @@ export default function Modern({
           </div>
         </div>
 
-        <div className="mt-3">
+        {/* <div className="mt-3">
           <div className="py-2 border-y-[1px] border-[#D7DAE0] justify-between grid grid-cols-7 gap-1 mb-2">
             <p className="col-span-4">Item</p>
             <p className="col-span-1">Quantity</p>
