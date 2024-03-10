@@ -20,8 +20,8 @@ export interface invoiceDetails {
 export interface items {
   name: string;
   description: string;
-  quantity: string;
-  price: string;
+  quantity: number;
+  price: number;
 }
 
 export interface paymentDetails {
@@ -34,4 +34,15 @@ interface additionalDetails {
   tax?: number;
   discount?: number;
   shipping?: number;
+}
+
+export interface initialTemplateProps {
+  basicDetails: {
+    from: basicDetails;
+    to: basicDetails;
+  };
+  invoiceDetails: invoiceDetails;
+  invoiceNumber: string;
+  items: items[];
+  paymentDetails: paymentDetails;
 }

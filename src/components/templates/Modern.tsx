@@ -5,59 +5,34 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { templateProps } from "@/config/template";
 import { useEffect, useState } from "react";
-import { basicDetails, invoiceDetails, paymentDetails } from "@/types/template";
+import {
+  basicDetails,
+  initialTemplateProps,
+  invoiceDetails,
+  paymentDetails,
+} from "@/types/template";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
-  initialValue?: {
-    basicDetails: {
-      from: basicDetails;
-      to: basicDetails;
-    };
-    invoiceDetails: invoiceDetails;
-    paymentDetails: paymentDetails;
-  };
+  initialValue?: initialTemplateProps;
 }
 
 // const TemplateName = "modern";
 
-export default function Modern({
-  isEditing,
-  initialValue,
-}: ModernTemplateProps) {
-  // let templateValues: {
-  //   basicDetails: {
-  //     from: basicDetails;
-  //     to: basicDetails;
-  //   };
-  // };
-
-  const [templateValues, setTemplateValues] = useState<{
-    basicDetails: {
-      from: basicDetails;
-      to: basicDetails;
-    };
-    invoiceDetails: invoiceDetails;
-    paymentDetails: paymentDetails;
-  }>({
+export default function Modern({ initialValue }: ModernTemplateProps) {
+  const [templateValues, setTemplateValues] = useState<initialTemplateProps>({
     basicDetails: templateProps.basicDetails,
     invoiceDetails: templateProps.invoiceDetails,
     paymentDetails: templateProps.paymentDetails,
+    invoiceNumber: templateProps.invoiceNumber,
+    items: templateProps.items,
   });
 
   useEffect(() => {
     if (initialValue) {
-      setTemplateValues({
-        basicDetails: initialValue.basicDetails,
-        invoiceDetails: initialValue.invoiceDetails,
-        paymentDetails: initialValue.paymentDetails,
-      });
+      setTemplateValues(initialValue);
     } else {
-      setTemplateValues({
-        basicDetails: templateProps.basicDetails,
-        invoiceDetails: templateProps.invoiceDetails,
-        paymentDetails: templateProps.paymentDetails,
-      });
+      setTemplateValues(templateProps);
     }
   }, [initialValue]);
 
@@ -124,7 +99,7 @@ export default function Modern({
           </div>
         </div>
 
-        {/* <div className="mt-3">
+        <div className="mt-3">
           <div className="py-2 border-y-[1px] border-[#D7DAE0] justify-between grid grid-cols-7 gap-1 mb-2">
             <p className="col-span-4">Item</p>
             <p className="col-span-1">Quantity</p>
@@ -158,7 +133,7 @@ export default function Modern({
               <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className="border-t border-[#D7DAE0] mt-4 pt-4">
           <p>

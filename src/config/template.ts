@@ -39,28 +39,24 @@ export const templateProps = {
       description: "Item 1 description",
       quantity: 1,
       price: 100,
-      amount: 100,
     },
     {
       name: "Item 2",
       description: "Item 2 description",
       quantity: 1,
       price: 100,
-      amount: 100,
     },
     {
       name: "Item 3",
       description: "Item 1 description",
       quantity: 1,
       price: 100,
-      amount: 100,
     },
     {
       name: "Item 4",
       description: "Item 2 description",
       quantity: 1,
       price: 100,
-      amount: 100,
     },
   ],
   paymentDetails: {
