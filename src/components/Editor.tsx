@@ -25,8 +25,9 @@ import {
   FcTemplate,
   FcViewDetails,
 } from "react-icons/fc";
+import { AllTemplates } from "@/lib/templates/util";
 
-export default function Editor() {
+export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
     resolver: zodResolver(templatePropsSchema),
     defaultValues: emptyTemplateProps,
@@ -41,6 +42,12 @@ export default function Editor() {
     control: form.control,
     name: "items",
   });
+
+  const Template = AllTemplates[id]?.component;
+
+  if (!Template) {
+    return <div>Template not found</div>;
+  }
 
   return (
     <Form {...form}>
@@ -92,7 +99,7 @@ export default function Editor() {
         </ScrollArea>
       </form>
       <div className="flex flex-1 justify-center items-center">
-        <Modern initialValue={form.watch()} />
+        <Template initialValue={form.watch()} />
       </div>
     </Form>
   );
