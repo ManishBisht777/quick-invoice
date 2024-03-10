@@ -2,7 +2,7 @@
 
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { InvoiceDetails } from "./form/invoiceDetails";
 import { UserDetails } from "./form/userDetails";
@@ -30,11 +30,17 @@ export default function Editor() {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
     resolver: zodResolver(templatePropsSchema),
     defaultValues: emptyTemplateProps,
+    shouldUnregister: false,
   });
 
   function onSubmit(values: z.infer<typeof templatePropsSchema>) {
     console.log(values);
   }
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "items",
+  });
 
   return (
     <Form {...form}>
@@ -72,7 +78,12 @@ export default function Editor() {
               <InvoiceDetails form={form} />
             </EditorTabsContent>
             <EditorTabsContent value="items">
-              <ItemDetails form={form} />
+              <ItemDetails
+                form={form}
+                fields={fields}
+                remove={remove}
+                append={append}
+              />
             </EditorTabsContent>
             <EditorTabsContent value="bank details">
               <PaymentDetails form={form} />

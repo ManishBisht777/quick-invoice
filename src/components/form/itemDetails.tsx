@@ -16,18 +16,17 @@ import { Label } from "../ui/label";
 
 interface ItemDetailsProps {
   form: any;
+  fields: any;
+  append: any;
+  remove: any;
 }
 
-export default function ItemDetails({ form }: ItemDetailsProps) {
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "items",
-  });
-
-  useEffect(() => {
-    remove(0);
-  }, [remove]);
-
+export default function ItemDetails({
+  form,
+  fields,
+  append,
+  remove,
+}: ItemDetailsProps) {
   return (
     <div className="space-y-2 w-full mt-6">
       {fields.map((item, index) => (
