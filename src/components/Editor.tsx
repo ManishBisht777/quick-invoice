@@ -26,6 +26,9 @@ import {
   FcViewDetails,
 } from "react-icons/fc";
 import { AllTemplates } from "@/lib/templates/util";
+import { Button } from "./ui/button";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -48,6 +51,51 @@ export default function Editor({ id }: { id: string }) {
   if (!Template) {
     return <div>Template not found</div>;
   }
+
+  const downloadComponentAsPDF = () => {
+    const componentNode = document.getElementById("invoice");
+
+    html2canvas(componentNode).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let position = 0;
+
+      const addImageToPDF = () => {
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      };
+
+      const saveAndContinue = () => {
+        pdf.addPage();
+        position -= pdf.internal.pageSize.getHeight();
+        addImageToPDF();
+      };
+
+      const addContentToPDF = () => {
+        const contentHeight = componentNode.offsetHeight;
+
+        // Add the content to the current page
+        addImageToPDF();
+
+        // Check if there's remaining content and add to subsequent pages if necessary
+        const remainingHeight = contentHeight - position;
+        if (remainingHeight > pdf.internal.pageSize.getHeight()) {
+          saveAndContinue();
+        }
+      };
+
+      addContentToPDF();
+
+      pdf.save("component.pdf");
+    });
+  };
 
   return (
     <Form {...form}>
@@ -98,7 +146,9 @@ export default function Editor({ id }: { id: string }) {
           </EditorTabs>
         </ScrollArea>
       </form>
-      <div className="flex flex-1 justify-center items-center">
+      <Button onClick={downloadComponentAsPDF}>save</Button>
+
+      <div id="invoice" className="flex flex-1 justify-center items-center">
         <Template initialValue={form.watch()} />
       </div>
     </Form>
