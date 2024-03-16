@@ -1,3 +1,4 @@
+import Modern from "@/components/templates/Modern";
 import { lazy } from "react";
 
 export const AllTemplates: Record<string, any> = {
@@ -30,5 +31,12 @@ export const AllTemplates: Record<string, any> = {
     name: "modern5",
     component: lazy(() => import("@/components/templates/Modern")),
     image: "/images/templates/modern.png",
+  },
+};
+
+export const AllTemplatesForServer: Record<string, any> = {
+  modern: {
+    name: "modern",
+    component: Modern,
   },
 };

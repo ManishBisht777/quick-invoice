@@ -1,16 +1,8 @@
-"use client";
+// "use client";
 
-import { EyeIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
 import { templateProps } from "@/config/template";
+import { initialTemplateProps } from "@/types/template";
 import { useEffect, useState } from "react";
-import {
-  basicDetails,
-  initialTemplateProps,
-  invoiceDetails,
-  paymentDetails,
-} from "@/types/template";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
@@ -20,21 +12,22 @@ interface ModernTemplateProps {
 // const TemplateName = "modern";
 
 export default function Modern({ initialValue }: ModernTemplateProps) {
-  const [templateValues, setTemplateValues] = useState<initialTemplateProps>({
-    basicDetails: templateProps.basicDetails,
-    invoiceDetails: templateProps.invoiceDetails,
-    paymentDetails: templateProps.paymentDetails,
-    invoiceNumber: templateProps.invoiceNumber,
-    items: templateProps.items,
-  });
+  const templateValues = templateProps;
+  // const [templateValues, setTemplateValues] = useState<initialTemplateProps>({
+  //   basicDetails: templateProps.basicDetails,
+  //   invoiceDetails: templateProps.invoiceDetails,
+  //   paymentDetails: templateProps.paymentDetails,
+  //   invoiceNumber: templateProps.invoiceNumber,
+  //   items: templateProps.items,
+  // });
 
-  useEffect(() => {
-    if (initialValue) {
-      setTemplateValues(initialValue);
-    } else {
-      setTemplateValues(templateProps);
-    }
-  }, [initialValue]);
+  // useEffect(() => {
+  //   if (initialValue) {
+  //     setTemplateValues(initialValue);
+  //   } else {
+  //     setTemplateValues(templateProps);
+  //   }
+  // }, [initialValue]);
 
   return (
     <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative">
