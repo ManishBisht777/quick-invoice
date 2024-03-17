@@ -1,8 +1,5 @@
-// "use client";
-
 import { templateProps } from "@/config/template";
 import { initialTemplateProps } from "@/types/template";
-import { useEffect, useState } from "react";
 
 interface ModernTemplateProps {
   isEditing?: boolean;
@@ -12,25 +9,10 @@ interface ModernTemplateProps {
 // const TemplateName = "modern";
 
 export default function Modern({ initialValue }: ModernTemplateProps) {
-  const templateValues = templateProps;
-  // const [templateValues, setTemplateValues] = useState<initialTemplateProps>({
-  //   basicDetails: templateProps.basicDetails,
-  //   invoiceDetails: templateProps.invoiceDetails,
-  //   paymentDetails: templateProps.paymentDetails,
-  //   invoiceNumber: templateProps.invoiceNumber,
-  //   items: templateProps.items,
-  // });
-
-  // useEffect(() => {
-  //   if (initialValue) {
-  //     setTemplateValues(initialValue);
-  //   } else {
-  //     setTemplateValues(templateProps);
-  //   }
-  // }, [initialValue]);
+  const templateValues = initialValue || templateProps;
 
   return (
-    <div className="text-[#5E6470] text-sm w-[38rem] bg-[#F9FAFC] p-4 rounded-lg group relative">
+    <div className="text-[#5E6470] text-sm w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-[#1A1C21] font-semibold text-xl">

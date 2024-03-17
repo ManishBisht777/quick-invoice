@@ -11,8 +11,7 @@ interface Props {
 export default function Page({ params: { Id } }: Props) {
   return (
     <main className="">
-      <div className="w-full bg-black h-14"></div>
-      <div className="flex">
+      <div className="flex justify-center">
         <Editor id={Id} />
       </div>
     </main>

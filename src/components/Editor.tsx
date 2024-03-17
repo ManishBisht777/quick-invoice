@@ -5,27 +5,30 @@ import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import {
-  FcBusinessContact,
-  FcCurrencyExchange,
-  FcMoneyTransfer,
-  FcTemplate,
-  FcViewDetails,
-} from "react-icons/fc";
 import { z } from "zod";
 import { InvoiceDetails } from "./form/invoiceDetails";
 import ItemDetails from "./form/itemDetails";
 import { PaymentDetails } from "./form/paymentDetails";
 import { UserDetails } from "./form/userDetails";
-import { Button } from "./ui/button";
-import {
-  EditorTabs,
-  EditorTabsContent,
-  EditorTabsList,
-  EditorTabsTrigger,
-} from "./ui/editor-tabs";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Button } from "./ui/button";
+import { EllipsisVertical } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -80,58 +83,70 @@ export default function Editor({ id }: { id: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <ScrollArea className="h-screen rounded-md border p-4">
-          <EditorTabs className="flex h-screen" defaultValue="user">
-            <EditorTabsList>
-              <EditorTabsTrigger value="templates">
-                <FcTemplate size={40} />
-                Templates
-              </EditorTabsTrigger>
+      <div className="flex w-full container">
+        <div className="w-1/2 space-y-4">
+          <div className="relative w-fit">
+            <h3 className="text-4xl font-bold">Invoice</h3>
+            <span className="bg-[#E87117] px-3 py-1 rounded-full text-white text-xs absolute -top-3 -right-14">
+              New
+            </span>
+          </div>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <ScrollArea className="h-screen rounded-md">
+              <Tabs className="h-screen" defaultValue="user">
+                <TabsList>
+                  <TabsTrigger value="templates">Templates</TabsTrigger>
+                  <TabsTrigger value="user">Basic</TabsTrigger>
+                  <TabsTrigger value="client">Invoice</TabsTrigger>
+                  <TabsTrigger value="items">Items</TabsTrigger>
+                  <TabsTrigger value="bank details">Payment</TabsTrigger>
+                </TabsList>
+                <TabsContent value="user">
+                  <UserDetails form={form} />
+                </TabsContent>
+                <TabsContent value="client">
+                  <InvoiceDetails form={form} />
+                </TabsContent>
+                <TabsContent value="items">
+                  <ItemDetails
+                    form={form}
+                    fields={fields}
+                    remove={remove}
+                    append={append}
+                  />
+                </TabsContent>
+                <TabsContent value="bank details">
+                  <PaymentDetails form={form} />
+                </TabsContent>
+              </Tabs>
+            </ScrollArea>
+          </form>
+        </div>
 
-              <EditorTabsTrigger value="user">
-                <FcBusinessContact size={40} />
-                <p>Basic</p>
-              </EditorTabsTrigger>
+        <div className="w-1/2 space-y-4">
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary">New</Button>
 
-              <EditorTabsTrigger value="client">
-                <FcCurrencyExchange size={40} />
-                <p>Invoice</p>
-              </EditorTabsTrigger>
-              <EditorTabsTrigger value="items">
-                <FcViewDetails size={40} />
-                Items
-              </EditorTabsTrigger>
-              <EditorTabsTrigger value="bank details">
-                <FcMoneyTransfer size={40} />
-                Payment
-              </EditorTabsTrigger>
-            </EditorTabsList>
-            <EditorTabsContent value="user">
-              <UserDetails form={form} />
-            </EditorTabsContent>
-            <EditorTabsContent value="client">
-              <InvoiceDetails form={form} />
-            </EditorTabsContent>
-            <EditorTabsContent value="items">
-              <ItemDetails
-                form={form}
-                fields={fields}
-                remove={remove}
-                append={append}
-              />
-            </EditorTabsContent>
-            <EditorTabsContent value="bank details">
-              <PaymentDetails form={form} />
-            </EditorTabsContent>
-          </EditorTabs>
-        </ScrollArea>
-      </form>
-      <Button onClick={() => savePdf()}>save</Button>
+            <Button>Generate Pdf</Button>
 
-      {/* <div id="invoice" className="flex flex-1 justify-center items-center">
-        <Template initialValue={form.watch()} />
-      </div> */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="outline">
+                  <EllipsisVertical size={18} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>More actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Export</DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <Template initialValue={form.watch()} />
+        </div>
+      </div>
     </Form>
   );
 }
