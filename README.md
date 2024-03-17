@@ -8,7 +8,7 @@ An open-source application to generate invoices.
 
 ## Roadmap
 
-- [ ] Download invoice as pdf
+- [x] Download invoice as pdf
 - [ ] Enhance UI/UX
 - [ ] Add more templates
 - [ ] Auth using next-auth
