@@ -62,9 +62,9 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
         <div className="flex justify-between mt-4">
           <div>
             <p>Invoice Date</p>
-            <p className="text-[#1A1C21] font-semibold">
+            {/* <p className="text-[#1A1C21] font-semibold">
               {templateValues.invoiceDetails?.issueDate}
-            </p>
+            </p> */}
           </div>
           <div>
             <p>Due Date</p>

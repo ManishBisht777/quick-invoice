@@ -1,34 +1,30 @@
 "use client";
 
-import { emptyTemplateProps } from "@/config/template";
-import { AllTemplates } from "@/lib/templates/util";
-import { templatePropsSchema } from "@/types/formSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
-import { InvoiceDetails } from "./form/invoiceDetails";
-import ItemDetails from "./form/itemDetails";
-import { PaymentDetails } from "./form/paymentDetails";
-import { UserDetails } from "./form/userDetails";
-import { Form } from "./ui/form";
-import { ScrollArea } from "./ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Button } from "./ui/button";
-import { EllipsisVertical } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { emptyTemplateProps } from "@/config/template";
+import { AllTemplates } from "@/lib/templates/util";
+import { templatePropsSchema } from "@/types/formSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { EllipsisVertical, Loader2 } from "lucide-react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
+import { InvoiceDetails } from "./form/invoiceDetails";
+import ItemDetails from "./form/itemDetails";
+import { PaymentDetails } from "./form/paymentDetails";
+import { UserDetails } from "./form/userDetails";
+import { Button } from "./ui/button";
+import { Form } from "./ui/form";
+import { ScrollArea } from "./ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { useState } from "react";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -36,6 +32,8 @@ export default function Editor({ id }: { id: string }) {
     defaultValues: emptyTemplateProps,
     shouldUnregister: false,
   });
+
+  const [loading, setLoading] = useState(false);
 
   function onSubmit(values: z.infer<typeof templatePropsSchema>) {
     console.log(values);
@@ -53,7 +51,7 @@ export default function Editor({ id }: { id: string }) {
   }
 
   const savePdf = async () => {
-    ("use server");
+    setLoading(true);
     const data = await fetch("/api/invoice/generate", {
       method: "POST",
       body: JSON.stringify({
@@ -79,6 +77,7 @@ export default function Editor({ id }: { id: string }) {
       // Clean up the URL object
       window.URL.revokeObjectURL(url);
     }
+    setLoading(false);
   };
 
   return (
@@ -127,7 +126,10 @@ export default function Editor({ id }: { id: string }) {
           <div className="flex justify-end gap-2">
             <Button variant="secondary">New</Button>
 
-            <Button>Generate Pdf</Button>
+            <Button onClick={savePdf} className="gap-2">
+              {loading && <Loader2 size={18} className="animate-spin" />}
+              Generate Pdf
+            </Button>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
