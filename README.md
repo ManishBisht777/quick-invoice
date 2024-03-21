@@ -12,6 +12,7 @@ An open-source application to generate invoices.
 - [ ] Add Custom tailwind variables to puppeteer pdf
 - [ ] Enhance UI/UX
 - [ ] Add more templates
+- [ ] New mobile navigation
 - [ ] Auth using next-auth
 - [ ] Save invoices online
 - [ ] Signature upload
