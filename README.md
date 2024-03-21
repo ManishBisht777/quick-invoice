@@ -16,6 +16,7 @@ An open-source application to generate invoices.
 - [ ] Auth using next-auth
 - [ ] Save invoices online
 - [ ] Signature upload
+- [ ] Save client details for future to save in one click
 
 If you have some suggestions, feel free to create an issue.
 
