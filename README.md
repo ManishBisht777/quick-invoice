@@ -9,11 +9,15 @@ An open-source application to generate invoices.
 ## Roadmap
 
 - [x] Download invoice as pdf
+- [ ] Add Custom tailwind variables to puppeteer pdf
 - [ ] Enhance UI/UX
 - [ ] Add more templates
+- [ ] New mobile navigation
 - [ ] Auth using next-auth
 - [ ] Save invoices online
 - [ ] Signature upload
+- [ ] Save client details for the future to save in one click
+- [ ] A dashboard to manage invoices to mark as pending, overdue, etc etc
 
 If you have some suggestions, feel free to create an issue.
 
