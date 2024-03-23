@@ -2,15 +2,11 @@ import { templateProps } from "@/config/template";
 import { initialTemplateProps } from "@/types/template";
 
 interface ModernTemplateProps {
-  isEditing?: boolean;
   initialValue?: initialTemplateProps;
 }
 
-// const TemplateName = "modern";
-
 export default function Modern({ initialValue }: ModernTemplateProps) {
   const templateValues = initialValue || templateProps;
-  // const templateValues = templateProps;
 
   return (
     <div className="text-[#5E6470] text-sm w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">

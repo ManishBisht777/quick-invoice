@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
+import Sleek from "@/components/templates/Sleek";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      hehe
-      <Button>hehe</Button>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <Sleek />
     </main>
   );
 }

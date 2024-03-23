@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="grid grid-cols-4 gap-6 min-h-screen justify-center items-center">
+    <div className="container grid grid-cols-3 gap-6 min-h-screen justify-center items-center">
       {Object.keys(AllTemplates).map((key) => {
         const templateImage = AllTemplates[key].image;
         return (

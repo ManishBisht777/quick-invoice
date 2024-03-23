@@ -80,3 +80,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.template-bg {
+  background: url("/images/template-bg.svg") no-repeat center/cover;
+  background-position: 0 20%;
+  @apply bg-blue-50;
+}
