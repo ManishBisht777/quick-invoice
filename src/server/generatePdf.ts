@@ -6,14 +6,7 @@ export const generatePdf = async (req: NextRequest) => {
   const data = await req.json();
 
   try {
-    const ReactDOMServer = require("react-dom/server");
-
     const templateId = data.templateId;
-    const Template = AllTemplatesForServer[templateId]?.component;
-
-    const htmlTemplate = ReactDOMServer.renderToStaticMarkup(
-      Template({ initialValue: data.values })
-    );
 
     let browser;
     const puppeteer = require("puppeteer");
@@ -27,13 +20,12 @@ export const generatePdf = async (req: NextRequest) => {
     }
 
     const page = await browser.newPage();
-    await page.setContent(await htmlTemplate, {
-      waitUntil: "networkidle0",
-    });
 
-    await page.addStyleTag({
-      url: "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css",
-    });
+    await page.goto(
+      `http://localhost:3000/template/${templateId}?data=${JSON.stringify(
+        data.values
+      )}`
+    );
 
     const pdf = await page.pdf({
       format: "A4",
