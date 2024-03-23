@@ -34,12 +34,7 @@ export default function Page() {
           const templateImage = AllTemplates[key].image;
           return (
             <Link href={`/editor/${key}`} key={key}>
-              <img
-                src={templateImage}
-                alt={key}
-                fill
-                className="object-cover"
-              />
+              <img src={templateImage} alt={key} className="object-cover" />
             </Link>
           );
         })}
