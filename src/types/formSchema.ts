@@ -34,8 +34,8 @@ const invoiceDetailsSchema = z.object({
 const itemSchema = z.object({
   name: z.string(),
   description: z.string(),
-  quantity: z.number(),
-  price: z.number(),
+  quantity: z.coerce.number().min(1),
+  price: z.coerce.number(),
 });
 
 const paymentDetailsSchema = z.object({

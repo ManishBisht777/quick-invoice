@@ -1,7 +1,5 @@
 "use client";
 
-import { useFieldArray } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -10,10 +8,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TrashIcon } from "lucide-react";
-import { useEffect } from "react";
-import { Label } from "../ui/label";
 import { items } from "@/types/template";
+import { TrashIcon } from "lucide-react";
+import { Label } from "../ui/label";
 
 interface ItemDetailsProps {
   form: any;
