@@ -6,7 +6,7 @@ interface LayoutProps {
 
 export default function layout({ children }: LayoutProps) {
   return (
-    <main>
+    <main className="container">
       <Navbar />
       <section>{children}</section>
     </main>

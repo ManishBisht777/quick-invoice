@@ -1,4 +1,5 @@
 import { templateProps } from "@/config/template";
+import { getPercentageValue } from "@/lib/mathUtil";
 import { initialTemplateProps } from "@/types/template";
 
 interface ModernTemplateProps {
@@ -8,6 +9,16 @@ interface ModernTemplateProps {
 export default function Modern({ initialValue }: ModernTemplateProps) {
   const templateValues = initialValue || templateProps;
 
+  const totalAmount = templateValues.items.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
+  console.log(
+    totalAmount,
+    templateValues.paymentDetails.tax,
+    templateValues.paymentDetails.discount
+  );
   return (
     <div className="text-[#5E6470] text-sm w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">
       <div className="flex justify-between items-end">
@@ -51,8 +62,8 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
             </p>
           </div>
           <div>
-            <p>Invoice of 1200</p>
-            <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
+            <p>Invoice of</p>
+            <p className="text-[#E87117] text-xl font-bold">{totalAmount}</p>
           </div>
         </div>
 
@@ -99,18 +110,57 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
               </div>
             ))}
           </div>
-          <div className="mt-4">
+          <div className="mt-4 space-y-1">
             <div className="flex justify-between">
               <p>Subtotal</p>
-              <p>$4,950.00</p>
+              <p>{totalAmount}</p>
             </div>
-            <div className="flex justify-between gap-3">
-              <p className="text-[#1A1C21] font-medium">Tax{"(10%)"}</p>
-              <p>$4,95</p>
-            </div>
+            {templateValues.paymentDetails.tax && (
+              <div className="flex justify-between gap-3">
+                <p className="text-[#1A1C21] font-medium">
+                  Tax{`(${templateValues.paymentDetails.tax}%)`}
+                </p>
+                <p>
+                  {getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.tax
+                  )}
+                </p>
+              </div>
+            )}
+            {templateValues.paymentDetails.discount && (
+              <div className="flex justify-between gap-3">
+                <p className="text-[#1A1C21] font-medium">
+                  Discount{`(${templateValues.paymentDetails.discount}%)`}
+                </p>
+                <p>
+                  {getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.discount
+                  )}
+                </p>
+              </div>
+            )}
+            {templateValues.paymentDetails.shipping && (
+              <div className="flex justify-between gap-3">
+                <p className="text-[#1A1C21] font-medium">
+                  Shipping{`(${templateValues.paymentDetails.shipping}%)`}
+                </p>
+                <p>
+                  {getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.shipping
+                  )}
+                </p>
+              </div>
+            )}
             <div className="flex justify-between border-t border-[#D7DAE0] mt-3 pt-3">
               <p className="text-[#1A1C21] font-semibold">Total</p>
-              <p className="text-[#E87117] text-xl font-bold">$4,950.00</p>
+              <p className="text-[#E87117] text-xl font-bold">
+                {totalAmount +
+                  templateValues.paymentDetails.tax * 100 -
+                  templateValues.paymentDetails.discount * 100}
+              </p>
             </div>
           </div>
         </div>

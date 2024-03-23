@@ -104,6 +104,7 @@ export default function ItemDetails({
 
       <Button
         className="mt-4"
+        type="button"
         onClick={() =>
           append({ name: "", description: "", price: 0, quantity: 1 })
         }

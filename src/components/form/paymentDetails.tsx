@@ -63,6 +63,45 @@ export function PaymentDetails({ form }: PaymentDetailsProps) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name={"paymentDetails.tax"}
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="Tax">Tax</Label>
+                  <FormControl>
+                    <Input placeholder="30%" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={"paymentDetails.discount"}
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="Discount">Discount</Label>
+                  <FormControl>
+                    <Input placeholder="5%" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={"paymentDetails.shipping"}
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="Shipping">Shipping</Label>
+                  <FormControl>
+                    <Input placeholder="5%" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
         </div>
       </div>

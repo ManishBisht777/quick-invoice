@@ -63,6 +63,9 @@ export const templateProps = {
     bankName: "Bank Name",
     accountName: "Account Name",
     accountNumber: "Account Number",
+    tax: 5,
+    discount: 2,
+    shipping: 3,
   },
 };
 
@@ -106,5 +109,8 @@ export const emptyTemplateProps = {
     bankName: "",
     accountName: "",
     accountNumber: "",
+    tax: 0,
+    discount: 0,
+    shipping: 0,
   },
 };

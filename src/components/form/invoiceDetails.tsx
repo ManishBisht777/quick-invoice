@@ -23,7 +23,6 @@ interface InvoiceDetailsProps {
 }
 
 export function InvoiceDetails({ form }: InvoiceDetailsProps) {
-  console.log(form.getValues());
   return (
     <>
       <div className="space-y-6 mt-6 w-full">

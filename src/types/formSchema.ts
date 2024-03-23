@@ -42,6 +42,9 @@ const paymentDetailsSchema = z.object({
   bankName: z.string(),
   accountName: z.string(),
   accountNumber: z.string(),
+  tax: z.coerce.number(),
+  discount: z.coerce.number(),
+  shipping: z.coerce.number(),
 });
 
 export const templatePropsSchema = z.object({

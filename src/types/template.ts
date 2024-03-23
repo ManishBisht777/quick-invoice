@@ -28,12 +28,9 @@ export interface paymentDetails {
   bankName: string;
   accountName: string;
   accountNumber: string;
-}
-
-interface additionalDetails {
-  tax?: number;
-  discount?: number;
-  shipping?: number;
+  tax: number;
+  discount: number;
+  shipping: number;
 }
 
 export interface initialTemplateProps {

@@ -35,10 +35,6 @@ export default function Editor({ id }: { id: string }) {
 
   const [loading, setLoading] = useState(false);
 
-  function onSubmit(values: z.infer<typeof templatePropsSchema>) {
-    console.log(values);
-  }
-
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
@@ -75,7 +71,7 @@ export default function Editor({ id }: { id: string }) {
 
   return (
     <Form {...form}>
-      <div className="flex w-full container gap-4">
+      <div className="flex w-full gap-4">
         <div className="w-1/2 space-y-4">
           <div className="relative w-fit">
             <h3 className="text-4xl font-bold">Invoice</h3>
@@ -83,11 +79,11 @@ export default function Editor({ id }: { id: string }) {
               New
             </span>
           </div>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form>
             <ScrollArea className="h-screen rounded-md">
               <Tabs className="h-screen" defaultValue="user">
                 <TabsList>
-                  <TabsTrigger value="templates">Templates</TabsTrigger>
+                  {/* <TabsTrigger value="templates">Templates</TabsTrigger> */}
                   <TabsTrigger value="user">Basic</TabsTrigger>
                   <TabsTrigger value="client">Invoice</TabsTrigger>
                   <TabsTrigger value="items">Items</TabsTrigger>
