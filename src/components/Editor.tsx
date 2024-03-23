@@ -62,19 +62,12 @@ export default function Editor({ id }: { id: string }) {
     const result = await data.blob();
 
     if (result instanceof Blob && result.size > 0) {
-      // Create a blob URL to trigger the download
       const url = window.URL.createObjectURL(result);
-
-      // Create an anchor element to initiate the download
       const a = document.createElement("a");
       a.href = url;
       a.download = "invoice.pdf";
       document.body.appendChild(a);
-
-      // Trigger the download
       a.click();
-
-      // Clean up the URL object
       window.URL.revokeObjectURL(url);
     }
     setLoading(false);
@@ -82,7 +75,7 @@ export default function Editor({ id }: { id: string }) {
 
   return (
     <Form {...form}>
-      <div className="flex w-full container">
+      <div className="flex w-full container gap-4">
         <div className="w-1/2 space-y-4">
           <div className="relative w-fit">
             <h3 className="text-4xl font-bold">Invoice</h3>

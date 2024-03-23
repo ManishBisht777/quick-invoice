@@ -10,6 +10,7 @@ interface ModernTemplateProps {
 
 export default function Modern({ initialValue }: ModernTemplateProps) {
   const templateValues = initialValue || templateProps;
+  // const templateValues = templateProps;
 
   return (
     <div className="text-[#5E6470] text-sm w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">
@@ -62,14 +63,22 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
         <div className="flex justify-between mt-4">
           <div>
             <p>Invoice Date</p>
-            {/* <p className="text-[#1A1C21] font-semibold">
-              {templateValues.invoiceDetails?.issueDate}
-            </p> */}
+            <p className="text-[#1A1C21] font-semibold">
+              {templateValues.invoiceDetails?.issueDate instanceof Date
+                ? templateValues.invoiceDetails.issueDate.toLocaleDateString(
+                    "en-IN"
+                  )
+                : templateValues.invoiceDetails?.issueDate}
+            </p>
           </div>
           <div>
             <p>Due Date</p>
             <p className="text-[#1A1C21] font-semibold">
-              {templateValues.invoiceDetails?.dueDate}
+              {templateValues.invoiceDetails?.dueDate instanceof Date
+                ? templateValues.invoiceDetails.dueDate.toLocaleDateString(
+                    "en-IN"
+                  )
+                : templateValues.invoiceDetails?.dueDate}
             </p>
           </div>
         </div>

@@ -12,8 +12,8 @@ export interface basicDetails {
 }
 
 export interface invoiceDetails {
-  issueDate: string;
-  dueDate: string;
+  issueDate: Date;
+  dueDate: Date;
   currency: string;
 }
 

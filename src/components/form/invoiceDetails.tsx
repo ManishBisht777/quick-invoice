@@ -1,14 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { CalendarIcon, LayoutList } from "lucide-react";
-import { Label } from "../ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,8 +14,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 
 interface InvoiceDetailsProps {
   form: any;
@@ -76,10 +72,10 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
             />
             <FormField
               control={form.control}
-              name={"invoiceDetails.dueDate"}
+              name="invoiceDetails.dueDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Issue date</FormLabel>
+                  <FormLabel>Due date</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -115,26 +111,9 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name={"invoiceDetails.dueDate"}
-              render={({ field }) => (
-                <FormItem>
-                  <Label htmlFor="Due date">Due date</Label>
-                  <FormControl>
-                    <Input placeholder="12-25-2023" type="date" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
         </div>
       </div>
-      <Button type="button" className="mt-4">
-        <LayoutList className="mr-2" size={18} /> Next
-      </Button>
     </>
   );
 }

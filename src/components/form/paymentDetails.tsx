@@ -66,7 +66,9 @@ export function PaymentDetails({ form }: PaymentDetailsProps) {
           </div>
         </div>
       </div>
-      <Button type="submit">Next</Button>
+      <Button className="mt-4" type="submit">
+        Next
+      </Button>
     </>
   );
 }
