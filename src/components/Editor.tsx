@@ -72,7 +72,7 @@ export default function Editor({ id }: { id: string }) {
   return (
     <Form {...form}>
       <div className="flex w-full gap-4">
-        <div className="w-1/2 space-y-4">
+        <div className="w-1/2 md:block hidden space-y-4">
           <div className="relative w-fit">
             <h3 className="text-4xl font-bold">Invoice</h3>
             <span className="bg-[#E87117] px-3 py-1 rounded-full text-white text-xs absolute -top-3 -right-14">
@@ -111,16 +111,16 @@ export default function Editor({ id }: { id: string }) {
           </form>
         </div>
 
-        <div className="w-1/2 space-y-4">
+        <div className="md:w-1/2 w-full space-y-4">
           <div className="flex justify-end gap-2">
-            <Button variant="secondary">New</Button>
+            {/* <Button variant="secondary">New</Button> */}
 
             <Button onClick={savePdf} className="gap-2">
               {loading && <Loader2 size={18} className="animate-spin" />}
               Generate Pdf
             </Button>
 
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button size="icon" variant="outline">
                   <EllipsisVertical size={18} />
@@ -133,7 +133,7 @@ export default function Editor({ id }: { id: string }) {
                   <DropdownMenuItem>Export</DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </div>
           <Template initialValue={form.watch()} />
         </div>

@@ -1,5 +1,5 @@
 import Navbar from "@/components/layout/navbar";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,11 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { ChevronRight, Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="container flex-1 flex flex-col justify-center space-y-16">
+    <main className="container flex-1 flex flex-col justify-center space-y-10">
       <Navbar />
       <div className="bg-grid">
         <div className=" flex items-center flex-col space-y-4">
@@ -19,24 +22,35 @@ export default function Home() {
             <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mr-3">
               Discover
             </span>
-            powerfull sales management tools
+            Invoice Generation and Tracking Tools
           </h1>
           <p className="text-center max-w-lg text-muted-foreground flex gap-1">
-            Lorem ipsum dolor sit Accusantium
-            <Sparkles className="w-5 h-5" /> consectetur.
+            Effortlessly create invoices with our
+            <Sparkles className="w-5 h-5" /> intuitive tools!.
           </p>
           <div>
             <div className="flex gap-4 max-w-md justify-center">
-              <Button variant="secondary" className="px-6">
+              <Link
+                href="https://github.com/manishbisht777/quick-invoice/"
+                className={cn("px-6", buttonVariants({ variant: "secondary" }))}
+              >
                 Github
-              </Button>
-              <Button variant="default" className="">
-                Explore Now
-              </Button>
+              </Link>
+              <Link href="/templates" className={cn("px-6", buttonVariants())}>
+                Generate Now
+              </Link>
             </div>
           </div>
         </div>
-        <div className="h-[80vh] w-full rounded-xl bg-slate-50 border border-slate-200 mt-10"></div>
+        <div className="w-full p-1 mt-14 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl">
+          <div className="w-full h-full rounded relative">
+            <img
+              src="/images/promotion/hero.png"
+              className="rounded-xl"
+              alt="hero image"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="relative top-0 -z-10 h-full w-full bg-white">
