@@ -11,7 +11,7 @@ export const AllTemplates: Record<string, any> = {
   sleek: {
     name: "sleek",
     component: lazy(() => import("@/components/templates/Sleek")),
-    image: "/images/templates/modern.png",
+    image: "/images/templates/sleek.png",
   },
 };
 
