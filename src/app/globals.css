@@ -81,6 +81,10 @@
   align-items: center;
 }
 
+.text-gradient {
+  @apply bg-gradient-to-r from-red-500 to-orange-500  bg-clip-text text-transparent;
+}
+
 .template-bg {
   background: url("/images/template-bg.svg") no-repeat center/cover;
   background-position: 0 20%;

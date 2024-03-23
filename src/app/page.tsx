@@ -1,3 +1,4 @@
+import Navbar from "@/components/layout/navbar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,22 +7,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BarChart3, Check, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="container flex-1 flex flex-col justify-center space-y-16 mt-20">
+    <main className="container flex-1 flex flex-col justify-center space-y-16">
+      <Navbar />
       <div className="bg-grid">
-        <div className=" flex items-center flex-col space-y-6">
-          <h1 className="capitalize text-4xl font-bold text-center max-w-xl">
-            Discover powerfull sales management tools
+        <div className=" flex items-center flex-col space-y-4">
+          <h1 className="capitalize text-5xl font-extrabold text-center max-w-3xl">
+            <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mr-3">
+              Discover
+            </span>
+            powerfull sales management tools
           </h1>
-          <p className="text-center max-w-lg text-muted-foreground">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            fugiat quis.
+          <p className="text-center max-w-lg text-muted-foreground flex gap-1">
+            Lorem ipsum dolor sit Accusantium
+            <Sparkles className="w-5 h-5" /> consectetur.
           </p>
           <div>
-            <div className="flex gap-2 max-w-md justify-center">
+            <div className="flex gap-4 max-w-md justify-center">
               <Button variant="secondary" className="px-6">
                 Github
               </Button>
@@ -29,89 +34,85 @@ export default function Home() {
                 Explore Now
               </Button>
             </div>
-            <p className="mt-3 flex gap-1 items-center text-muted-foreground">
-              Lorem ipsum dolor sit amet
-              <Sparkles className="w-5 h-5" /> consectetur.
-            </p>
           </div>
         </div>
         <div className="h-[80vh] w-full rounded-xl bg-slate-50 border border-slate-200 mt-10"></div>
       </div>
 
       <div className="relative top-0 -z-10 h-full w-full bg-white">
-        <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-
         <div className="flex justify-center items-center flex-col gap-4 mt-20">
-          <p className="text-lg font-medium bg-white rounded-full px-6 py-1 border shadow-sm">
+          <p className="text-sm font-medium bg-white rounded-full px-4 py-1 border shadow-sm">
             Features
           </p>
-          <h2 className="text-3xl font-semibold">
-            Work 5x faster, Save you time
-          </h2>
-          <p className="text-primary max-w-lg text-center">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
-            iste iusto sunt nesciunt velit nisi.
-          </p>
-          <div className="flex gap-1 items-center text-purple-600">
+          <div className="text-center space-y-1">
+            <h2 className="text-3xl font-bold">
+              Work 5x faster, Save you time
+            </h2>
+            <p className="text-primary max-w-lg text-center">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              iste iusto sunt nesciunt velit nisi.
+            </p>
+          </div>
+          <div className="flex gap-1 items-center text-gradient font-medium">
             <span>Learn more</span>
-            <ChevronRight size={20} />
+            <ChevronRight className="text-orange-500" size={20} />
           </div>
         </div>
 
         <div className="grid grid-cols-5 gap-8 mt-10">
           <Card className="col-span-2">
-            <CardHeader className="h-80 bg-grid"></CardHeader>
+            <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
               <CardTitle>Import data make easier</CardTitle>
               <CardDescription className="text-lg text-primary">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Quibusdam, voluptate.
               </CardDescription>
-              <div className="flex gap-1 items-center text-purple-600">
+              <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
-                <ChevronRight size={20} />
+                <ChevronRight className="text-orange-500" size={20} />
               </div>
             </CardContent>
           </Card>
           <Card className="col-span-3">
-            <CardHeader className="h-80 bg-grid-2"></CardHeader>
+            <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
               <CardTitle>Import data make easier</CardTitle>
               <CardDescription className="text-lg text-primary">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Quibusdam, voluptate.
               </CardDescription>
-              <div className="flex gap-1 items-center text-purple-600">
+              <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
-                <ChevronRight size={20} />
+                <ChevronRight className="text-orange-500" size={20} />
               </div>
             </CardContent>
           </Card>
           <Card className="col-span-3">
-            <CardHeader className="h-80 bg-grid-2"></CardHeader>
+            <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
               <CardTitle>Import data make easier</CardTitle>
               <CardDescription className="text-lg text-primary">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Quibusdam, voluptate.
               </CardDescription>
-              <div className="flex gap-1 items-center text-purple-600">
+              <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
-                <ChevronRight size={20} />
+                <ChevronRight className="text-orange-500" size={20} />
               </div>
             </CardContent>
           </Card>
           <Card className="col-span-2">
-            <CardHeader className="h-80 bg-grid"></CardHeader>
+            <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
               <CardTitle>Import data make easier</CardTitle>
               <CardDescription className="text-lg text-primary">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Quibusdam, voluptate.
               </CardDescription>
-              <div className="flex gap-1 items-center text-purple-600">
+              <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
-                <ChevronRight size={20} />
+                <ChevronRight className="text-orange-500" size={20} />
               </div>
             </CardContent>
           </Card>
@@ -261,19 +262,19 @@ export default function Home() {
       </div> */}
 
       <div className="bg-grid h-[60vh] flex justify-center flex-col text-center items-center space-y-2">
-        <p className="uppercase">Get started</p>
-        <h4 className="capitalize text-3xl font-semibold">
-          Bring your business next level
+        <p className="text-sm">Get started</p>
+        <h4 className="capitalize text-3xl font-bold">
+          Bring your <span className="text-gradient">business </span> next level
         </h4>
-        <p className="max-w-xl text-sm text-primary">
+        <p className="max-w-xl text-sm text-muted-foreground">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
           voluptas aspernatur perferendis repellat sapiente in dolores velit
           facilis vero accusamus?
         </p>
-        <Button>
-          <span>Get started</span>
-          <ChevronRight className="ml-2" size={20} />
-        </Button>
+        <div className="flex gap-1 items-center text-gradient font-medium">
+          <span>Learn more</span>
+          <ChevronRight className="text-orange-500" size={20} />
+        </div>
       </div>
     </main>
   );

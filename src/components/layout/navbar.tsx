@@ -5,7 +5,7 @@ interface NavbarProps {}
 
 export default function Navbar({}: NavbarProps) {
   return (
-    <div className="container my-10 flex">
+    <div className="my-10 flex">
       <div className="border w-fit p-2">
         <Image src="/icons/menu.svg" width={35} height={35} alt="Menu" />
       </div>
