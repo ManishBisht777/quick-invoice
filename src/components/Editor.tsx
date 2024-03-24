@@ -25,6 +25,7 @@ import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { useState } from "react";
+import SaveInvoice from "./modal/SaveInvoice";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -114,6 +115,8 @@ export default function Editor({ id }: { id: string }) {
         <div className="md:w-1/2 w-full space-y-4">
           <div className="flex justify-end gap-2">
             {/* <Button variant="secondary">New</Button> */}
+
+            <SaveInvoice initialValues={form.watch()} />
 
             <Button onClick={savePdf} className="gap-2">
               {loading && <Loader2 size={18} className="animate-spin" />}

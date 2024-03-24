@@ -14,11 +14,6 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
     0
   );
 
-  console.log(
-    totalAmount,
-    templateValues.paymentDetails.tax,
-    templateValues.paymentDetails.discount
-  );
   return (
     <div className="text-[#5E6470] text-sm w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">
       <div className="flex justify-between items-end">
