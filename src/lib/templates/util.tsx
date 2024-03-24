@@ -4,7 +4,7 @@ import { lazy } from "react";
 
 export const AllTemplates: Record<string, any> = {
   modern: {
-    name: "modern",
+    name: "Modern",
     component: lazy(() => import("@/components/templates/Modern")),
     image: "/images/templates/modern.png",
   },

@@ -4,16 +4,18 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useSession } from "next-auth/react";
-import saveInvoice from "@/lib/actions/saveInvoice";
+import saveInvoice from "@/server/actions/saveInvoice";
+import { $Enums } from "@prisma/client";
+import { Loader2 } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface SaveInvoiceProps {
   // TODO: Define the type for initialValues
@@ -22,10 +24,31 @@ interface SaveInvoiceProps {
 
 export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
   const [invoiceName, setInvoiceName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // const saveInvoice = async () => {
-  //   console.log(invoiceName);
-  // };
+  const params = useParams();
+  const templateType = params.Id as $Enums.Template;
+
+  const onSaveInvoice = async () => {
+    if (!invoiceName || !templateType) {
+      toast.error("Please enter a name for the invoice");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const data = await saveInvoice(initialValues, invoiceName, templateType);
+      if ("message" in data) {
+        toast.error(data.message);
+      } else {
+        toast.success("Invoice saved successfully");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error saving invoice");
+    }
+    setLoading(false);
+  };
 
   return (
     <Dialog>
@@ -46,8 +69,8 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
           />
         </div>
         <DialogFooter>
-          <Button onClick={() => saveInvoice()} type="button">
-            Save
+          <Button onClick={onSaveInvoice} type="button">
+            {loading && <Loader2 className="w-4 h-4 animate-spin" />} Save
           </Button>
         </DialogFooter>
       </DialogContent>

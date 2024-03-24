@@ -58,8 +58,8 @@ model User {
 }
 
 enum Template {
-    Modern
-    Sleek
+    modern
+    sleek
 }
 
 enum Status {
@@ -76,6 +76,7 @@ model Invoice {
     template Template
     content  String
     status   Status
+    name     String
 
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
