@@ -77,13 +77,13 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {table.getColumn("status") && (
+        {/* {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
             title="Status"
             options={status}
           />
-        )}
+        )} */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

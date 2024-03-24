@@ -13,8 +13,8 @@ An open-source application to generate invoices.
 - [x] Enhance UI/UX
 - [x] Add more templates
 - [ ] New mobile navigation
-- [ ] Auth using next-auth
-- [ ] Save invoices online
+- [x] Auth using next-auth
+- [x] Save invoices online
 - [ ] Signature upload
 - [ ] Save client details for the future to save in one click
 - [ ] A dashboard to manage invoices to mark as pending, overdue, etc etc
