@@ -4,6 +4,14 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   async function middleware(req) {
+    if (req.nextUrl.pathname.startsWith("/editor")) {
+      return null;
+    }
+
+    if (req.nextUrl.pathname.startsWith("/templates")) {
+      return null;
+    }
+
     const token = await getToken({ req });
     const isAuth = !!token;
 
@@ -48,6 +56,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|images|icons|$).*)",
+    // "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|images|icons|$).*)",
   ],
 };
