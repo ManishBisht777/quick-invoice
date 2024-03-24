@@ -1,9 +1,12 @@
 import { NextAuthOptions } from "next-auth";
+
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "./db";
+
 export const authOptions: NextAuthOptions = {
+  //@ts-ignore
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
@@ -33,7 +36,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      const dbUser = await prisma.user.findFirst({
+      const dbUser = await db.user.findFirst({
         where: {
           email: token.email,
         },

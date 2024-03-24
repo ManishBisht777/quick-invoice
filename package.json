@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:studio": "pnpx prisma studio",
-    "db:generate": "pnpx prisma generate",
+    "db:generate": "pnpx prisma generate --schema=./src/prisma/schema.prisma",
     "db:migrate": "pnpx prisma migrate dev",
     "db:push": "pnpx prisma db push",
     "db:pull": "pnpx prisma db pull",
