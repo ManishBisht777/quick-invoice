@@ -52,6 +52,35 @@ model User {
 
     accounts Account[]
     sessions Session[]
+    Invoice  Invoice[]
 
     @@map(name: "users")
+}
+
+enum Template {
+    Modern
+    Sleek
+}
+
+enum Status {
+    Draft
+    Sent
+    Paid
+    Overdue
+}
+
+model Invoice {
+    id     String @id @default(cuid())
+    userId String
+
+    template Template
+    content  String
+    status   Status
+
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@map(name: "invoices")
 }
