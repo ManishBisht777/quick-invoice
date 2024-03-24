@@ -1,9 +1,11 @@
 import { buttonVariants } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
 import Link from "next/link";
+import { invoiceColumns } from "./column";
 
 type Props = {};
 
@@ -21,10 +23,8 @@ export default async function page({}: Props) {
     },
   });
 
-  console.log(invoices);
-
   return (
-    <div>
+    <div className="space-y-5 p-2">
       <div className="px-6 py-8 border rounded-lg w-full flex justify-between items-center">
         <div>
           <h2 className="text-xl font-semibold">Dashboard</h2>
@@ -40,6 +40,8 @@ export default async function page({}: Props) {
           Star
         </Link>
       </div>
+
+      <DataTable columns={invoiceColumns} data={invoices} />
     </div>
   );
 }
