@@ -1,10 +1,14 @@
+import { getCurrentUser } from "@/lib/session";
 import { Flower } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { UserAccountNav } from "../useAccountMenu";
 
 interface NavbarProps {}
 
-export default function Navbar({}: NavbarProps) {
+export default async function Navbar({}: NavbarProps) {
+  const user = await getCurrentUser();
+
   return (
     <div className="my-10 flex">
       <div className="border w-fit p-2">
@@ -17,6 +21,20 @@ export default function Navbar({}: NavbarProps) {
           Invoice
         </Link>
       </div>
+      {user ? (
+        <div className="border border-l-0 px-6 flex justify-center items-center  transition-all">
+          <UserAccountNav
+            user={{ name: user.name, image: user.image, email: user.email }}
+          />
+        </div>
+      ) : (
+        <Link
+          className="border border-l-0 px-6 flex justify-center items-center hover:bg-black hover:text-white transition-all"
+          href="/login"
+        >
+          Login
+        </Link>
+      )}
     </div>
   );
 }
