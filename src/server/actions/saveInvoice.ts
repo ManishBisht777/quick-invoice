@@ -8,7 +8,8 @@ async function saveInvoice(
   templateValues: any,
   invoiceName: string,
   templateType: $Enums.Template,
-  totalAmount: number
+  totalAmount: number,
+  saveClientDetails: boolean
 ) {
   try {
     const session = await getSession();
@@ -27,6 +28,21 @@ async function saveInvoice(
           totalAmount: totalAmount || 0,
         },
       });
+
+      if (saveClientDetails) {
+        await db.basicInvoiceDetails.create({
+          data: {
+            userId: session.user.id,
+            address: templateValues.basicDetails.address?.address,
+            city: templateValues.basicDetails.address?.city,
+            country: templateValues.basicDetails.address?.country,
+            state: templateValues.basicDetails.address?.state,
+            isSender: false,
+            phone: templateValues.basicDetails?.phoneNumber,
+            zip: templateValues.basicDetails.address?.zipCode,
+          },
+        });
+      }
 
       return invoice;
     }

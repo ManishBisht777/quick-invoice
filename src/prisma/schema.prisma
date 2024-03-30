@@ -91,12 +91,12 @@ model Invoice {
 model basicInvoiceDetails {
     id        String   @id @default(cuid())
     userId    String
-    address   String
-    city      String
-    state     String
-    zip       String
-    country   String
-    phone     String
+    address   String?
+    city      String?
+    state     String?
+    zip       String?
+    country   String?
+    phone     String?
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
 

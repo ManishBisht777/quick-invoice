@@ -12,10 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import saveInvoice from "@/server/actions/saveInvoice";
 import { $Enums } from "@prisma/client";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Checkbox } from "../ui/checkbox";
 
 interface SaveInvoiceProps {
   // TODO: Define the type for initialValues
@@ -24,6 +25,8 @@ interface SaveInvoiceProps {
 
 export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
   const [invoiceName, setInvoiceName] = useState<string>("");
+  const [saveClientDetails, setSaveClientDetails] = useState<boolean>(false);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const params = useParams();
@@ -57,7 +60,8 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
         initialValues,
         invoiceName,
         templateType,
-        totalAmount
+        totalAmount,
+        saveClientDetails
       );
 
       if ("message" in data) {
@@ -81,26 +85,49 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
         <DialogHeader>
           <DialogTitle>Save Invoice</DialogTitle>
         </DialogHeader>
-        <div className="space-y-1 mt-2">
-          <p className="text-sm">Name</p>
-          <Input
-            id="name"
-            value={invoiceName}
-            className="col-span-3"
-            onChange={(e) => setInvoiceName(e.target.value)}
-          />
-
-          <div>
+        <div className="space-y-5 mt-2">
+          <div className="space-y-2">
+            <p className="text-sm">Name</p>
             <Input
-              type="checkbox"
-              className="text-primary-500"
-              id="send-email"
+              id="name"
+              value={invoiceName}
+              placeholder="Enter a name for the invoice"
+              className="col-span-3"
+              onChange={(e) => setInvoiceName(e.target.value)}
             />
-            Save sender details for future
           </div>
+
+          <div className="space-y-1">
+            <div className="space-x-2 flex items-center">
+              <Checkbox
+                id="save"
+                checked={saveClientDetails}
+                onCheckedChange={(value) =>
+                  setSaveClientDetails(value as boolean)
+                }
+              />
+              <label
+                htmlFor="save"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Save client details for future
+              </label>
+            </div>
+            <p className="text-muted-foreground text-xs">
+              We will save the client details for future so you don&apos;t have
+              to fill them again
+            </p>
+          </div>
+
+          {/* <div className="p-2 rounded-md bg-blue-100 flex gap-1 items-center">
+            <Info className="w-4 h-4 text-blue-500" />
+            <p className="text-sm text-blue-500">
+              You can edit the client details before saving the invoice
+            </p>
+          </div> */}
         </div>
         <DialogFooter>
-          <Button onClick={onSaveInvoice} type="button">
+          <Button onClick={onSaveInvoice} type="button" className="px-6">
             {loading && <Loader2 className="w-4 h-4 animate-spin" />} Save
           </Button>
         </DialogFooter>
