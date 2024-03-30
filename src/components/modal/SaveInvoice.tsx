@@ -26,6 +26,7 @@ interface SaveInvoiceProps {
 export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
   const [invoiceName, setInvoiceName] = useState<string>("");
   const [saveClientDetails, setSaveClientDetails] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -68,6 +69,7 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
         toast.error(data.message);
       } else {
         toast.success("Invoice saved successfully");
+        setOpen(false);
       }
     } catch (error) {
       console.log(error);
@@ -77,7 +79,7 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Save Invoice</Button>
       </DialogTrigger>
