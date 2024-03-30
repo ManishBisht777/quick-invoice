@@ -89,6 +89,15 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
             className="col-span-3"
             onChange={(e) => setInvoiceName(e.target.value)}
           />
+
+          <div>
+            <Input
+              type="checkbox"
+              className="text-primary-500"
+              id="send-email"
+            />
+            Save sender details for future
+          </div>
         </div>
         <DialogFooter>
           <Button onClick={onSaveInvoice} type="button">
