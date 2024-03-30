@@ -95,7 +95,7 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
               <Badge>{data.status}</Badge>
             </div>
             <div className="flex justify-center flex-col items-center w-full mt-10">
-              <h3 className="text-5xl font-bold">1245</h3>
+              <h3 className="text-5xl font-bold">{data.totalAmount}</h3>
               <p className="text-xs text-muted-foreground">Amount</p>
             </div>
             <Select onValueChange={setInvoiceStatus} value={invoiceStatus}>

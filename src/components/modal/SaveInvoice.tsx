@@ -37,7 +37,29 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
 
     setLoading(true);
     try {
-      const data = await saveInvoice(initialValues, invoiceName, templateType);
+      const total = initialValues.items.reduce(
+        (acc: number, item: any) => acc + item.amount,
+        0
+      );
+
+      const taxPercentage = initialValues.tax;
+      const taxAmount = (total * taxPercentage) / 100;
+
+      const discountPercentage = initialValues.discount;
+      const discountAmount = (total * discountPercentage) / 100;
+
+      const shippingPercentage = initialValues.shipping;
+      const shippingAmount = (total * shippingPercentage) / 100;
+
+      const totalAmount = total + taxAmount - discountAmount + shippingAmount;
+
+      const data = await saveInvoice(
+        initialValues,
+        invoiceName,
+        templateType,
+        totalAmount
+      );
+
       if ("message" in data) {
         toast.error(data.message);
       } else {

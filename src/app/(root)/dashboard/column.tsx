@@ -31,15 +31,10 @@ export const invoiceColumns: ColumnDef<Invoice>[] = [
     header: "Name",
   },
   {
-    accessorKey: "content",
+    accessorKey: "totalAmount",
     header: "Total Amount",
     cell: ({ row }) => {
-      const data = JSON.parse(row.original.content);
-      const totalAmount = data.items.reduce(
-        (acc: number, item: items) => acc + item.price * item.quantity,
-        0
-      );
-      return <span>{totalAmount}</span>;
+      return <span>{row.original.totalAmount}</span>;
     },
   },
 

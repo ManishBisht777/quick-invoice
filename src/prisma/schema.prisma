@@ -78,7 +78,7 @@ model Invoice {
     content     String
     status      Status
     name        String
-    totalAmount String
+    totalAmount Float
 
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
