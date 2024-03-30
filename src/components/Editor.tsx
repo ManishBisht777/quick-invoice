@@ -1,31 +1,22 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { emptyTemplateProps } from "@/config/template";
 import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EllipsisVertical, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { InvoiceDetails } from "./form/invoiceDetails";
 import ItemDetails from "./form/itemDetails";
 import { PaymentDetails } from "./form/paymentDetails";
 import { UserDetails } from "./form/userDetails";
+import SaveInvoice from "./modal/SaveInvoice";
 import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { useState } from "react";
-import SaveInvoice from "./modal/SaveInvoice";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
