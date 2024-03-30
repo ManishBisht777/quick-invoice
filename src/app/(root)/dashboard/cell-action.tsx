@@ -1,4 +1,5 @@
 import { AlertModal } from "@/components/modal/AlertModal";
+import { EditInvoiceStatus } from "@/components/modal/EditInvoiceStatus";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,7 +20,9 @@ interface CellActionProps {
 }
 
 export default function CellAction({ data }: CellActionProps) {
-  const [open, setOpen] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [editStatusModal, setEditStatusModal] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -32,7 +35,7 @@ export default function CellAction({ data }: CellActionProps) {
       } else {
         toast.success("Invoice Deleted successfully");
         router.refresh();
-        setOpen(false);
+        setDeleteModal(false);
       }
     } catch (error) {
       console.log(error);
@@ -44,10 +47,15 @@ export default function CellAction({ data }: CellActionProps) {
   return (
     <>
       <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
+        isOpen={deleteModal}
+        onClose={() => setDeleteModal(false)}
         onConfirm={onConfirm}
         loading={loading}
+      />
+      <EditInvoiceStatus
+        data={data}
+        isOpen={editStatusModal}
+        onClose={setEditStatusModal}
       />
       <div className="flex justify-end">
         <DropdownMenu>
@@ -61,12 +69,15 @@ export default function CellAction({ data }: CellActionProps) {
             <DropdownMenuLabel>Options</DropdownMenuLabel>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => setOpen(true)}
+              onClick={() => setDeleteModal(true)}
             >
               <Trash className="w-4 h-4 mr-2" />
               Delete
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => setEditStatusModal(true)}
+            >
               <Pencil className="w-4 h-4 mr-2" /> Edit Status
             </DropdownMenuItem>
           </DropdownMenuContent>
