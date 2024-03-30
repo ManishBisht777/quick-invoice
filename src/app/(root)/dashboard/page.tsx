@@ -12,7 +12,6 @@ type Props = {};
 export default async function page({}: Props) {
   const session = await getSession();
 
-  console.log(session);
   if (!session) {
     return null;
   }
