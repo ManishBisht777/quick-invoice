@@ -74,11 +74,11 @@ model Invoice {
     id     String @id @default(cuid())
     userId String
 
-    template  Template
-    content   String
-    status    Status
-    name      String
-    totalName String
+    template    Template
+    content     String
+    status      Status
+    name        String
+    totalAmount String
 
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
