@@ -50,9 +50,10 @@ model User {
     bookmarkIds   String[]
     bio           String?
 
-    accounts Account[]
-    sessions Session[]
-    Invoice  Invoice[]
+    accounts            Account[]
+    sessions            Session[]
+    Invoice             Invoice[]
+    basicInvoiceDetails basicInvoiceDetails[]
 
     @@map(name: "users")
 }
@@ -73,10 +74,11 @@ model Invoice {
     id     String @id @default(cuid())
     userId String
 
-    template Template
-    content  String
-    status   Status
-    name     String
+    template  Template
+    content   String
+    status    Status
+    name      String
+    totalName String
 
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
@@ -84,4 +86,23 @@ model Invoice {
     user User @relation(fields: [userId], references: [id])
 
     @@map(name: "invoices")
+}
+
+model basicInvoiceDetails {
+    id        String   @id @default(cuid())
+    userId    String
+    address   String
+    city      String
+    state     String
+    zip       String
+    country   String
+    phone     String
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    isSender Boolean
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@map(name: "basic_details")
 }
