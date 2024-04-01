@@ -101,6 +101,7 @@ model basicInvoiceDetails {
     updatedAt DateTime @updatedAt @map(name: "updated_at")
 
     isSender Boolean
+    name     String
 
     user User @relation(fields: [userId], references: [id])
 

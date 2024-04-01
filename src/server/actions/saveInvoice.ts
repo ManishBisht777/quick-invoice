@@ -9,7 +9,8 @@ async function saveInvoice(
   invoiceName: string,
   templateType: $Enums.Template,
   totalAmount: number,
-  saveClientDetails: boolean
+  saveClientDetails: boolean,
+  name: string
 ) {
   try {
     const session = await getSession();
@@ -40,6 +41,7 @@ async function saveInvoice(
             isSender: false,
             phone: templateValues.basicDetails?.phoneNumber,
             zip: templateValues.basicDetails.address?.zipCode,
+            name: name,
           },
         });
       }

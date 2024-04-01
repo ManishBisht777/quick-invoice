@@ -62,7 +62,8 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
         invoiceName,
         templateType,
         totalAmount,
-        saveClientDetails
+        saveClientDetails,
+        "manish"
       );
 
       if ("message" in data) {

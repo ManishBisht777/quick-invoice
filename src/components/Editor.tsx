@@ -17,6 +17,7 @@ import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import useClientDetails from "@/hooks/useClientDetails";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -31,6 +32,8 @@ export default function Editor({ id }: { id: string }) {
     control: form.control,
     name: "items",
   });
+
+  const { basicDetails } = useClientDetails();
 
   const Template = AllTemplates[id]?.component;
 
@@ -82,6 +85,7 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
                 <TabsContent value="user">
+                  <pre>{JSON.stringify(basicDetails, null, 2)}</pre>
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent value="client">
