@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -13,13 +11,13 @@ import {
 } from "@/components/ui/sheet";
 
 interface AutofillDetailsProps {
-  form: any;
+  setValue: any;
   basicDetails: any;
 }
 
 export default function AutofillDetails({
   basicDetails,
-  form,
+  setValue,
 }: AutofillDetailsProps) {
   return (
     <Sheet>
@@ -39,7 +37,21 @@ export default function AutofillDetails({
           {basicDetails.map((detail: any) => {
             return (
               <div key={detail.id} className="">
-                <h1>{detail.name}</h1>
+                <h1
+                  onClick={() => {
+                    console.log(detail);
+
+                    setValue("basicDetails.to.address.address", detail.address);
+                    setValue("basicDetails.to.address.city", detail.city);
+                    setValue("basicDetails.to.address.country", detail.country);
+                    setValue("basicDetails.to.address.state", detail.state);
+                    setValue("basicDetails.to.phoneNumber", detail.phone);
+                    setValue("basicDetails.to.address.zipCode", detail.zip);
+                    setValue("basicDetails.to.name", detail.name);
+                  }}
+                >
+                  {detail.name}
+                </h1>
               </div>
             );
           })}

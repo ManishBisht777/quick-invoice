@@ -90,7 +90,10 @@ export default function Editor({ id }: { id: string }) {
                   {/* <div className="flex justify-end">
                     <Button>Autofill from saved details</Button>
                   </div> */}
-                  <AutofillDetails form={form} basicDetails={basicDetails} />
+                  <AutofillDetails
+                    setValue={form.setValue}
+                    basicDetails={basicDetails}
+                  />
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent value="client">

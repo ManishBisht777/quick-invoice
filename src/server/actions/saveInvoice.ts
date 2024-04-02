@@ -34,13 +34,13 @@ async function saveInvoice(
         await db.basicInvoiceDetails.create({
           data: {
             userId: session.user.id,
-            address: templateValues.basicDetails.address?.address,
-            city: templateValues.basicDetails.address?.city,
-            country: templateValues.basicDetails.address?.country,
-            state: templateValues.basicDetails.address?.state,
+            address: templateValues.basicDetails.from?.address?.address,
+            city: templateValues.basicDetails.from?.address?.city,
+            country: templateValues.basicDetails.from?.address?.country,
+            state: templateValues.basicDetails.from?.address?.state,
             isSender: false,
-            phone: templateValues.basicDetails?.phoneNumber,
-            zip: templateValues.basicDetails.address?.zipCode,
+            phone: templateValues.basicDetails.from?.phoneNumber,
+            zip: templateValues.basicDetails.from?.address?.zipCode,
             name: name,
           },
         });
