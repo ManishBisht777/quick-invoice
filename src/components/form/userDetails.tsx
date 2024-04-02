@@ -14,7 +14,7 @@ interface UserDetailsProps {
 
 export function UserDetails({ form }: UserDetailsProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
       <div className="space-y-3">
         <h2 className="text-xl font-semibold">Sender&apos;s details</h2>
         <div className="flex flex-wrap gap-3">
@@ -117,7 +117,7 @@ export function UserDetails({ form }: UserDetailsProps) {
         </div>
       </div>
       <div className="space-y-3">
-        <h2 className="text-xl font-semibold">Reciever&apos;s details</h2>
+        <h2 className="text-xl font-semibold">Receiver&apos;s details</h2>
         <div className="flex flex-wrap gap-3">
           <FormField
             control={form.control}

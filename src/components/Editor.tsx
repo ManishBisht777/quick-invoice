@@ -18,6 +18,7 @@ import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import useClientDetails from "@/hooks/useClientDetails";
+import AutofillDetails from "./autofill-details";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -84,8 +85,12 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="items">Items</TabsTrigger>
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
-                <TabsContent value="user">
+                <TabsContent className="relative" value="user">
                   <pre>{JSON.stringify(basicDetails, null, 2)}</pre>
+                  {/* <div className="flex justify-end">
+                    <Button>Autofill from saved details</Button>
+                  </div> */}
+                  <AutofillDetails form={form} basicDetails={basicDetails} />
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent value="client">
