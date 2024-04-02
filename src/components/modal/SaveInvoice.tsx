@@ -13,10 +13,11 @@ import { Input } from "@/components/ui/input";
 import saveInvoice from "@/server/actions/saveInvoice";
 import { $Enums } from "@prisma/client";
 import { Info, Loader2 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 interface SaveInvoiceProps {
   // TODO: Define the type for initialValues
@@ -27,15 +28,22 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
   const [invoiceName, setInvoiceName] = useState<string>("");
   const [saveClientDetails, setSaveClientDetails] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const [clientName, setClientName] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const params = useParams();
   const templateType = params.Id as $Enums.Template;
+  const router = useRouter();
 
   const onSaveInvoice = async () => {
     if (!invoiceName || !templateType) {
       toast.error("Please enter a name for the invoice");
+      return;
+    }
+
+    if (!clientName && saveClientDetails) {
+      toast.error("Please enter a client name");
       return;
     }
 
@@ -63,7 +71,7 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
         templateType,
         totalAmount,
         saveClientDetails,
-        "manish"
+        clientName
       );
 
       if ("message" in data) {
@@ -71,6 +79,7 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
       } else {
         toast.success("Invoice saved successfully");
         setOpen(false);
+        router.refresh();
       }
     } catch (error) {
       console.log(error);
@@ -121,13 +130,24 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
               to fill them again
             </p>
           </div>
+          {saveClientDetails && (
+            <div>
+              <p className="text-sm">Client name</p>
+              <Input
+                placeholder="Castled.io"
+                className="mt-2"
+                onChange={(e) => setClientName(e.target.value)}
+              />
 
-          {/* <div className="p-2 rounded-md bg-blue-100 flex gap-1 items-center">
-            <Info className="w-4 h-4 text-blue-500" />
-            <p className="text-sm text-blue-500">
-              You can edit the client details before saving the invoice
-            </p>
-          </div> */}
+              <div className="p-2 rounded-md bg-blue-50 flex gap-1 mt-3">
+                <Info className="w-4 h-4 text-blue-500 mt-[2px]" />
+                <p className="text-sm text-blue-500">
+                  You don&apos;t have to save clients details again if you have
+                  saved it once.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
         <DialogFooter>
           <Button onClick={onSaveInvoice} type="button" className="px-6">
