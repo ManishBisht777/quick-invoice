@@ -85,11 +85,19 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="items">Items</TabsTrigger>
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
-                <TabsContent className="relative" value="user">
-                  <AutofillDetails
-                    setValue={form.setValue}
-                    basicDetails={basicDetails}
-                  />
+                <TabsContent className="relative space-y-2 mt-2" value="user">
+                  <div className="flex justify-between p-3 border rounded-lg items-center">
+                    <div>
+                      <p className="font-medium">Autofill from saved details</p>
+                      <p className="text-xs">
+                        You can edit the saved details from dashboard
+                      </p>
+                    </div>
+                    <AutofillDetails
+                      setValue={form.setValue}
+                      basicDetails={basicDetails}
+                    />
+                  </div>
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent value="client">

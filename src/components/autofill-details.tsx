@@ -3,16 +3,15 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { basicDetails } from "@/types/template";
 import { basicInvoiceDetails } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Tabs, TabsContent, TabsList, TabsTriggerV2 } from "./ui/tabs";
 
 interface AutofillDetailsProps {
   setValue: any;
@@ -46,13 +45,17 @@ export default function AutofillDetails({
   };
 
   useEffect(() => {
+    if (!selectedField) {
+      return;
+    }
+
     fillDetails();
   }, [selectedField]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>Autofill from saved details</Button>
+      <DialogTrigger className="z-50" asChild>
+        <Button>Saved details</Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>
@@ -61,30 +64,69 @@ export default function AutofillDetails({
             Autofill the details with your saved details.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-4">
-          {basicDetails.map((detail: any, index: number) => (
-            <div
-              className={cn("p-2 border rounded-md cursor-pointer")}
-              key={detail.id}
-              onClick={() => {
-                setSelectedField(detail);
-              }}
-            >
-              <p className="text-sm font-medium">{detail.name}</p>
-              <div className="text-xs text-muted-foreground mt-1">
-                <p>{detail.address}</p>
-                <div className="flex gap-1">
-                  <p>{detail.city}</p>
-                  <p>{detail.state}</p>
-                  <span>{detail.country}</span>
-                  <span>{detail.zip}</span>
+
+        <Tabs defaultValue="receiver">
+          <TabsList className="grid grid-cols-2 gap-4 w-full">
+            <TabsTriggerV2 disabled value="sender">
+              Sender
+            </TabsTriggerV2>
+            <TabsTriggerV2 value="receiver">Receiver</TabsTriggerV2>
+          </TabsList>
+          <TabsContent value="sender">
+            {/* <div className="grid grid-cols-3 gap-4 mt-5">
+              {basicDetails.map((detail: any, index: number) => (
+                <div
+                  className={cn("p-2 border rounded-md cursor-pointer")}
+                  key={detail.id}
+                  onClick={() => {
+                    setSelectedField(detail);
+                  }}
+                >
+                  <p className="text-sm font-medium">{detail.name}</p>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    <p>{detail.address}</p>
+                    <div className="flex gap-1">
+                      <p>{detail.city}</p>
+                      <p>{detail.state}</p>
+                      <span>{detail.country}</span>
+                      <span>{detail.zip}</span>
+                    </div>
+                    <span>{detail.phone}</span>
+                  </div>
                 </div>
-                <span>{detail.phone}</span>
-              </div>
-              {/* <pre>{JSON.stringify(detail, null, 2)}</pre> */}
+              ))}
+            </div> */}
+            <div className="w-full h-full flex justify-center items-center">
+              <p>Feature coming soon.</p>
             </div>
-          ))}
-        </div>
+          </TabsContent>
+          <TabsContent value="receiver">
+            <div className="grid grid-cols-3 gap-4 mt-5">
+              {basicDetails.map((detail: any, index: number) => (
+                <div
+                  className={cn("p-2 border rounded-md cursor-pointer")}
+                  key={detail.id}
+                  onClick={() => {
+                    setSelectedField(detail);
+                  }}
+                >
+                  <p className="text-sm font-medium">{detail.name}</p>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    <p>{detail.address}</p>
+                    <div className="flex gap-1">
+                      <p>{detail.city}</p>
+                      <p>{detail.state}</p>
+                      <span>{detail.country}</span>
+                      <span>{detail.zip}</span>
+                    </div>
+                    <span>{detail.phone}</span>
+                  </div>
+                  {/* <pre>{JSON.stringify(detail, null, 2)}</pre> */}
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );
