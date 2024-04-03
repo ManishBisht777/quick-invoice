@@ -6,6 +6,12 @@ An open-source application to generate invoices.
 > This app is a work in progress. I'm building this in public.
 > See the roadmap below.
 
+# Landing page
+![image](https://github.com/ManishBisht777/quick-invoice/assets/89926834/f5cc486c-a328-4d7a-be50-1ea48b1cbbd2)
+
+# Editor
+![image](https://github.com/ManishBisht777/quick-invoice/assets/89926834/0bc49e66-2601-406a-b2a8-4c4ed6bed574)
+
 ## Roadmap
 
 - [x] Download invoice as pdf
