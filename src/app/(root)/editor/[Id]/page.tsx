@@ -1,6 +1,4 @@
 import Editor from "@/components/Editor";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { AllTemplates } from "@/lib/templates/util";
 
 interface Props {
   params: {

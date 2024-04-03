@@ -10,7 +10,7 @@ export default async function Navbar({}: NavbarProps) {
   const user = await getCurrentUser();
 
   return (
-    <div className="my-10 flex">
+    <div className="md:my-10 my-5 flex">
       <div className="border w-fit p-2">
         <Image src="/icons/menu.svg" width={35} height={35} alt="Menu" />
       </div>
