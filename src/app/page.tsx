@@ -60,11 +60,10 @@ export default function Home() {
           </p>
           <div className="text-center space-y-1">
             <h2 className="text-3xl font-bold">
-              Work 5x faster, Save you time
+              Simplify Your Invoicing Process Today
             </h2>
             <p className="text-primary max-w-lg text-center">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
-              iste iusto sunt nesciunt velit nisi.
+              Streamline your invoicing process with our easy-to-use tools.
             </p>
           </div>
           <div className="flex gap-1 items-center text-gradient font-medium">
@@ -77,10 +76,10 @@ export default function Home() {
           <Card className="col-span-2">
             <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
-              <CardTitle>Import data make easier</CardTitle>
-              <CardDescription className="text-lg text-primary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam, voluptate.
+              <CardTitle>Streamline Your Invoicing Process</CardTitle>
+              <CardDescription className="text-primary">
+                Generate professional invoices in minutes with customizable
+                templates tailored to your business needs.
               </CardDescription>
               <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
@@ -91,10 +90,10 @@ export default function Home() {
           <Card className="col-span-3">
             <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
-              <CardTitle>Import data make easier</CardTitle>
-              <CardDescription className="text-lg text-primary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam, voluptate.
+              <CardTitle>Save Time with Autofill Details</CardTitle>
+              <CardDescription className="text-primary">
+                Our autofill feature populates client information, saving you
+                time and minimizing errors.
               </CardDescription>
               <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
@@ -105,10 +104,9 @@ export default function Home() {
           <Card className="col-span-3">
             <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
-              <CardTitle>Import data make easier</CardTitle>
-              <CardDescription className="text-lg text-primary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam, voluptate.
+              <CardTitle>Effortless Invoice Tracking</CardTitle>
+              <CardDescription className="text-primary">
+                Mange invoices with ease
               </CardDescription>
               <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
@@ -119,10 +117,9 @@ export default function Home() {
           <Card className="col-span-2">
             <CardHeader className="h-80"></CardHeader>
             <CardContent className="space-y-2">
-              <CardTitle>Import data make easier</CardTitle>
-              <CardDescription className="text-lg text-primary">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam, voluptate.
+              <CardTitle>Full control</CardTitle>
+              <CardDescription className="text-primary">
+                Get access to all your invoices and clients in one place
               </CardDescription>
               <div className="flex gap-1 items-center text-gradient font-medium">
                 <span>Learn more</span>
