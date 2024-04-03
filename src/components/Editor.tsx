@@ -86,10 +86,6 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
                 <TabsContent className="relative" value="user">
-                  <pre>{JSON.stringify(basicDetails, null, 2)}</pre>
-                  {/* <div className="flex justify-end">
-                    <Button>Autofill from saved details</Button>
-                  </div> */}
                   <AutofillDetails
                     setValue={form.setValue}
                     basicDetails={basicDetails}

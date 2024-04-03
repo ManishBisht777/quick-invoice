@@ -134,7 +134,7 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
             <div>
               <p className="text-sm">Client name</p>
               <Input
-                placeholder="Castled.io"
+                placeholder="Client 1"
                 className="mt-2"
                 onChange={(e) => setClientName(e.target.value)}
               />
