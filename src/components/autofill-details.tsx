@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { basicDetails } from "@/types/template";
+import { basicInvoiceDetails } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -22,7 +23,8 @@ export default function AutofillDetails({
   basicDetails,
   setValue,
 }: AutofillDetailsProps) {
-  const [selectedField, setSelectedField] = useState<basicDetails | null>();
+  const [selectedField, setSelectedField] =
+    useState<basicInvoiceDetails | null>();
   const [open, setOpen] = useState(false);
 
   const fillDetails = () => {
