@@ -70,7 +70,7 @@ export function PaymentDetails({ form }: PaymentDetailsProps) {
                 <FormItem>
                   <Label htmlFor="Tax">Tax</Label>
                   <FormControl>
-                    <Input placeholder="30%" {...field} />
+                    <Input type="number" placeholder="30%" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +83,7 @@ export function PaymentDetails({ form }: PaymentDetailsProps) {
                 <FormItem>
                   <Label htmlFor="Discount">Discount</Label>
                   <FormControl>
-                    <Input placeholder="5%" {...field} />
+                    <Input type="number" placeholder="5%" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,7 +96,7 @@ export function PaymentDetails({ form }: PaymentDetailsProps) {
                 <FormItem>
                   <Label htmlFor="Shipping">Shipping</Label>
                   <FormControl>
-                    <Input placeholder="5%" {...field} />
+                    <Input type="number" placeholder="5%" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

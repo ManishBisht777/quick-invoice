@@ -112,7 +112,8 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
               <p>Subtotal</p>
               <p>{totalAmount}</p>
             </div>
-            {templateValues.paymentDetails.tax && (
+
+            {templateValues.paymentDetails.tax > 0 && (
               <div className="flex justify-between gap-3">
                 <p className="text-[#1A1C21] font-medium">
                   Tax{`(${templateValues.paymentDetails.tax}%)`}
@@ -125,7 +126,7 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 </p>
               </div>
             )}
-            {templateValues.paymentDetails.discount && (
+            {templateValues.paymentDetails.discount > 0 && (
               <div className="flex justify-between gap-3">
                 <p className="text-[#1A1C21] font-medium">
                   Discount{`(${templateValues.paymentDetails.discount}%)`}
@@ -138,7 +139,7 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 </p>
               </div>
             )}
-            {templateValues.paymentDetails.shipping && (
+            {templateValues.paymentDetails.shipping > 0 && (
               <div className="flex justify-between gap-3">
                 <p className="text-[#1A1C21] font-medium">
                   Shipping{`(${templateValues.paymentDetails.shipping}%)`}
@@ -151,12 +152,23 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 </p>
               </div>
             )}
+
             <div className="flex justify-between border-t border-[#D7DAE0] mt-3 pt-3">
               <p className="text-[#1A1C21] font-semibold">Total</p>
               <p className="text-[#E87117] text-xl font-bold">
                 {totalAmount +
-                  templateValues.paymentDetails.tax * 100 -
-                  templateValues.paymentDetails.discount * 100}
+                  getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.shipping
+                  ) -
+                  getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.discount
+                  ) +
+                  getPercentageValue(
+                    totalAmount,
+                    templateValues.paymentDetails.tax
+                  )}
               </p>
             </div>
           </div>
