@@ -12,16 +12,16 @@ An open-source application to generate invoices.
 - [x] Add Custom tailwind variables to puppeteer pdf
 - [x] Enhance UI/UX
 - [x] Add more templates
-- [ ] New mobile navigation
 - [x] Auth using next-auth
 - [x] Save invoices online
 - [x] dashboard
 - [x] Save client details for the future to save in one click
 - [x] Autofill details
 - [x] Autofill ui/ux
-- [ ] Signature upload
 - [x] Edit invoice b/w due,sent,paid
+- [ ] New mobile navigation
 - [ ] bug fixes
+- [ ] Signature upload
 
 If you have some suggestions, feel free to create an issue.
 
