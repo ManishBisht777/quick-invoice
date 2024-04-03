@@ -46,7 +46,7 @@ export function UserDetails({ form }: UserDetailsProps) {
           />
           <FormField
             control={form.control}
-            name={"basicDetails.from.phoneNumbermbermbermbermbermbermber"}
+            name={"basicDetails.from.phoneNumber"}
             render={({ field }) => (
               <FormItem>
                 <Label htmlFor="Sender's mobile number">Phone no</Label>
@@ -82,7 +82,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Sender's country">Country</Label>
                 <FormControl>
-                  <Input placeholder="india" {...field} />
+                  <Input placeholder="India" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,7 +95,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Sender's state">State</Label>
                 <FormControl>
-                  <Input placeholder="delhi" {...field} />
+                  <Input placeholder="Delhi" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -126,7 +126,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Reciever's name">Name</Label>
                 <FormControl>
-                  <Input placeholder="Manish bisht" {...field} />
+                  <Input placeholder="Milind mishra" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,7 +139,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Reciever's Email">Email</Label>
                 <FormControl>
-                  <Input placeholder="Manish@example.com" {...field} />
+                  <Input placeholder="milind@example.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -179,7 +179,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Reciever's country">Country</Label>
                 <FormControl>
-                  <Input placeholder="india" {...field} />
+                  <Input placeholder="India" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -192,7 +192,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Reciever's state">State</Label>
                 <FormControl>
-                  <Input placeholder="delhi" {...field} />
+                  <Input placeholder="Bihar" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -205,7 +205,7 @@ export function UserDetails({ form }: UserDetailsProps) {
               <FormItem>
                 <Label htmlFor="Reciever's zipcode">Zipcode</Label>
                 <FormControl>
-                  <Input placeholder="110034" {...field} />
+                  <Input placeholder="110344" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

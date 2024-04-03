@@ -30,8 +30,10 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
           <p>
             {templateValues.basicDetails.from?.address?.country}
             {templateValues.basicDetails.from?.address?.country && ", "}
-            {templateValues.basicDetails.from?.address?.state} -{" "}
-            {templateValues.basicDetails.from?.address?.zipCode}
+            {templateValues.basicDetails.from?.address?.state}
+            {templateValues.basicDetails.from?.address?.zipCode && (
+              <>- {templateValues.basicDetails.from?.address?.zipCode}</>
+            )}
           </p>
         </div>
       </div>
