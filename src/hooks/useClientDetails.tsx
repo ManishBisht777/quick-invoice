@@ -1,4 +1,4 @@
-import { getBasicDetails } from "@/server/actions/invoice";
+import { getBasicDetails } from "@/server/actions/basicDetails";
 import { useEffect, useState } from "react";
 
 export default function useClientDetails() {

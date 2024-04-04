@@ -26,7 +26,7 @@ export default async function page({}: Props) {
     <div className="space-y-5 p-2">
       <div className="px-6 py-8 border rounded-lg w-full flex justify-between items-center">
         <div>
-          <h2 className="text-xl font-semibold">Dashboard</h2>
+          <h2 className="text-xl font-semibold">All Invoices</h2>
           <p className="text-muted-foreground text-sm">
             Manage all your invoices in one place
           </p>

@@ -99,9 +99,10 @@ model basicInvoiceDetails {
     phone     String?
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
+    name      String
 
-    isSender Boolean
-    name     String
+    detailsName String
+    isSender    Boolean
 
     user User @relation(fields: [userId], references: [id])
 

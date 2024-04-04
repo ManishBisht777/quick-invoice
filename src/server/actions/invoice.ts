@@ -55,28 +55,4 @@ async function updateInvoiceStatus(invoiceId: string, status: $Enums.Status) {
   }
 }
 
-async function getBasicDetails() {
-  try {
-    const session = await getSession();
-    if (!session) {
-      return {
-        message: "User is not logged in",
-      };
-    } else {
-      const basicDetails = await db.basicInvoiceDetails.findMany({
-        where: {
-          userId: session.user.id,
-        },
-      });
-
-      return basicDetails;
-    }
-  } catch (error) {
-    console.log(error);
-    return {
-      message: "Error getting client details",
-    };
-  }
-}
-
-export { deleteInvoice, updateInvoiceStatus, getBasicDetails };
+export { deleteInvoice, updateInvoiceStatus };
