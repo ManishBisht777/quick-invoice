@@ -9,7 +9,7 @@
     "lint": "next lint",
     "db:studio": "pnpx prisma studio --schema=./src/prisma/schema.prisma",
     "db:generate": "pnpx prisma generate --schema=./src/prisma/schema.prisma",
-    "db:migrate": "pnpx prisma migrate dev",
+    "db:migrate": "pnpx prisma migrate dev --schema=./src/prisma/schema.prisma",
     "db:push": "pnpx prisma db push --schema=./src/prisma/schema.prisma",
     "db:pull": "pnpx prisma db pull",
     "db:seed": "node ./prisma/seed.js",

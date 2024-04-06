@@ -1,3 +1,4 @@
+import CreateDetails from "@/components/modal/createDetails";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getBasicDetails } from "@/server/actions/basicDetails";
@@ -31,10 +32,7 @@ export default async function page() {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        <div className="flex border-dashed items-center justify-center border h-40 rounded-md flex-col gap-2">
-          <Plus size={24} />
-          Create new details
-        </div>
+        <CreateDetails />
 
         {basicDetails.map((detail: any, index: number) => (
           <div className={cn("p-2 border rounded-md relative")} key={detail.id}>
