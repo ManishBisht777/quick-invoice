@@ -41,11 +41,12 @@ async function saveInvoice(
             isSender: false,
             phone: templateValues.basicDetails.to?.phoneNumber,
             zip: templateValues.basicDetails.to?.address?.zipCode,
-            name: name,
+            name: templateValues.basicDetails.to?.name,
+            detailsName: name,
+            email: templateValues.basicDetails.to?.email,
           },
         });
       }
-
       return invoice;
     }
   } catch (error) {

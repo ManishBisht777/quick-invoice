@@ -2,6 +2,7 @@ import CreateDetails from "@/components/modal/createDetails";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getBasicDetails } from "@/server/actions/basicDetails";
+import { basicInvoiceDetails } from "@prisma/client";
 import { PencilIcon, Plus, Star } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -12,6 +13,8 @@ export default async function page() {
   if (basicDetails.message) {
     toast.error(basicDetails.message);
   }
+
+  console.log(basicDetails);
 
   return (
     <div className="space-y-5 p-2">
@@ -34,8 +37,9 @@ export default async function page() {
       <div className="grid grid-cols-4 gap-4">
         <CreateDetails />
 
-        {basicDetails.map((detail: any, index: number) => (
+        {basicDetails.map((detail: basicInvoiceDetails, index: number) => (
           <div className={cn("p-2 border rounded-md relative")} key={detail.id}>
+            <p className="text-sm font-medium">{detail.detailsName}</p>
             <p className="text-sm font-medium">{detail.name}</p>
             <div className="text-xs text-muted-foreground mt-1">
               <p>{detail.address}</p>
