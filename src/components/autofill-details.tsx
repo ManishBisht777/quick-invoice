@@ -15,42 +15,37 @@ import { Tabs, TabsContent, TabsList, TabsTriggerV2 } from "./ui/tabs";
 
 interface AutofillDetailsProps {
   setValue: any;
-  basicDetails: any;
+  basicDetails: basicInvoiceDetails[];
 }
 
 export default function AutofillDetails({
   basicDetails,
   setValue,
 }: AutofillDetailsProps) {
-  const [selectedField, setSelectedField] =
-    useState<basicInvoiceDetails | null>();
   const [open, setOpen] = useState(false);
 
-  const fillDetails = () => {
-    if (!selectedField) {
-      toast.error("Please select a address to autofill");
-      return;
+  const fillDetails = (isSender: boolean, details: basicInvoiceDetails) => {
+    if (isSender) {
+      setValue("basicDetails.from.address.address", details.address);
+      setValue("basicDetails.from.address.city", details.city);
+      setValue("basicDetails.from.address.country", details.country);
+      setValue("basicDetails.from.address.state", details.state);
+      setValue("basicDetails.from.phoneNumber", details.phone);
+      setValue("basicDetails.from.address.zipCode", details.zip);
+      setValue("basicDetails.from.name", details.name);
+    } else {
+      setValue("basicDetails.to.address.address", details.address);
+      setValue("basicDetails.to.address.city", details.city);
+      setValue("basicDetails.to.address.country", details.country);
+      setValue("basicDetails.to.address.state", details.state);
+      setValue("basicDetails.to.phoneNumber", details.phone);
+      setValue("basicDetails.to.address.zipCode", details.zip);
+      setValue("basicDetails.to.name", details.name);
     }
-
-    setValue("basicDetails.to.address.address", selectedField.address);
-    setValue("basicDetails.to.address.city", selectedField.city);
-    setValue("basicDetails.to.address.country", selectedField.country);
-    setValue("basicDetails.to.address.state", selectedField.state);
-    setValue("basicDetails.to.phoneNumber", selectedField.phone);
-    setValue("basicDetails.to.address.zipCode", selectedField.zip);
-    setValue("basicDetails.to.name", selectedField.name);
 
     toast.success("Details auto-filled successfully");
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (!selectedField) {
-      return;
-    }
-
-    fillDetails();
-  }, [selectedField]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -67,63 +62,63 @@ export default function AutofillDetails({
 
         <Tabs defaultValue="receiver">
           <TabsList className="grid grid-cols-2 gap-4 w-full">
-            <TabsTriggerV2 disabled value="sender">
-              Sender
-            </TabsTriggerV2>
+            <TabsTriggerV2 value="sender">Sender</TabsTriggerV2>
             <TabsTriggerV2 value="receiver">Receiver</TabsTriggerV2>
           </TabsList>
           <TabsContent value="sender">
-            {/* <div className="grid grid-cols-3 gap-4 mt-5">
-              {basicDetails.map((detail: any, index: number) => (
-                <div
-                  className={cn("p-2 border rounded-md cursor-pointer")}
-                  key={detail.id}
-                  onClick={() => {
-                    setSelectedField(detail);
-                  }}
-                >
-                  <p className="text-sm font-medium">{detail.name}</p>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    <p>{detail.address}</p>
-                    <div className="flex gap-1">
-                      <p>{detail.city}</p>
-                      <p>{detail.state}</p>
-                      <span>{detail.country}</span>
-                      <span>{detail.zip}</span>
+            <div className="grid grid-cols-3 gap-4 mt-5">
+              {basicDetails
+                .filter((detail) => detail.isSender)
+                .map((detail) => (
+                  <div
+                    className={cn("p-2 border rounded-md cursor-pointer")}
+                    key={detail.id}
+                    onClick={() => {
+                      fillDetails(true, detail);
+                    }}
+                  >
+                    <p className="text-sm font-medium">{detail.detailsName}</p>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      <p>{detail.name}</p>
+                      <p>{detail.address}</p>
+                      <div className="flex gap-1">
+                        <p>{detail.city}</p>
+                        <p>{detail.state}</p>
+                        <span>{detail.country}</span>
+                        <span>{detail.zip}</span>
+                      </div>
+                      <span>{detail.phone}</span>
                     </div>
-                    <span>{detail.phone}</span>
                   </div>
-                </div>
-              ))}
-            </div> */}
-            <div className="w-full h-full flex justify-center items-center">
-              <p>Feature coming soon.</p>
+                ))}
             </div>
           </TabsContent>
           <TabsContent value="receiver">
             <div className="grid grid-cols-3 gap-4 mt-5">
-              {basicDetails.map((detail: any, index: number) => (
-                <div
-                  className={cn("p-2 border rounded-md cursor-pointer")}
-                  key={detail.id}
-                  onClick={() => {
-                    setSelectedField(detail);
-                  }}
-                >
-                  <p className="text-sm font-medium">{detail.name}</p>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    <p>{detail.address}</p>
-                    <div className="flex gap-1">
-                      <p>{detail.city}</p>
-                      <p>{detail.state}</p>
-                      <span>{detail.country}</span>
-                      <span>{detail.zip}</span>
+              {basicDetails
+                .filter((detail) => !detail.isSender)
+                .map((detail) => (
+                  <div
+                    className={cn("p-2 border rounded-md cursor-pointer")}
+                    key={detail.id}
+                    onClick={() => {
+                      fillDetails(false, detail);
+                    }}
+                  >
+                    <p className="text-sm font-medium">{detail.detailsName}</p>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      <p>{detail.name}</p>
+                      <p>{detail.address}</p>
+                      <div className="flex gap-1">
+                        <p>{detail.city}</p>
+                        <p>{detail.state}</p>
+                        <span>{detail.country}</span>
+                        <span>{detail.zip}</span>
+                      </div>
+                      <span>{detail.phone}</span>
                     </div>
-                    <span>{detail.phone}</span>
                   </div>
-                  {/* <pre>{JSON.stringify(detail, null, 2)}</pre> */}
-                </div>
-              ))}
+                ))}
             </div>
           </TabsContent>
         </Tabs>

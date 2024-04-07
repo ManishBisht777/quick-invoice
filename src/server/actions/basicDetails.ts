@@ -1,6 +1,6 @@
 "use server";
 
-import { basicInvoiceDetailsSchema } from "@/components/modal/CreateDetails";
+import { basicInvoiceDetailsSchema } from "@/components/form/basicDetailsForm";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import { z } from "zod";
@@ -134,7 +134,7 @@ async function updateBasicDetails(
 
 export {
   getBasicDetails,
-  saveBasicDetails,
   getBasicDetailsById,
+  saveBasicDetails,
   updateBasicDetails,
 };
