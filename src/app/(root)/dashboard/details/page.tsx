@@ -1,4 +1,4 @@
-import CreateDetails from "@/components/modal/createDetails";
+import CreateDetails from "@/components/modal/CreateDetails";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getBasicDetails } from "@/server/actions/basicDetails";
@@ -10,11 +10,9 @@ import { toast } from "sonner";
 export default async function page() {
   const basicDetails = await getBasicDetails();
 
-  if (basicDetails.message) {
+  if (basicDetails.status === "error") {
     toast.error(basicDetails.message);
   }
-
-  console.log(basicDetails);
 
   return (
     <div className="space-y-5 p-2">
@@ -37,7 +35,7 @@ export default async function page() {
       <div className="grid grid-cols-4 gap-4">
         <CreateDetails />
 
-        {basicDetails.map((detail: basicInvoiceDetails, index: number) => (
+        {basicDetails?.data?.map((detail: basicInvoiceDetails) => (
           <div className={cn("p-2 border rounded-md relative")} key={detail.id}>
             <p className="font-medium">{detail.detailsName}</p>
             <p className="text-sm text-muted-foreground font-medium">
