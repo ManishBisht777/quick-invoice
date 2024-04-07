@@ -29,6 +29,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { saveBasicDetails } from "@/server/actions/basicDetails";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface CreateDetailsProps {}
 
@@ -46,6 +47,8 @@ const basicInvoiceDetailsSchema = z.object({
 });
 
 export default function CreateDetails({}: CreateDetailsProps) {
+  const [open, setOpen] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof basicInvoiceDetailsSchema>>({
     defaultValues: {
       address: "",
@@ -64,19 +67,19 @@ export default function CreateDetails({}: CreateDetailsProps) {
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof basicInvoiceDetailsSchema>) {
-    console.log(values);
-
     const data = await saveBasicDetails(values);
     if (data.message) {
       toast.error(data.message);
     } else {
       toast.success("Details saved successfully");
+      form.reset();
       router.refresh();
+      setOpen(false);
     }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div className="flex border-dashed items-center justify-center border h-40 rounded-md flex-col cursor-pointer">
           <Plus size={24} />
@@ -242,6 +245,23 @@ export default function CreateDetails({}: CreateDetailsProps) {
                           details
                         </FormDescription>
                       </div>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={"detailsName"}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label htmlFor="Sender's name">Name</Label>
+                      <FormControl>
+                        <Input
+                          placeholder="Manish bisht"
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
