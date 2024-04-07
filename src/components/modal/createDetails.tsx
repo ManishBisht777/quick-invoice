@@ -8,8 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
+import { saveBasicDetails } from "@/server/actions/basicDetails";
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import {
   Form,
   FormControl,
@@ -19,21 +26,12 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useForm } from "react-hook-form";
-import { basicInvoiceDetails } from "@prisma/client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Checkbox } from "../ui/checkbox";
-import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
-import { saveBasicDetails } from "@/server/actions/basicDetails";
-import { toast } from "sonner";
-import { useState } from "react";
 
 interface CreateDetailsProps {}
 
-const basicInvoiceDetailsSchema = z.object({
+export const basicInvoiceDetailsSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string(),
@@ -43,7 +41,7 @@ const basicInvoiceDetailsSchema = z.object({
   zip: z.string(),
   city: z.string(),
   isSender: z.boolean(),
-  detailsName: z.string(),
+  detailsName: z.string().min(1, "Details name is required"),
 });
 
 export default function CreateDetails({}: CreateDetailsProps) {
@@ -100,7 +98,7 @@ export default function CreateDetails({}: CreateDetailsProps) {
                 <h2 className="text-xl font-semibold w-fit">
                   Sender&apos;s details
                 </h2>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <FormField
                     control={form.control}
                     name={"name"}
@@ -229,7 +227,7 @@ export default function CreateDetails({}: CreateDetailsProps) {
                   control={form.control}
                   name="isSender"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                       <FormControl>
                         <Checkbox
                           checked={field.value}
@@ -261,6 +259,9 @@ export default function CreateDetails({}: CreateDetailsProps) {
                           value={field.value || ""}
                         />
                       </FormControl>
+                      <FormDescription>
+                        Enter a name to save these details as
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

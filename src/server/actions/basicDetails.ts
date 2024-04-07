@@ -1,8 +1,9 @@
 "use server";
 
+import { basicInvoiceDetailsSchema } from "@/components/modal/createDetails";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/session";
-import { basicInvoiceDetails } from "@prisma/client";
+import { z } from "zod";
 
 async function getBasicDetails() {
   try {
@@ -28,11 +29,14 @@ async function getBasicDetails() {
   }
 }
 
-async function saveBasicDetails(data: basicInvoiceDetails) {
+async function saveBasicDetails(
+  data: z.infer<typeof basicInvoiceDetailsSchema>
+) {
   try {
     const session = await getSession();
     if (!session) {
       return {
+        status: "error",
         message: "User is not logged in",
       };
     } else {
@@ -43,11 +47,15 @@ async function saveBasicDetails(data: basicInvoiceDetails) {
         },
       });
 
-      return basicDetails;
+      return {
+        status: "success",
+        data: basicDetails,
+      };
     }
   } catch (error) {
     console.log(error);
     return {
+      status: "error",
       message: "Error saving client details",
     };
   }

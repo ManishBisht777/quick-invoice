@@ -3,7 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getBasicDetails } from "@/server/actions/basicDetails";
 import { basicInvoiceDetails } from "@prisma/client";
-import { PencilIcon, Plus, Star } from "lucide-react";
+import { PencilIcon, Star } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -39,8 +39,10 @@ export default async function page() {
 
         {basicDetails.map((detail: basicInvoiceDetails, index: number) => (
           <div className={cn("p-2 border rounded-md relative")} key={detail.id}>
-            <p className="text-sm font-medium">{detail.detailsName}</p>
-            <p className="text-sm font-medium">{detail.name}</p>
+            <p className="font-medium">{detail.detailsName}</p>
+            <p className="text-sm text-muted-foreground font-medium">
+              {detail.name}
+            </p>
             <div className="text-xs text-muted-foreground mt-1">
               <p>{detail.address}</p>
               <div className="flex gap-1">
