@@ -1,3 +1,5 @@
+"use client";
+
 import CreateDetails from "@/components/modal/CreateDetails";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
