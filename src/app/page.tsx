@@ -1,5 +1,5 @@
 import Navbar from "@/components/layout/navbar";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,8 +9,13 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronRight, Sparkles } from "lucide-react";
-import Image from "next/image";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Snappy Invoice",
+  description: "Snappy Invoice",
+};
 
 export default function Home() {
   return (

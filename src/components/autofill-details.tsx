@@ -12,17 +12,15 @@ import { basicInvoiceDetails } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTriggerV2 } from "./ui/tabs";
+import useClientDetails from "@/hooks/useClientDetails";
 
 interface AutofillDetailsProps {
   setValue: any;
-  basicDetails: basicInvoiceDetails[];
 }
 
-export default function AutofillDetails({
-  basicDetails,
-  setValue,
-}: AutofillDetailsProps) {
+export default function AutofillDetails({ setValue }: AutofillDetailsProps) {
   const [open, setOpen] = useState(false);
+  const { basicDetails } = useClientDetails();
 
   const fillDetails = (isSender: boolean, details: basicInvoiceDetails) => {
     if (isSender) {

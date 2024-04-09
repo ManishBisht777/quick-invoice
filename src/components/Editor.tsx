@@ -4,7 +4,7 @@ import { emptyTemplateProps } from "@/config/template";
 import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,6 +19,7 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import useClientDetails from "@/hooks/useClientDetails";
 import AutofillDetails from "./autofill-details";
+import { useSession } from "next-auth/react";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -28,13 +29,12 @@ export default function Editor({ id }: { id: string }) {
   });
 
   const [loading, setLoading] = useState(false);
+  const user = useSession().data?.user;
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
   });
-
-  const { basicDetails } = useClientDetails();
 
   const Template = AllTemplates[id]?.component;
 
@@ -87,16 +87,24 @@ export default function Editor({ id }: { id: string }) {
                 </TabsList>
                 <TabsContent className="relative space-y-2 mt-2" value="user">
                   <div className="flex justify-between p-3 border rounded-lg items-center">
-                    <div>
-                      <p className="font-medium">Autofill from saved details</p>
-                      <p className="text-xs">
-                        You can edit the saved details from dashboard
+                    {!user ? (
+                      <p className="font-medium flex gap-1 items-center">
+                        <Info size={18} className="mr-1" />
+                        You can enabled autofill by signing in
                       </p>
-                    </div>
-                    <AutofillDetails
-                      setValue={form.setValue}
-                      basicDetails={basicDetails}
-                    />
+                    ) : (
+                      <>
+                        <div>
+                          <p className="font-medium">
+                            Autofill from saved details
+                          </p>
+                          <p className="text-xs">
+                            You can edit the saved details from dashboard
+                          </p>
+                        </div>
+                        <AutofillDetails setValue={form.setValue} />
+                      </>
+                    )}
                   </div>
                   <UserDetails form={form} />
                 </TabsContent>
@@ -121,9 +129,11 @@ export default function Editor({ id }: { id: string }) {
 
         <div className="md:w-1/2 w-full space-y-4">
           <div className="flex justify-end gap-2">
-            {/* <Button variant="secondary">New</Button> */}
-
-            <SaveInvoice initialValues={form.watch()} />
+            {!user ? (
+              <Button variant="secondary">Sign in to save</Button>
+            ) : (
+              <SaveInvoice initialValues={form.watch()} />
+            )}
 
             <Button onClick={savePdf} className="gap-2">
               {loading && <Loader2 size={18} className="animate-spin" />}
