@@ -21,6 +21,7 @@ import {
   updateBasicDetails,
 } from "@/server/actions/basicDetails";
 import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // TODO: Add types for props
 interface BasicDetailsFormProps {
@@ -30,7 +31,7 @@ interface BasicDetailsFormProps {
 
 export const basicInvoiceDetailsSchema = z.object({
   name: z.string(),
-  email: z.string().email(),
+  email: z.string(),
   phone: z.string(),
   address: z.string(),
   country: z.string(),
@@ -38,13 +39,14 @@ export const basicInvoiceDetailsSchema = z.object({
   zip: z.string(),
   city: z.string(),
   isSender: z.boolean(),
-  detailsName: z.string().min(1, "Details name is required"),
+  detailsName: z.string().min(1, "Enter a name to save these details as"),
 });
 
 export default function BasicDetailsForm({
   initialValues,
 }: BasicDetailsFormProps) {
   const form = useForm<z.infer<typeof basicInvoiceDetailsSchema>>({
+    resolver: zodResolver(basicInvoiceDetailsSchema),
     defaultValues: initialValues || {
       address: "",
       city: "",
