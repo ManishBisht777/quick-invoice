@@ -48,7 +48,7 @@ export default function AutofillDetails({ setValue }: AutofillDetailsProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="z-50" asChild>
-        <Button>Saved details</Button>
+        <Button>Autofill</Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>

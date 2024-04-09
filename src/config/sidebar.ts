@@ -9,8 +9,4 @@ export const sidebarConfig: SidebarNavItem[] = [
     title: "Client Details",
     href: "/dashboard/details",
   },
-  {
-    title: "Billing",
-    href: "/dashboard/billing",
-  },
 ];

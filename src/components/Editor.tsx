@@ -85,25 +85,17 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="items">Items</TabsTrigger>
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
-                <TabsContent className="relative space-y-2 mt-2" value="user">
-                  <div className="flex justify-between p-3 border rounded-lg items-center">
+                <TabsContent className="relative space-y-2 mt-4" value="user">
+                  <div className="flex justify-end rounded-lg items-center mb-4">
                     {!user ? (
-                      <p className="font-medium flex gap-1 items-center">
-                        <Info size={18} className="mr-1" />
-                        You can enabled autofill by signing in
-                      </p>
+                      <div className="border p-4 rounded-md w-full">
+                        <p className="font-medium flex gap-1 items-center">
+                          <Info size={18} className="mr-1" />
+                          You can access this feature by signing in
+                        </p>
+                      </div>
                     ) : (
-                      <>
-                        <div>
-                          <p className="font-medium">
-                            Autofill from saved details
-                          </p>
-                          <p className="text-xs">
-                            You can edit the saved details from dashboard
-                          </p>
-                        </div>
-                        <AutofillDetails setValue={form.setValue} />
-                      </>
+                      <AutofillDetails setValue={form.setValue} />
                     )}
                   </div>
                   <UserDetails form={form} />
