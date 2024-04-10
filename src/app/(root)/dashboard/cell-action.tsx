@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertModal } from "@/components/modal/AlertModal";
 import { EditInvoiceStatus } from "@/components/modal/EditInvoiceStatus";
 import { Button } from "@/components/ui/button";
@@ -10,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { deleteInvoice } from "@/server/actions/invoice";
 import { Invoice } from "@prisma/client";
-import { MoreHorizontal, Pencil, Trash } from "lucide-react";
+import { MoreHorizontal, MoreVertical, Pencil, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -60,19 +62,16 @@ export default function CellAction({ data }: CellActionProps) {
       <div className="flex justify-end">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+            <MoreVertical className="h-6 w-6" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Options</DropdownMenuLabel>
+          <DropdownMenuContent align="start">
+            <DropdownMenuLabel>Invoice options</DropdownMenuLabel>
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => setDeleteModal(true)}
             >
               <Trash className="w-4 h-4 mr-2" />
-              Delete
+              Delete invoice
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
