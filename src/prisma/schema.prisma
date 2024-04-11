@@ -54,6 +54,7 @@ model User {
     sessions            Session[]
     Invoice             Invoice[]
     basicInvoiceDetails basicInvoiceDetails[]
+    paymentDetails      paymentDetails[]
 
     @@map(name: "users")
 }
@@ -107,4 +108,20 @@ model basicInvoiceDetails {
     user User @relation(fields: [userId], references: [id])
 
     @@map(name: "basic_details")
+}
+
+model paymentDetails {
+    id     String @id @default(cuid())
+    userId String
+
+    bankName      String?
+    accountName   String?
+    accountNumber String?
+
+    user User @relation(fields: [userId], references: [id])
+
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    @@map(name: "payment_details")
 }
