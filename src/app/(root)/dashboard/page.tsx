@@ -26,8 +26,8 @@ export default async function page({}: Props) {
   });
 
   return (
-    <div className="space-y-5 p-2">
-      <div className="px-6 py-8 border rounded-lg w-full flex justify-between items-center">
+    <div className="space-y-10 p-2">
+      <div className="rounded-lg w-full flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-semibold font-serif flex gap-1 items-center">
             Dashboard <ChevronRight />
@@ -37,16 +37,9 @@ export default async function page({}: Props) {
             Manage all your invoices in one place
           </p>
         </div>
-        {/* <Link
-          className={cn(buttonVariants(), "flex gap-2")}
-          href="https://github.com/manishbisht777/quick-invoice/"
-        >
-          <Star size={16} />
-          Star
-        </Link> */}
       </div>
 
-      <div className="grid md:grid-cols-4 grid-cols-2 gap-5">
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-5">
         {invoices.map((invoice) => (
           <div
             key={invoice.id}

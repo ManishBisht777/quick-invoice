@@ -80,7 +80,7 @@ export default function BasicDetailsForm({
   }
 
   return (
-    <div className="py-4">
+    <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-3">

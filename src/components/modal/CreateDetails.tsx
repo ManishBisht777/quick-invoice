@@ -20,8 +20,8 @@ export default function CreateDetails({}: CreateDetailsProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="flex border-dashed items-center justify-center border h-40 rounded-md flex-col cursor-pointer">
-          <Plus size={24} />
+        <div className="text-xl flex border-dashed border-2 items-center justify-center rounded-md flex-col cursor-pointer h-full gap-1 capitalize hover:bg-slate-50/40">
+          <Plus size={30} />
           Create new details
         </div>
       </DialogTrigger>
