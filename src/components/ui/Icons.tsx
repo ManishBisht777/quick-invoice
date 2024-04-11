@@ -1,8 +1,9 @@
-import { Blocks, LucideProps, Users } from "lucide-react";
+import { Blocks, LucideProps, PiggyBank, Users } from "lucide-react";
 
 export const Icons = {
   invoices: Blocks,
   clients: Users,
+  payments: PiggyBank,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

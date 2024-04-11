@@ -11,4 +11,9 @@ export const sidebarConfig: SidebarNavItem[] = [
     href: "/dashboard/details",
     icon: "clients",
   },
+  {
+    title: "Payment Details",
+    href: "/dashboard/payments",
+    icon: "payments",
+  },
 ];

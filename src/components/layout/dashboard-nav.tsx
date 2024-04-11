@@ -32,7 +32,7 @@ export function DashboardNav({ items }: DashboardNavProps) {
               <Link key={index} href={item.href}>
                 <p
                   className={cn(
-                    "group flex items-center text-slate-700 rounded-md px-3 py-3 text-sm hover:bg-accent hover:text-accent-foreground",
+                    "group flex items-center text-slate-700 rounded-xl px-3 py-3 text-sm hover:bg-accent hover:text-accent-foreground",
                     path === item.href
                       ? "bg-primary text-white hover:bg-primary hover:text-white"
                       : "transparent"
