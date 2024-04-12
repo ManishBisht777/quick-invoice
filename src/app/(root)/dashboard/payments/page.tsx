@@ -1,7 +1,10 @@
-import { ChevronRight } from "lucide-react";
-import Image from "next/image";
+import CreatePayment from "@/components/modal/CreatePayment";
+import { getPaymentDetails } from "@/server/actions/paymentDetails";
+import { ChevronRight, Landmark, UserRound } from "lucide-react";
 
-export default function page() {
+export default async function page() {
+  const paymentDetails = await getPaymentDetails();
+
   return (
     <div className="space-y-10 p-2">
       <div className="rounded-lg w-full flex justify-between items-center">
@@ -17,119 +20,34 @@ export default function page() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="w-full h-56 m-auto rounded-xl relative text-white shadow-2xl">
-          <Image
-            layout="fill"
-            className="relative object-cover w-full h-full rounded-xl"
-            src="https://i.imgur.com/Zi6v09P.png"
-            alt="Visa card"
-          />
-
-          <div className="w-full px-8 absolute top-8">
-            <div className="flex justify-between">
-              <div className="">
-                <p className="font-light">Name</p>
-                <p className="font-medium tracking-widest">Karthik P</p>
-              </div>
-            </div>
-            <div className="pt-1">
-              <p className="font-light">Card Number</p>
-              <p className="font-medium tracking-more-wider">
-                4642 3489 9867 7632
-              </p>
-            </div>
-            <div className="pt-6 pr-6">
-              <div className="flex justify-between">
-                <div className="">
-                  <p className="font-light text-xs">Valid</p>
-                  <p className="font-medium tracking-wider text-sm">11/15</p>
-                </div>
-                <div className="">
-                  <p className="font-light text-xs">Expiry</p>
-                  <p className="font-medium tracking-wider text-sm">03/25</p>
-                </div>
-
-                <div className="">
-                  <p className="font-light text-xs">CVV</p>
-                  <p className="font-bold tracking-more-wider text-sm">···</p>
-                </div>
-              </div>
-            </div>
+        <CreatePayment />
+        {paymentDetails.data?.map((detail) => (
+          <div
+            className="border p-6 rounded-md space-y-1 relative"
+            key={detail.id}
+          >
+            <p className="flex gap-2 items-center">
+              <Landmark className="w-4 h-4" />
+              {detail.bankName}
+            </p>
+            <p className="flex gap-2 items-center">
+              <UserRound className="w-4 h-4" />
+              {detail.accountNumber}
+            </p>
+            <p className="flex gap-2 items-center">
+              <UserRound className="w-4 h-4" />
+              {detail.ifscCode}
+            </p>
+            <p className="flex gap-2 items-center">
+              <UserRound className="w-4 h-4" />
+              {detail.accountName}
+            </p>
+            <p className="flex gap-2 items-center">
+              <UserRound className="w-4 h-4" />
+              {detail.detailsName}
+            </p>
           </div>
-        </div>
-        <div className="w-full h-56 m-auto rounded-xl relative text-white shadow-2xl">
-          <Image
-            layout="fill"
-            className="relative object-cover w-full h-full rounded-xl"
-            src="https://i.imgur.com/kGkSg1v.png"
-            alt="Visa card"
-          />
-
-          <div className="w-full px-8 absolute top-8">
-            <div className="flex justify-between">
-              <div className="">
-                <p className="font-light">Name</p>
-                <p className="font-medium tracking-widest">Karthik P</p>
-              </div>
-            </div>
-            <div className="pt-1">
-              <p className="font-light">Card Number</p>
-              <p className="font-medium tracking-more-wider">
-                4642 3489 9867 7632
-              </p>
-            </div>
-            <div className="pt-6 pr-6">
-              <div className="flex justify-between">
-                <div className="">
-                  <p className="font-light text-xs">Valid</p>
-                  <p className="font-medium tracking-wider text-sm">11/15</p>
-                </div>
-                <div className="">
-                  <p className="font-light text-xs">Expiry</p>
-                  <p className="font-medium tracking-wider text-sm">03/25</p>
-                </div>
-
-                <div className="">
-                  <p className="font-light text-xs">CVV</p>
-                  <p className="font-bold tracking-more-wider text-sm">···</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="w-full h-56 m-auto rounded-xl relative text-white shadow-2xl bg-gradient-to-r from-gray-500 to-gray-400">
-          <div className="w-full px-8 absolute top-8">
-            <div className="flex justify-between">
-              <div className="">
-                <p className="font-light">Name</p>
-                <p className="font-medium tracking-widest">Karthik P</p>
-              </div>
-            </div>
-            <div className="pt-1">
-              <p className="font-light">Card Number</p>
-              <p className="font-medium tracking-more-wider">
-                4642 3489 9867 7632
-              </p>
-            </div>
-            <div className="pt-6 pr-6">
-              <div className="flex justify-between">
-                <div className="">
-                  <p className="font-light text-xs">Valid</p>
-                  <p className="font-medium tracking-wider text-sm">11/15</p>
-                </div>
-                <div className="">
-                  <p className="font-light text-xs">Expiry</p>
-                  <p className="font-medium tracking-wider text-sm">03/25</p>
-                </div>
-
-                <div className="">
-                  <p className="font-light text-xs">CVV</p>
-                  <p className="font-bold tracking-more-wider text-sm">···</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
