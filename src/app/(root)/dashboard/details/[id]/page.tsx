@@ -25,7 +25,7 @@ export default async function page({ params: { id } }: detailsProps) {
     <div className="space-y-10 p-2">
       <div className="rounded-lg w-full flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-semibold font-serif flex gap-1 items-center">
+          <h2 className="text-2xl font-semibold flex gap-1 items-center">
             <Link href="/dashboard/details">Dashboard</Link>
             <ChevronRight />
             <span className="text-hot-orange">Basic details</span>
