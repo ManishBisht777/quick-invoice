@@ -28,6 +28,7 @@ import { Badge } from "../ui/badge";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface EditInvoiceStatusProps {
   data: Invoice;
@@ -73,6 +74,9 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
     setLoading(false);
   };
 
+  const invoiceDetails = JSON.parse(data.content);
+  console.log(invoiceDetails);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
@@ -83,36 +87,49 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-6 py-4">
-          <img
-            src={AllTemplates[data.template].image}
+          <Image
+            src="images/invoice-status.svg"
+            width={250}
+            height={100}
             alt=""
-            className="h-80"
           />
-          <div className="w-full">
-            <p className="text-xl font-semibold">{data.name}</p>
-            <div className="flex gap-2 mt-2">
-              <Badge variant="secondary">{data.template}</Badge>
-              <Badge>{data.status}</Badge>
+          <div className="w-full flex flex-col justify-between">
+            <div className="space-y-2">
+              <p className="text-xl font-semibold">{data.name}</p>
+              <div className="flex gap-2">
+                <Badge variant="secondary">{data.template}</Badge>
+                <Badge>{data.status}</Badge>
+              </div>
             </div>
-            <div className="flex justify-center flex-col items-center w-full mt-10">
-              <h3 className="text-5xl font-bold">{data.totalAmount}</h3>
-              <p className="text-xs text-muted-foreground">Amount</p>
+            <div className="flex justify-center flex-col items-center w-full">
+              <h3 className="text-4xl font-bold">{data.totalAmount}</h3>
+              <p className="text-xs text-muted-foreground">Total Amount</p>
             </div>
-            <Select onValueChange={setInvoiceStatus} value={invoiceStatus}>
-              <SelectTrigger className="mt-10">
-                <SelectValue placeholder="Change status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Status</SelectLabel>
-                  {status.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <div className="space-y-3">
+              <div className="space-y-1 ">
+                <p className="text-sm font-medium">
+                  {invoiceDetails.basicDetails.to.name}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {invoiceDetails.basicDetails.to.email}
+                </p>
+              </div>
+              <Select onValueChange={setInvoiceStatus} value={invoiceStatus}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Change status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Status</SelectLabel>
+                    {status.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
         <DialogFooter>
