@@ -132,9 +132,40 @@ async function updateBasicDetails(
   }
 }
 
+async function deleteBasicDetails(id: string) {
+  try {
+    const session = await getSession();
+    if (!session) {
+      return {
+        status: "error",
+        message: "User is not logged in",
+      };
+    } else {
+      await db.basicInvoiceDetails.delete({
+        where: {
+          id: id,
+          userId: session.user.id,
+        },
+      });
+
+      return {
+        status: "success",
+        message: "Client details deleted",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Error deleting client details",
+    };
+  }
+}
+
 export {
   getBasicDetails,
   getBasicDetailsById,
   saveBasicDetails,
   updateBasicDetails,
+  deleteBasicDetails,
 };

@@ -1,23 +1,11 @@
+import BasicDetailsAction from "@/components/basicDetailsAction";
 import CreateDetails from "@/components/modal/CreateDetails";
-import { Button, buttonVariants } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 import { getBasicDetails } from "@/server/actions/basicDetails";
 import { basicInvoiceDetails } from "@prisma/client";
-import {
-  ChevronRight,
-  Mail,
-  MapPin,
-  PencilIcon,
-  Phone,
-  Star,
-  Trash,
-  User,
-} from "lucide-react";
+import { ChevronRight, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { toast } from "sonner";
-
-const basicDetails = getBasicDetails();
 
 export default async function page() {
   const basicDetails = await getBasicDetails();
@@ -87,26 +75,7 @@ export default async function page() {
                 <span>{detail.phone}</span>
               </p>
             )}
-
-            <div className="absolute top-4 right-4 flex gap-2">
-              {/* <Button
-                className={cn(
-                  buttonVariants({ variant: "destructive" }),
-                  "w-6 h-6 flex justify-center items-center p-0"
-                )}
-              >
-                <Trash className="w-3 h-3" />
-              </Button> */}
-              <Link
-                className={cn(
-                  buttonVariants(),
-                  "w-6 h-6 flex justify-center items-center p-0"
-                )}
-                href={`/dashboard/details/${detail.id}`}
-              >
-                <PencilIcon className="w-3 h-3" />
-              </Link>
-            </div>
+            <BasicDetailsAction id={detail.id} />
           </div>
         ))}
       </div>
