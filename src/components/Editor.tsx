@@ -5,9 +5,12 @@ import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Info, Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
+import AutofillDetails from "./autofill-details";
+import AutofillPayment from "./autofill-payments";
 import { InvoiceDetails } from "./form/invoiceDetails";
 import ItemDetails from "./form/itemDetails";
 import { PaymentDetails } from "./form/paymentDetails";
@@ -17,9 +20,6 @@ import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import useClientDetails from "@/hooks/useClientDetails";
-import AutofillDetails from "./autofill-details";
-import { useSession } from "next-auth/react";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -37,6 +37,12 @@ export default function Editor({ id }: { id: string }) {
   });
 
   const Template = AllTemplates[id]?.component;
+
+  // useEffect(() => {
+  //   if (id) {
+  //     form.setValue("invoiceNumber", uuidv4());
+  //   }
+  // }, [id]);
 
   if (!Template) {
     return <div>Template not found</div>;
@@ -112,6 +118,16 @@ export default function Editor({ id }: { id: string }) {
                   />
                 </TabsContent>
                 <TabsContent value="bank details">
+                  {!user ? (
+                    <div className="border p-4 rounded-md w-full">
+                      <p className="font-medium flex gap-1 items-center">
+                        <Info size={18} className="mr-1" />
+                        You can access this feature by signing in
+                      </p>
+                    </div>
+                  ) : (
+                    <AutofillPayment setValue={form.setValue} />
+                  )}
                   <PaymentDetails form={form} />
                 </TabsContent>
               </Tabs>
@@ -131,21 +147,6 @@ export default function Editor({ id }: { id: string }) {
               {loading && <Loader2 size={18} className="animate-spin" />}
               Generate Pdf
             </Button>
-
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="outline">
-                  <EllipsisVertical size={18} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>More actions</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Export</DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
           </div>
           <Template initialValue={form.watch()} />
         </div>

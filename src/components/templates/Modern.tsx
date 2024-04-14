@@ -52,16 +52,12 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
             <p>{templateValues.basicDetails.to?.address?.state}</p>
             <p>{templateValues.basicDetails.to?.address?.zipCode}</p>
           </div>
-          <div>
+          {/* <div>
             <h2>Invoice Number</h2>
             <p className="text-[#1A1C21] font-semibold">
-              # {templateProps.invoiceNumber}
+              # {templateValues.invoiceNumber}
             </p>
-          </div>
-          <div>
-            <p>Invoice of</p>
-            <p className="text-[#E87117] text-xl font-bold">{totalAmount}</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex justify-between mt-4">
