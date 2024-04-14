@@ -10,8 +10,6 @@ import Image from "next/image";
 export default async function page() {
   const basicDetails = await getBasicDetails();
 
-  console.log(basicDetails);
-
   return (
     <div className="space-y-10 p-2">
       <div className="rounded-lg w-full flex justify-between items-center">

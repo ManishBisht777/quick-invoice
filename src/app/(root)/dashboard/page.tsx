@@ -73,7 +73,7 @@ export default async function page({}: Props) {
                       <MoveRight className="text-hot-orange group-hover:translate-x-1 transition-all" />
                     </div>
                   </SheetTrigger>
-                  <SheetContent className="w-[37rem]">
+                  <SheetContent className="w-[42rem]">
                     <p className="text-2xl font-semibold font-serif">
                       Invoice Details
                     </p>

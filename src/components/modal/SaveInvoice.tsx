@@ -77,7 +77,11 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
       if ("message" in data) {
         toast.error(data.message);
       } else {
+        setInvoiceName("");
+        setSaveClientDetails(false);
+        setClientName("");
         toast.success("Invoice saved successfully");
+
         setOpen(false);
         router.refresh();
       }
