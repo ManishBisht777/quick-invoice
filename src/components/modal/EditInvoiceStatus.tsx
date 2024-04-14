@@ -78,14 +78,14 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle>Edit status</DialogTitle>
           <DialogDescription>
             Change the status of the invoice
           </DialogDescription>
         </DialogHeader>
-        <div className="flex gap-6 py-4">
+        <div className="flex gap-6 py-4 ">
           <Image
             src="images/invoice-status.svg"
             width={250}
