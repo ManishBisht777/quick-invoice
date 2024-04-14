@@ -18,6 +18,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { items } from "@/types/template";
 
 interface SaveInvoiceProps {
   // TODO: Define the type for initialValues
@@ -50,17 +51,17 @@ export default function SaveInvoice({ initialValues }: SaveInvoiceProps) {
     setLoading(true);
     try {
       const total = initialValues.items.reduce(
-        (acc: number, item: any) => acc + item.amount,
+        (acc: number, item: items) => acc + item.price * item.quantity,
         0
       );
 
-      const taxPercentage = initialValues.tax;
+      const taxPercentage = initialValues.paymentDetails.tax;
       const taxAmount = (total * taxPercentage) / 100;
 
-      const discountPercentage = initialValues.discount;
+      const discountPercentage = initialValues.paymentDetails.discount;
       const discountAmount = (total * discountPercentage) / 100;
 
-      const shippingPercentage = initialValues.shipping;
+      const shippingPercentage = initialValues.paymentDetails.shipping;
       const shippingAmount = (total * shippingPercentage) / 100;
 
       const totalAmount = total + taxAmount - discountAmount + shippingAmount;

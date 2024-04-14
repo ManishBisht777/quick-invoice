@@ -75,7 +75,6 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
   };
 
   const invoiceDetails = JSON.parse(data.content);
-  console.log(invoiceDetails);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

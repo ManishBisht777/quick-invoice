@@ -1,5 +1,6 @@
 import { templateProps } from "@/config/template";
 import { getPercentageValue } from "@/lib/mathUtil";
+import { formatDate } from "@/lib/utils";
 import { initialTemplateProps } from "@/types/template";
 
 interface ModernTemplateProps {
@@ -68,7 +69,7 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 ? templateValues.invoiceDetails.issueDate.toLocaleDateString(
                     "en-IN"
                   )
-                : templateValues.invoiceDetails?.issueDate}
+                : formatDate(templateValues.invoiceDetails?.issueDate)}
             </p>
           </div>
           <div>
@@ -78,7 +79,7 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 ? templateValues.invoiceDetails.dueDate.toLocaleDateString(
                     "en-IN"
                   )
-                : templateValues.invoiceDetails?.dueDate}
+                : formatDate(templateValues.invoiceDetails?.dueDate)}
             </p>
           </div>
         </div>
