@@ -15,14 +15,33 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { templatePropsSchema } from "@/types/formSchema";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { codes } from "currency-codes";
 interface InvoiceDetailsProps {
-  form: any;
+  form: UseFormReturn<z.infer<typeof templatePropsSchema>>;
 }
 
 export function InvoiceDetails({ form }: InvoiceDetailsProps) {
+  const amount = 123444;
+  console.log(
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "UAH",
+      currencyDisplay: "narrowSymbol",
+    }).format(amount)
+  );
+
   return (
     <>
       <div className="space-y-6 mt-6 w-full">
@@ -56,7 +75,7 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={new Date(field.value)}
                         onSelect={field.onChange}
                         initialFocus
                       />
@@ -94,7 +113,7 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={new Date(field.value)}
                         onSelect={field.onChange}
                         initialFocus
                       />
@@ -105,6 +124,33 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="invoiceDetails.currency"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Currency</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl className="w-48">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a Currency" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {codes().map((code) => (
+                      <SelectItem key={code} value={code}>
+                        {code}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
       </div>
     </>
