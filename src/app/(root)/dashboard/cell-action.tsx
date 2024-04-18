@@ -22,7 +22,6 @@ interface CellActionProps {
 export default function CellAction({ data }: CellActionProps) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [editStatusModal, setEditStatusModal] = useState(false);
-
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -40,6 +39,29 @@ export default function CellAction({ data }: CellActionProps) {
     } catch (error) {
       console.log(error);
       toast.error("Error deleting invoice");
+    }
+    setLoading(false);
+  };
+
+  const savePdf = async () => {
+    setLoading(true);
+    const response = await fetch("/api/invoice/generate", {
+      method: "POST",
+      body: JSON.stringify({
+        values: data,
+        templateId: data.template,
+      }),
+    });
+    const result = await response.blob();
+
+    if (result instanceof Blob && result.size > 0) {
+      const url = window.URL.createObjectURL(result);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "invoice.pdf";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
     }
     setLoading(false);
   };
@@ -63,7 +85,7 @@ export default function CellAction({ data }: CellActionProps) {
             <MoreVertical className="h-6 w-6" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center">
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem className="cursor-pointer" onClick={savePdf}>
               <Download className="w-4 h-4 mr-2" />
               Download invoice
             </DropdownMenuItem>
