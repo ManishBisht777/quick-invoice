@@ -1,3 +1,4 @@
+import { WorkType } from "@/enum/work";
 import { z } from "zod";
 
 const addressSchema = z.object({
@@ -29,6 +30,8 @@ const invoiceDetailsSchema = z.object({
   issueDate: z.string(),
   dueDate: z.string(),
   currency: z.string(),
+  workType: z.nativeEnum(WorkType),
+  hourlyRate: z.coerce.number(),
 });
 
 const itemSchema = z.object({
@@ -36,6 +39,7 @@ const itemSchema = z.object({
   description: z.string(),
   quantity: z.coerce.number().min(1),
   price: z.coerce.number(),
+  hours: z.string(),
 });
 
 const paymentDetailsSchema = z.object({
