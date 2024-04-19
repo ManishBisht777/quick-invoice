@@ -28,25 +28,20 @@ import {
   SelectValue,
 } from "../ui/select";
 import { codes } from "currency-codes";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { WorkType } from "@/enum/work";
 interface InvoiceDetailsProps {
   form: UseFormReturn<z.infer<typeof templatePropsSchema>>;
+  setValue: any;
 }
 
-export function InvoiceDetails({ form }: InvoiceDetailsProps) {
-  const amount = 123444;
-  console.log(
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "UAH",
-      currencyDisplay: "narrowSymbol",
-    }).format(amount)
-  );
-
+export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
   return (
     <>
       <div className="space-y-6 mt-6 w-full">
         <div className="space-y-3">
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="invoiceDetails.issueDate"
@@ -59,7 +54,7 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -97,7 +92,7 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -123,34 +118,71 @@ export function InvoiceDetails({ form }: InvoiceDetailsProps) {
                 </FormItem>
               )}
             />
-          </div>
-          <FormField
-            control={form.control}
-            name="invoiceDetails.currency"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Currency</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl className="w-48">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a Currency" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {codes().map((code) => (
-                      <SelectItem key={code} value={code}>
-                        {code}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+            <FormField
+              control={form.control}
+              name="invoiceDetails.currency"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Currency</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a Currency" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {codes().map((code) => (
+                        <SelectItem key={code} value={code}>
+                          {code}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {form.getValues("invoiceDetails.workType") === WorkType.HOURLY && (
+              <FormField
+                control={form.control}
+                name={"invoiceDetails.hourlyRate"}
+                render={({ field }) => (
+                  <FormItem>
+                    <Label htmlFor="Hourly Rate">Hourly Rate</Label>
+                    <FormControl>
+                      <Input placeholder="7" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
-          />
+          </div>
+
+          <div>
+            <h3>Pick a type</h3>
+
+            <div className="grid grid-cols-3 gap-2">
+              {Object.entries(WorkType).map(([key, value]) => (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("invoiceDetails.workType", value);
+                  }}
+                  className={cn(
+                    form.getValues("invoiceDetails.workType") === value &&
+                      "border border-black"
+                  )}
+                  key={key}
+                >
+                  {value}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

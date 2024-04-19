@@ -1,6 +1,7 @@
 import { templateProps } from "@/config/template";
+import { WorkType } from "@/enum/work";
 import { getPercentageValue } from "@/lib/mathUtil";
-import { formatDate } from "@/lib/utils";
+import { calculateHourlyAmount, cn, formatDate } from "@/lib/utils";
 import { initialTemplateProps } from "@/types/template";
 
 interface ModernTemplateProps {
@@ -90,22 +91,72 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
         </div>
 
         <div className="mt-3">
-          <div className="py-2 border-y-[1px] border-[#D7DAE0] justify-between grid grid-cols-7 gap-1 mb-2">
+          <div
+            className={cn(
+              "py-2 border-y-[1px] border-[#D7DAE0] justify-between grid gap-1 mb-2",
+              templateValues.invoiceDetails.workType === WorkType.QUANTITY
+                ? "grid-cols-7"
+                : "grid-cols-6"
+            )}
+          >
             <p className="col-span-4">Item</p>
-            <p className="col-span-1">Quantity</p>
-            <p className="col-span-1">Price</p>
-            <p className="col-span-1">Amount</p>
+            {templateValues.invoiceDetails.workType === WorkType.QUANTITY && (
+              <p className="col-span-1">Quantity</p>
+            )}
+
+            {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
+              <p className="col-span-1">Hours</p>
+            )}
+            {(templateValues.invoiceDetails.workType === WorkType.QUANTITY ||
+              templateValues.invoiceDetails.workType === WorkType.FIXED) && (
+              <p className="col-span-1">Price</p>
+            )}
+
+            <p>Amount</p>
           </div>
           <div className="flex flex-col gap-3 border-b border-[#D7DAE0] pb-3">
             {templateValues.items.map((item, index) => (
-              <div key={index} className="grid grid-cols-7 gap-1 items-center">
+              <div
+                key={index}
+                className={cn(
+                  "grid grid-cols-7 gap-1 items-center",
+                  templateValues.invoiceDetails.workType === WorkType.QUANTITY
+                    ? "grid-cols-7"
+                    : "grid-cols-6"
+                )}
+              >
                 <div className="col-span-4">
                   <p className="text-[#1A1C21] font-medium">{item.name}</p>
                   <p>{item.description}</p>
                 </div>
-                <p className="col-span-1">{item.quantity}</p>
-                <p className="col-span-1">{item.price}</p>
-                <p className="col-span-1">{item.price * item.quantity}</p>
+
+                {templateValues.invoiceDetails.workType ===
+                  WorkType.QUANTITY && (
+                  <p className="col-span-1">{item.quantity}</p>
+                )}
+
+                {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
+                  <p className="col-span-1">{item.hours}</p>
+                )}
+
+                {(templateValues.invoiceDetails.workType ===
+                  WorkType.QUANTITY ||
+                  templateValues.invoiceDetails.workType ===
+                    WorkType.FIXED) && (
+                  <p className="col-span-1">{item.price}</p>
+                )}
+
+                {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
+                  <p className="col-span-1">
+                    {calculateHourlyAmount(
+                      item.hours,
+                      templateValues.invoiceDetails.hourlyRate
+                    )}
+                  </p>
+                )}
+
+                {templateValues.invoiceDetails.workType ===
+                  WorkType.QUANTITY && <p>{item.price * item.quantity}</p>}
               </div>
             ))}
           </div>
