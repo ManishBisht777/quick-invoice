@@ -1,3 +1,5 @@
+import { WorkType } from "@/enum/work";
+
 export const templateProps = {
   basicDetails: {
     from: {
@@ -31,6 +33,8 @@ export const templateProps = {
     issueDate: "12/12/2021",
     dueDate: "12/12/2021",
     currency: "USD",
+    workType: WorkType.QUANTITY,
+    hourlyRate: 10,
   },
   invoiceNumber: "1234567890",
   items: [
@@ -39,24 +43,28 @@ export const templateProps = {
       description: "Item 1 description",
       quantity: 1,
       price: 100,
+      hours: "0",
     },
     {
       name: "Item 2",
       description: "Item 2 description",
       quantity: 1,
       price: 100,
+      hours: "0",
     },
     {
       name: "Item 3",
       description: "Item 1 description",
       quantity: 1,
       price: 100,
+      hours: "0",
     },
     {
       name: "Item 4",
       description: "Item 2 description",
       quantity: 1,
       price: 100,
+      hours: "0",
     },
   ],
   paymentDetails: {
@@ -102,6 +110,8 @@ export const emptyTemplateProps = {
     issueDate: "",
     dueDate: "",
     currency: "",
+    workType: WorkType.QUANTITY,
+    hourlyRate: 0,
   },
   invoiceNumber: "",
   items: [],

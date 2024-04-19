@@ -38,12 +38,6 @@ export default function Editor({ id }: { id: string }) {
 
   const Template = AllTemplates[id]?.component;
 
-  // useEffect(() => {
-  //   if (id) {
-  //     form.setValue("invoiceNumber", uuidv4());
-  //   }
-  // }, [id]);
-
   if (!Template) {
     return <div>Template not found</div>;
   }
@@ -85,7 +79,6 @@ export default function Editor({ id }: { id: string }) {
             <ScrollArea className="h-screen rounded-md">
               <Tabs className="h-screen" defaultValue="user">
                 <TabsList>
-                  {/* <TabsTrigger value="templates">Templates</TabsTrigger> */}
                   <TabsTrigger value="user">Basic</TabsTrigger>
                   <TabsTrigger value="client">Invoice</TabsTrigger>
                   <TabsTrigger value="items">Items</TabsTrigger>
@@ -107,7 +100,7 @@ export default function Editor({ id }: { id: string }) {
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent value="client">
-                  <InvoiceDetails form={form} />
+                  <InvoiceDetails form={form} setValue={form.setValue} />
                 </TabsContent>
                 <TabsContent value="items">
                   <ItemDetails

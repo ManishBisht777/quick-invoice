@@ -15,6 +15,8 @@ export interface invoiceDetails {
   issueDate: Date;
   dueDate: Date;
   currency: string;
+  workType: WorkerType;
+  hourlyRate: number;
 }
 
 export interface items {
@@ -22,6 +24,7 @@ export interface items {
   description: string;
   quantity: number;
   price: number;
+  hours: string;
 }
 
 export interface paymentDetails {

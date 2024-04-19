@@ -14,3 +14,11 @@ export function formatDate(date: string | null) {
     day: "numeric",
   });
 }
+
+export function calculateHourlyAmount(hoursWorked: string, hourlyRate: number) {
+  const [hours, minutes] = hoursWorked.split(":").map(Number);
+  const totalHours = hours + (minutes ? minutes / 60 : 0);
+  const totalAmount = totalHours * hourlyRate;
+
+  return totalAmount;
+}
