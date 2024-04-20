@@ -11,10 +11,27 @@ interface ModernTemplateProps {
 export default function Modern({ initialValue }: ModernTemplateProps) {
   const templateValues = initialValue || templateProps;
 
-  const totalAmount = templateValues.items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const totalAmount = templateValues.items.reduce((acc, item) => {
+    if (templateValues.invoiceDetails.workType === WorkType.QUANTITY) {
+      return acc + item.price * item.quantity;
+    }
+
+    if (templateValues.invoiceDetails.workType === WorkType.HOURLY) {
+      return (
+        acc +
+        calculateHourlyAmount(
+          item.hours,
+          templateValues.invoiceDetails.hourlyRate
+        )
+      );
+    }
+
+    if (templateValues.invoiceDetails.workType === WorkType.FIXED) {
+      return acc + item.price;
+    }
+
+    return acc;
+  }, 0);
 
   const formattedTotalAmount = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -101,18 +118,18 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
           >
             <p className="col-span-4">Item</p>
             {templateValues.invoiceDetails.workType === WorkType.QUANTITY && (
-              <p className="col-span-1">Quantity</p>
+              <p className="col-span-1 text-end">Quantity</p>
             )}
 
             {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
-              <p className="col-span-1">Hours</p>
+              <p className="col-span-1 text-end">Hours</p>
             )}
             {(templateValues.invoiceDetails.workType === WorkType.QUANTITY ||
               templateValues.invoiceDetails.workType === WorkType.FIXED) && (
-              <p className="col-span-1">Price</p>
+              <p className="col-span-1 text-end">Price</p>
             )}
 
-            <p>Amount</p>
+            <p className="col-span-1 text-end">Amount</p>
           </div>
           <div className="flex flex-col gap-3 border-b border-[#D7DAE0] pb-3">
             {templateValues.items.map((item, index) => (
@@ -132,22 +149,22 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
 
                 {templateValues.invoiceDetails.workType ===
                   WorkType.QUANTITY && (
-                  <p className="col-span-1">{item.quantity}</p>
+                  <p className="col-span-1 text-end">{item.quantity}</p>
                 )}
 
                 {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
-                  <p className="col-span-1">{item.hours}</p>
+                  <p className="col-span-1 text-end">{item.hours}</p>
                 )}
 
                 {(templateValues.invoiceDetails.workType ===
                   WorkType.QUANTITY ||
                   templateValues.invoiceDetails.workType ===
                     WorkType.FIXED) && (
-                  <p className="col-span-1">{item.price}</p>
+                  <p className="col-span-1 text-end">{item.price}</p>
                 )}
 
                 {templateValues.invoiceDetails.workType === WorkType.HOURLY && (
-                  <p className="col-span-1">
+                  <p className="col-span-1 text-end">
                     {calculateHourlyAmount(
                       item.hours,
                       templateValues.invoiceDetails.hourlyRate
@@ -156,7 +173,11 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
                 )}
 
                 {templateValues.invoiceDetails.workType ===
-                  WorkType.QUANTITY && <p>{item.price * item.quantity}</p>}
+                  WorkType.QUANTITY && (
+                  <p className="col-span-1 text-end">
+                    {item.price * item.quantity}
+                  </p>
+                )}
               </div>
             ))}
           </div>
@@ -252,18 +273,6 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
         <p>Terms & Conditions</p>
         <p>Please pay within 15 days of receiving this invoice.</p>
       </div>
-
-      {/* <div className="group-hover:flex absolute hidden transition-all w-full h-40 left-0 bottom-0 backdrop-blur justify-center items-center gap-4">
-        <Button>View</Button>
-        <Button>
-          <Link
-            className="flex gap-1 items-center"
-            href={`/editor/${TemplateName}`}
-          >
-            <EyeIcon className="mr-2 w-4 h-4" /> Use Template
-          </Link>
-        </Button>
-      </div> */}
     </div>
   );
 }
