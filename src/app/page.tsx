@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronRight, Sparkles } from "lucide-react";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -47,13 +48,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="w-full p-1 mt-14 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl">
-          <div className="w-full h-full rounded relative">
-            <img
-              src="/images/promotion/hero.png"
-              className="rounded-xl"
-              alt="hero image"
-            />
+        <div className="flex justify-center items-center w-full">
+          <div className="w-fit p-1 mt-14 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl">
+            <div className="max-w-[75rem] rounded relative">
+              <img
+                src="/images/promotion/hero.png"
+                className="rounded-xl"
+                alt="hero image"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -79,8 +82,15 @@ export default function Home() {
 
         <div className="grid grid-cols-5 gap-8 mt-10">
           <Card className="col-span-2">
-            <CardHeader className="h-80"></CardHeader>
-            <CardContent className="space-y-2">
+            <CardHeader className="relative h-96">
+              <Image
+                src="/images/promotion/edit_invoice.svg"
+                alt="invoice"
+                className="z-10"
+                layout="fill"
+              />
+            </CardHeader>
+            <CardContent className="space-y-2 mt-8">
               <CardTitle>Streamline Your Invoicing Process</CardTitle>
               <CardDescription className="text-primary">
                 Generate professional invoices in minutes with customizable
@@ -93,8 +103,16 @@ export default function Home() {
             </CardContent>
           </Card>
           <Card className="col-span-3">
-            <CardHeader className="h-80"></CardHeader>
-            <CardContent className="space-y-2">
+            <CardHeader className="relative h-96">
+              <Image
+                src="/images/promotion/hero.png"
+                alt="invoice"
+                className="z-10"
+                layout="fill"
+                objectFit="cover"
+              />
+            </CardHeader>
+            <CardContent className="space-y-2 mt-8">
               <CardTitle>Save Time with Autofill Details</CardTitle>
               <CardDescription className="text-primary">
                 Our autofill feature populates client information, saving you
@@ -107,8 +125,16 @@ export default function Home() {
             </CardContent>
           </Card>
           <Card className="col-span-3">
-            <CardHeader className="h-80"></CardHeader>
-            <CardContent className="space-y-2">
+            <CardHeader className="relative h-96">
+              <Image
+                src="/images/promotion/templates.svg"
+                alt="invoice"
+                className="z-10"
+                layout="fill"
+                objectFit="cover"
+              />
+            </CardHeader>
+            <CardContent className="space-y-2 mt-8">
               <CardTitle>Effortless Invoice Tracking</CardTitle>
               <CardDescription className="text-primary">
                 Mange invoices with ease
@@ -120,7 +146,15 @@ export default function Home() {
             </CardContent>
           </Card>
           <Card className="col-span-2">
-            <CardHeader className="h-80"></CardHeader>
+            <CardHeader className="relative h-96">
+              <Image
+                src="/images/promotion/manage_invoice.svg"
+                alt="invoice"
+                className="z-10"
+                layout="fill"
+                objectFit="cover"
+              />
+            </CardHeader>
             <CardContent className="space-y-2">
               <CardTitle>Full control</CardTitle>
               <CardDescription className="text-primary">

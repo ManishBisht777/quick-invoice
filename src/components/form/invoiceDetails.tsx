@@ -163,9 +163,9 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
           </div>
 
           <div>
-            <h3>Pick a type</h3>
+            <h3 className="font-medium text-sm">Pick a type</h3>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-2 mt-2">
               {Object.entries(WorkType).map(([key, value]) => (
                 <button
                   type="button"
@@ -173,8 +173,9 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
                     setValue("invoiceDetails.workType", value);
                   }}
                   className={cn(
+                    "p-3 rounded-lg border-2 border-slate-200",
                     form.getValues("invoiceDetails.workType") === value &&
-                      "border border-black"
+                      "border-black"
                   )}
                   key={key}
                 >
