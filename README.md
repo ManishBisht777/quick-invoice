@@ -27,8 +27,8 @@ An open-source application to generate invoices.
 - [x] Autofill details
 - [x] Autofill ui/ux
 - [x] Edit invoice b/w due,sent,paid
-- [ ] New mobile navigation [ tbd ]
-- [ ] bug fixes
+- [x] New mobile navigation [ tbd ]
+- [x] bug fixes
 - [ ] Signature upload
 
 If you have some suggestions, feel free to create an issue.
