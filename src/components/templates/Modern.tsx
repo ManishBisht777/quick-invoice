@@ -39,7 +39,7 @@ export default function Modern({ initialValue }: ModernTemplateProps) {
   }).format(totalAmount);
 
   return (
-    <div className="text-[#5E6470] md:text-sm text-xs w-full h-fit bg-[#F9FAFC] p-4 rounded-lg group relative">
+    <div className="text-[#5E6470] md:text-sm text-xs w-full h-fit bg-[#F9FAFC] md:p-4 px-2 py-0 rounded-lg group relative">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-[#1A1C21] font-semibold md:text-xl text-base">

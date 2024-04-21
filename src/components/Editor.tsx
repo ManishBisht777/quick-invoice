@@ -20,6 +20,16 @@ import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -142,6 +152,94 @@ export default function Editor({ id }: { id: string }) {
             </Button>
           </div>
           <Template initialValue={form.watch()} />
+
+          <div className="md:hidden flex">
+            <Drawer>
+              <DrawerTrigger asChild>
+                <Button className="w-full">Fill details</Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-[85vh]">
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle className="">
+                      <div className="relative w-fit">
+                        <h3 className="text-4xl font-bold">Invoice</h3>
+                        <span className="bg-[#E87117] px-3 py-1 rounded-full text-white text-xs absolute -top-3 -right-14">
+                          New
+                        </span>
+                      </div>
+                    </DrawerTitle>
+                  </DrawerHeader>
+                  <div className="px-4 py-0">
+                    <form>
+                      <ScrollArea className="h-[60vh] rounded-md">
+                        <Tabs defaultValue="user">
+                          <TabsList>
+                            <TabsTrigger value="user">Basic</TabsTrigger>
+                            <TabsTrigger value="client">Invoice</TabsTrigger>
+                            <TabsTrigger value="items">Items</TabsTrigger>
+                            <TabsTrigger value="bank details">
+                              Payment
+                            </TabsTrigger>
+                          </TabsList>
+                          <TabsContent
+                            className="relative space-y-2 mt-4"
+                            value="user"
+                          >
+                            <div className="flex justify-end rounded-lg items-center mb-4">
+                              {!user ? (
+                                <div className="border p-4 rounded-md w-full">
+                                  <p className="font-medium flex gap-1 items-center">
+                                    <Info size={18} className="mr-1" />
+                                    You can access this feature by signing in
+                                  </p>
+                                </div>
+                              ) : (
+                                <AutofillDetails setValue={form.setValue} />
+                              )}
+                            </div>
+                            <UserDetails form={form} />
+                          </TabsContent>
+                          <TabsContent value="client">
+                            <InvoiceDetails
+                              form={form}
+                              setValue={form.setValue}
+                            />
+                          </TabsContent>
+                          <TabsContent value="items">
+                            <ItemDetails
+                              form={form}
+                              fields={fields}
+                              remove={remove}
+                              append={append}
+                            />
+                          </TabsContent>
+                          <TabsContent value="bank details">
+                            {!user ? (
+                              <div className="border p-4 rounded-md w-full">
+                                <p className="font-medium flex gap-1 items-center">
+                                  <Info size={18} className="mr-1" />
+                                  You can access this feature by signing in
+                                </p>
+                              </div>
+                            ) : (
+                              <AutofillPayment setValue={form.setValue} />
+                            )}
+                            <PaymentDetails form={form} />
+                          </TabsContent>
+                        </Tabs>
+                      </ScrollArea>
+                    </form>
+                  </div>
+                  <DrawerFooter>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Close</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
         </div>
       </div>
     </Form>

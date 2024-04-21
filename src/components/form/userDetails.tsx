@@ -17,7 +17,7 @@ export function UserDetails({ form }: UserDetailsProps) {
     <div className="space-y-6 relative">
       <div className="space-y-3">
         <h2 className="text-xl font-semibold w-fit">Sender&apos;s details</h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid md:grid-cols-3 grid-cols-2 md:gap-3 gap-2">
           <FormField
             control={form.control}
             name={"basicDetails.from.name"}
@@ -118,7 +118,7 @@ export function UserDetails({ form }: UserDetailsProps) {
       </div>
       <div className="space-y-3">
         <h2 className="text-xl font-semibold">Receiver&apos;s details</h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid md:grid-cols-3 grid-cols-2 md:gap-3 gap-2">
           <FormField
             control={form.control}
             name={"basicDetails.to.name"}
