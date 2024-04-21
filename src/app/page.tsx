@@ -24,24 +24,24 @@ export default function Home() {
       <Navbar />
       <div className="bg-grid">
         <div className=" flex items-center flex-col space-y-4">
-          <h1 className="capitalize text-5xl font-extrabold text-center max-w-3xl">
+          <h1 className="capitalize md:text-5xl text-2xl font-extrabold text-center max-w-3xl">
             <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mr-3">
               Discover
             </span>
             Invoice Generation and Tracking Tools
           </h1>
-          <p className="text-center max-w-lg text-muted-foreground flex gap-1">
+          <p className="md:text-base text-xs text-center max-w-lg text-muted-foreground flex gap-1">
             Effortlessly create invoices with our
             <Sparkles className="w-5 h-5" /> intuitive tools!.
           </p>
           <div>
             <div className="flex gap-4 max-w-md justify-center">
-              <Link
+              {/* <Link
                 href="https://github.com/manishbisht777/quick-invoice/"
                 className={cn("px-6", buttonVariants({ variant: "secondary" }))}
               >
                 Github
-              </Link>
+              </Link> */}
               <Link href="/templates" className={cn("px-6", buttonVariants())}>
                 Generate Now
               </Link>
@@ -61,55 +61,59 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative top-0 -z-10 h-full w-full bg-white">
-        <div className="flex justify-center items-center flex-col gap-4 mt-20">
+      <div className="relative top-0 h-full w-full bg-white">
+        <div className="flex justify-center items-center flex-col gap-4 md:mt-20 mt-10">
           <p className="text-sm font-medium bg-white rounded-full px-4 py-1 border shadow-sm">
             Features
           </p>
           <div className="text-center space-y-1">
-            <h2 className="text-3xl font-bold">
+            <h2 className="md:text-3xl text-xl font-bold">
               Simplify Your Invoicing Process Today
             </h2>
-            <p className="text-primary max-w-lg text-center">
+            <p className="md:text-base text-xs text-primary max-w-lg text-center">
               Streamline your invoicing process with our easy-to-use tools.
             </p>
           </div>
-          <div className="flex gap-1 items-center text-gradient font-medium">
-            <span>Learn more</span>
-            <ChevronRight className="text-orange-500" size={20} />
-          </div>
+          <Link href="/templates">
+            <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer">
+              <span>Learn more</span>
+              <ChevronRight className="text-orange-500" size={20} />
+            </div>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-5 gap-8 mt-10">
-          <Card className="col-span-2">
-            <CardHeader className="relative h-96">
+        <div className="grid md:grid-cols-5 gap-8 mt-10">
+          <Card className="md:col-span-2 flex flex-col justify-between">
+            <CardHeader className="relative h-72">
               <Image
-                src="/images/promotion/edit_invoice.svg"
+                src="/images/promotion/manage.svg"
                 alt="invoice"
                 className="z-10"
                 layout="fill"
+                objectFit="contain"
               />
             </CardHeader>
             <CardContent className="space-y-2 mt-8">
-              <CardTitle>Streamline Your Invoicing Process</CardTitle>
+              <CardTitle>Effortless Invoice Tracking</CardTitle>
               <CardDescription className="text-primary">
-                Generate professional invoices in minutes with customizable
-                templates tailored to your business needs.
+                Mange invoices with ease
               </CardDescription>
-              <div className="flex gap-1 items-center text-gradient font-medium">
-                <span>Learn more</span>
-                <ChevronRight className="text-orange-500" size={20} />
-              </div>
+              <Link href="/templates">
+                <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer mt-1">
+                  <span>Learn more</span>
+                  <ChevronRight className="text-orange-500" size={20} />
+                </div>
+              </Link>
             </CardContent>
           </Card>
-          <Card className="col-span-3">
-            <CardHeader className="relative h-96">
+          <Card className="md:col-span-3 flex flex-col justify-between">
+            <CardHeader className="relative h-72">
               <Image
-                src="/images/promotion/hero.png"
+                src="/images/promotion/editor.svg"
                 alt="invoice"
                 className="z-10"
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
               />
             </CardHeader>
             <CardContent className="space-y-2 mt-8">
@@ -118,41 +122,46 @@ export default function Home() {
                 Our autofill feature populates client information, saving you
                 time and minimizing errors.
               </CardDescription>
-              <div className="flex gap-1 items-center text-gradient font-medium">
-                <span>Learn more</span>
-                <ChevronRight className="text-orange-500" size={20} />
-              </div>
+              <Link href="/templates">
+                <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer mt-1">
+                  <span>Learn more</span>
+                  <ChevronRight className="text-orange-500" size={20} />
+                </div>
+              </Link>
             </CardContent>
           </Card>
-          <Card className="col-span-3">
-            <CardHeader className="relative h-96">
+          <Card className="md:col-span-3 flex flex-col justify-between">
+            <CardHeader className="relative h-72">
               <Image
                 src="/images/promotion/templates.svg"
                 alt="invoice"
                 className="z-10"
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
               />
             </CardHeader>
             <CardContent className="space-y-2 mt-8">
-              <CardTitle>Effortless Invoice Tracking</CardTitle>
+              <CardTitle>Tailored templates</CardTitle>
               <CardDescription className="text-primary">
-                Mange invoices with ease
+                Generate professional invoices in minutes with customizable
+                templates tailored to your business needs.
               </CardDescription>
-              <div className="flex gap-1 items-center text-gradient font-medium">
-                <span>Learn more</span>
-                <ChevronRight className="text-orange-500" size={20} />
-              </div>
+              <Link href="/templates">
+                <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer mt-1">
+                  <span>Learn more</span>
+                  <ChevronRight className="text-orange-500" size={20} />
+                </div>
+              </Link>
             </CardContent>
           </Card>
-          <Card className="col-span-2">
-            <CardHeader className="relative h-96">
+          <Card className="md:col-span-2 flex flex-col justify-between">
+            <CardHeader className="relative h-72">
               <Image
-                src="/images/promotion/manage_invoice.svg"
+                src="/images/promotion/dashboard.svg"
                 alt="invoice"
                 className="z-10"
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
               />
             </CardHeader>
             <CardContent className="space-y-2">
@@ -160,10 +169,12 @@ export default function Home() {
               <CardDescription className="text-primary">
                 Get access to all your invoices and clients in one place
               </CardDescription>
-              <div className="flex gap-1 items-center text-gradient font-medium">
-                <span>Learn more</span>
-                <ChevronRight className="text-orange-500" size={20} />
-              </div>
+              <Link href="/templates">
+                <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer mt-1">
+                  <span>Learn more</span>
+                  <ChevronRight className="text-orange-500" size={20} />
+                </div>
+              </Link>
             </CardContent>
           </Card>
         </div>
@@ -317,14 +328,14 @@ export default function Home() {
           Bring your <span className="text-gradient">business </span> next level
         </h4>
         <p className="max-w-xl text-sm text-muted-foreground">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-          voluptas aspernatur perferendis repellat sapiente in dolores velit
-          facilis vero accusamus?
+          Start generating invoices with our easy-to-use tools.
         </p>
-        <div className="flex gap-1 items-center text-gradient font-medium">
-          <span>Learn more</span>
-          <ChevronRight className="text-orange-500" size={20} />
-        </div>
+        <Link href="/templates">
+          <div className="flex gap-1 items-center text-gradient font-medium cursor-pointer mt-1">
+            <span>Learn more</span>
+            <ChevronRight className="text-orange-500" size={20} />
+          </div>
+        </Link>
       </div>
     </main>
   );
