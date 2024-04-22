@@ -159,9 +159,9 @@ export default function Editor({ id }: { id: string }) {
                 <Button className="w-full">Fill details</Button>
               </DrawerTrigger>
               <DrawerContent className="h-[85vh]">
-                <div className="mx-auto w-full max-w-sm">
+                <div className="mx-auto w-full">
                   <DrawerHeader>
-                    <DrawerTitle className="">
+                    <DrawerTitle className="mt-4">
                       <div className="relative w-fit">
                         <h3 className="text-4xl font-bold">Invoice</h3>
                         <span className="bg-[#E87117] px-3 py-1 rounded-full text-white text-xs absolute -top-3 -right-14">

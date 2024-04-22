@@ -36,7 +36,7 @@ export default async function page({}: Props) {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 grid-cols-2 gap-5">
+      <div className="grid md:grid-cols-3 gap-5">
         {invoices.map((invoice) => {
           const Template = AllTemplates[invoice.template]?.component;
 

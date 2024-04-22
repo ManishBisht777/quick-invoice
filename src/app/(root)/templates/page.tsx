@@ -13,16 +13,9 @@ export default function Page() {
             Explore a wide range of templates for base of your invoice
           </p>
         </div>
-        {/* <Link
-          className={cn(buttonVariants(), "flex gap-2")}
-          href="https://github.com/manishbisht777/quick-invoice/"
-        >
-          <Star size={16} />
-          Star
-        </Link> */}
       </div>
 
-      <div className="grid grid-cols-3 gap-6 min-h-screen justify-center mt-6">
+      <div className="grid md:grid-cols-3  gap-6 min-h-screen justify-center mt-6">
         {Object.keys(AllTemplates).map((key) => {
           const templateImage = AllTemplates[key].image;
           return (
