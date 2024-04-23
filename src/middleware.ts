@@ -1,20 +1,11 @@
+import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
 
 export default withAuth(
   async function middleware(req) {
-    if (req.nextUrl.pathname.startsWith("/editor")) {
-      return null;
-    }
-
-    if (req.nextUrl.pathname.startsWith("/templates")) {
-      return null;
-    }
-
     const token = await getToken({ req });
     const isAuth = !!token;
-
     const isAuthPage =
       req.nextUrl.pathname.startsWith("/login") ||
       req.nextUrl.pathname.startsWith("/register");
@@ -23,7 +14,6 @@ export default withAuth(
       if (isAuth) {
         return NextResponse.redirect(new URL("/templates", req.url));
       }
-
       return null;
     }
 
@@ -48,14 +38,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    // "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|images|icons|$).*)",
-  ],
+  matcher: ["/dashboard/:path*", "/login"],
 };
