@@ -22,9 +22,9 @@ export const generatePdf = async (req: NextRequest) => {
     const page = await browser.newPage();
 
     await page.goto(
-      `http://localhost:3000/template/${templateId}?data=${JSON.stringify(
-        data.values
-      )}`
+      `${
+        process.env.NEXT_PUBLIC_APP_URL
+      }/template/${templateId}?data=${JSON.stringify(data.values)}`
     );
 
     const pdf = await page.pdf({
