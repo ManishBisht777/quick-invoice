@@ -41,11 +41,13 @@ export default async function page({}: Props) {
           const Template = AllTemplates[invoice.template]?.component;
 
           return (
+            // move to a separate component
             <div
               key={invoice.id}
               className="p-6 border border-slate-300 rounded-lg font-serif h-60 flex flex-col justify-between cursor-pointer hover:shadow-md transition-all duration-200 ease-in-out group"
             >
               <div className="flex justify-between items-center">
+                {/* move this variant check inside StatusBadge */}
                 <StatusBadge
                   variant={
                     invoice.status === "Draft"
@@ -64,6 +66,7 @@ export default async function page({}: Props) {
                 <CellAction data={invoice} />
               </div>
               <div>
+                {/* Move this sheet to a separate file */}
                 <Sheet>
                   <SheetTrigger asChild>
                     <div className="flex gap-4 items-center">
@@ -92,8 +95,6 @@ export default async function page({}: Props) {
           );
         })}
       </div>
-
-      {/* <DataTable columns={invoiceColumns} data={invoices} /> */}
     </div>
   );
 }

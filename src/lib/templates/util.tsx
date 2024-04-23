@@ -1,5 +1,6 @@
 import Modern from "@/components/templates/Modern";
 import Sleek from "@/components/templates/Sleek";
+import { codes } from "currency-codes";
 import { lazy } from "react";
 
 export const AllTemplates: Record<string, any> = {
@@ -24,4 +25,8 @@ export const AllTemplatesForServer: Record<string, any> = {
     name: "sleek",
     component: Sleek,
   },
+};
+
+export const getAllCurrencies = () => {
+  return codes().map((code) => code);
 };

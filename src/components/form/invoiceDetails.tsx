@@ -9,15 +9,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { templatePropsSchema } from "@/types/formSchema";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -31,12 +26,35 @@ import { codes } from "currency-codes";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { WorkType } from "@/enum/work";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useState } from "react";
+import { getAllCurrencies } from "@/lib/templates/util";
+
 interface InvoiceDetailsProps {
   form: UseFormReturn<z.infer<typeof templatePropsSchema>>;
   setValue: any;
 }
 
 export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
+  const [open, setOpen] = useState(false);
+  const [currency, setCurrency] = useState("");
+
+  const currencies = getAllCurrencies();
+
+  console.log(currencies);
+
   return (
     <>
       <div className="space-y-6 mt-6 w-full">
@@ -122,25 +140,61 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
               control={form.control}
               name="invoiceDetails.currency"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Currency</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a Currency" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {codes().map((code) => (
-                        <SelectItem key={code} value={code}>
-                          {code}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Language</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-[200px] justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? currencies.find(
+                                (language) => language === field.value
+                              )
+                            : "Select currency"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search language..." />
+                        <CommandList>
+                          <CommandEmpty>No currency found.</CommandEmpty>
+                          <CommandGroup>
+                            {currencies.map((code) => {
+                              if (!code) return;
+                              return (
+                                <CommandItem
+                                  value={code}
+                                  key={code}
+                                  onSelect={() => {
+                                    setValue("invoiceDetails.currency", code);
+                                  }}
+                                >
+                                  <Check
+                                    className={cn(
+                                      "mr-2 h-4 w-4",
+                                      code === field.value
+                                        ? "opacity-100"
+                                        : "opacity-0"
+                                    )}
+                                  />
+                                  {code}
+                                </CommandItem>
+                              );
+                            })}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
