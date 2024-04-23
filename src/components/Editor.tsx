@@ -94,7 +94,10 @@ export default function Editor({ id }: { id: string }) {
                   <TabsTrigger value="items">Items</TabsTrigger>
                   <TabsTrigger value="bank details">Payment</TabsTrigger>
                 </TabsList>
-                <TabsContent className="relative space-y-2 mt-4" value="user">
+                <TabsContent
+                  className="relative space-y-2 mt-4 px-2"
+                  value="user"
+                >
                   <div className="flex justify-end rounded-lg items-center mb-4">
                     {!user ? (
                       <div className="border p-4 rounded-md w-full">
@@ -109,10 +112,10 @@ export default function Editor({ id }: { id: string }) {
                   </div>
                   <UserDetails form={form} />
                 </TabsContent>
-                <TabsContent value="client">
+                <TabsContent className="px-2" value="client">
                   <InvoiceDetails form={form} setValue={form.setValue} />
                 </TabsContent>
-                <TabsContent value="items">
+                <TabsContent className="px-2" value="items">
                   <ItemDetails
                     form={form}
                     fields={fields}
@@ -120,7 +123,7 @@ export default function Editor({ id }: { id: string }) {
                     append={append}
                   />
                 </TabsContent>
-                <TabsContent value="bank details">
+                <TabsContent className="px-2" value="bank details">
                   {!user ? (
                     <div className="border p-4 rounded-md w-full">
                       <p className="font-medium flex gap-1 items-center">

@@ -48,12 +48,7 @@ interface InvoiceDetailsProps {
 }
 
 export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
-  const [open, setOpen] = useState(false);
-  const [currency, setCurrency] = useState("");
-
   const currencies = getAllCurrencies();
-
-  console.log(currencies);
 
   return (
     <>
