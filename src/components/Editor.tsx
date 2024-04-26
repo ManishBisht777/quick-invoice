@@ -63,15 +63,17 @@ export default function Editor({ id }: { id: string }) {
     });
     const result = await data.blob();
 
-    if (result instanceof Blob && result.size > 0) {
-      const url = window.URL.createObjectURL(result);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "invoice.pdf";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }
+    console.log(result);
+
+    // if (result instanceof Blob && result.size > 0) {
+    //   const url = window.URL.createObjectURL(result);
+    //   const a = document.createElement("a");
+    //   a.href = url;
+    //   a.download = "invoice.pdf";
+    //   document.body.appendChild(a);
+    //   a.click();
+    //   window.URL.revokeObjectURL(url);
+    // }
     setLoading(false);
   };
 
