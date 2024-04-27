@@ -1,6 +1,4 @@
-import { AllTemplates, AllTemplatesForServer } from "@/lib/templates/util";
 import { NextRequest } from "next/server";
-import { FunctionComponent, ReactNode } from "react";
 
 export const generatePdf = async (req: NextRequest) => {
   const data = await req.json();
@@ -8,16 +6,18 @@ export const generatePdf = async (req: NextRequest) => {
   try {
     const templateId = data.templateId;
 
-    let browser;
     const puppeteer = require("puppeteer");
-    browser = await puppeteer.launch({
+
+    const browser = await puppeteer.launch({
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      headless: true,
+      headless: false,
     });
 
     if (!browser) {
       throw new Error("failed to launch browser");
     }
+
+    console.log("Browser launched");
 
     const page = await browser.newPage();
 
@@ -27,9 +27,12 @@ export const generatePdf = async (req: NextRequest) => {
       }/template/${templateId}?data=${JSON.stringify(data.values)}`
     );
 
-    const pdf = await page.pdf({
+    console.log("Page loaded");
+
+    const pdf = await page.screenshot({
       format: "A4",
       printBackground: true,
+      type: "png",
     });
 
     await browser.close();
@@ -47,5 +50,7 @@ export const generatePdf = async (req: NextRequest) => {
     return response;
   } catch (error) {
     console.log(error);
+
+    return new Response("An error occurred", { status: 500 });
   }
 };

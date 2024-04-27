@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { emptyTemplateProps } from "@/config/template";
 import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
@@ -20,16 +29,9 @@ import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+
+//@ts-ignore
+import html2pdf from "html2pdf.js";
 
 export default function Editor({ id }: { id: string }) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
@@ -54,24 +56,31 @@ export default function Editor({ id }: { id: string }) {
 
   const savePdf = async () => {
     setLoading(true);
-    const data = await fetch("/api/invoice/generate", {
-      method: "POST",
-      body: JSON.stringify({
-        values: form.getValues(),
-        templateId: id,
-      }),
-    });
-    const result = await data.blob();
 
-    if (result instanceof Blob && result.size > 0) {
-      const url = window.URL.createObjectURL(result);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "invoice.pdf";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
+    const URL = `${
+      process.env.NEXT_PUBLIC_APP_URL
+    }/template/${id}?data=${JSON.stringify(form.getValues())}`;
+
+    const myWindow = window.open(URL, "_blank");
+
+    if (!myWindow) {
+      setLoading(false);
+      return;
     }
+    await new Promise((resolve) => {
+      myWindow.onload = resolve;
+    });
+
+    html2pdf(myWindow.document.body, {
+      margin: 10,
+      filename: "invoice.pdf", // Set the desired filename
+      image: { type: "jpeg", quality: 0.98 }, // Set image type and quality
+      html2canvas: { scale: 2, logging: true }, // Set scale and enable logging
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }, // Set PDF unit, format, and orientation
+    });
+
+    myWindow.close();
+
     setLoading(false);
   };
 
