@@ -29,6 +29,8 @@ import { Button } from "./ui/button";
 import { Form } from "./ui/form";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+
+//@ts-ignore
 import html2pdf from "html2pdf.js";
 
 export default function Editor({ id }: { id: string }) {
