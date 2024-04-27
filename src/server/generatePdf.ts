@@ -4,7 +4,7 @@ import playwright from "playwright-core";
 import edgeChromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 
-const LOCAL_CHROME_EXECUTABLE = "C:/Program Files/Google/Chrome/Application";
+const LOCAL_CHROME_EXECUTABLE = "C:/Program Files/Google/Chrome/Applications";
 
 export const generatePdf = async (req: NextRequest) => {
   const data = await req.json();
