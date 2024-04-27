@@ -13,7 +13,6 @@ import { emptyTemplateProps } from "@/config/template";
 import { AllTemplates } from "@/lib/templates/util";
 import { templatePropsSchema } from "@/types/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import jsPDF from "jspdf";
 import { Info, Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
