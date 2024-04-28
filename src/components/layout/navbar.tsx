@@ -21,7 +21,7 @@ export default async function Navbar({}: NavbarProps) {
       </div>
       <div className="flex-1 border-t border-b border-r flex justify-center items-center">
         <Link href="/" className="flex gap-2">
-          Snappy
+          Quick
           <Flower size={24} />
           Invoice
         </Link>

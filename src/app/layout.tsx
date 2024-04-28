@@ -6,7 +6,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { SessionProvider } from "next-auth/react";
 import { Inter, Noto_Serif } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const notoSerif = Noto_Serif({ subsets: ["latin"], variable: "--font-serif" });

@@ -14,8 +14,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Snappy Invoice",
-  description: "Snappy Invoice",
+  title: "Quick Invoice",
+  description: "The only invoice generator you will ever need.",
+  openGraph: {
+    images: "/opengraph.png",
+    type: "website",
+    title: "Quick Invoice",
+    description: "The only invoice generator you will ever need.",
+    siteName: "Quick invoice",
+  },
 };
 
 export default function Home() {
@@ -345,7 +352,7 @@ export default function Home() {
       </main>
       <footer className="container py-4 flex justify-between">
         <p className="text-gray-500">
-          &copy; {new Date().getFullYear()} Snappy invoice. Simplifying your
+          &copy; {new Date().getFullYear()} Quick invoice. Simplifying your
           invoicing needs
         </p>
         <Link href={"https://twitter.com/manishbisht9711"}>

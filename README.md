@@ -1,4 +1,4 @@
-# Snappy Invoice
+# Quick Invoice
 
 An open-source application to generate invoices.
 
