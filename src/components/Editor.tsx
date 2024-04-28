@@ -182,7 +182,7 @@ export default function Editor({ id }: { id: string }) {
                       </div>
                     </DrawerTitle>
                   </DrawerHeader>
-                  <div className="px-4 py-0">
+                  <div className="py-0">
                     <form>
                       <ScrollArea className="h-[60vh] rounded-md">
                         <Tabs defaultValue="user">
@@ -195,7 +195,7 @@ export default function Editor({ id }: { id: string }) {
                             </TabsTrigger>
                           </TabsList>
                           <TabsContent
-                            className="relative space-y-2 mt-4"
+                            className="relative space-y-2 mt-4 px-4"
                             value="user"
                           >
                             <div className="flex justify-end rounded-lg items-center mb-4">
@@ -212,13 +212,13 @@ export default function Editor({ id }: { id: string }) {
                             </div>
                             <UserDetails form={form} />
                           </TabsContent>
-                          <TabsContent value="client">
+                          <TabsContent value="client" className="px-4">
                             <InvoiceDetails
                               form={form}
                               setValue={form.setValue}
                             />
                           </TabsContent>
-                          <TabsContent value="items">
+                          <TabsContent value="items" className="px-4">
                             <ItemDetails
                               form={form}
                               fields={fields}
@@ -226,7 +226,7 @@ export default function Editor({ id }: { id: string }) {
                               append={append}
                             />
                           </TabsContent>
-                          <TabsContent value="bank details">
+                          <TabsContent value="bank details" className="px-4">
                             {!user ? (
                               <div className="border p-4 rounded-md w-full">
                                 <p className="font-medium flex gap-1 items-center">

@@ -3,30 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import { templatePropsSchema } from "@/types/formSchema";
-import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
-import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { codes } from "currency-codes";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { WorkType } from "@/enum/work";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -35,12 +11,26 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { WorkType } from "@/enum/work";
 import { getAllCurrencies } from "@/lib/templates/util";
+import { cn } from "@/lib/utils";
+import { templatePropsSchema } from "@/types/formSchema";
+import { format } from "date-fns";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { Input } from "../ui/input";
 
 interface InvoiceDetailsProps {
   form: UseFormReturn<z.infer<typeof templatePropsSchema>>;
@@ -144,7 +134,7 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
                           variant="outline"
                           role="combobox"
                           className={cn(
-                            "w-[200px] justify-between",
+                            "justify-between",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -200,7 +190,7 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
                 name={"invoiceDetails.hourlyRate"}
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor="Hourly Rate">Hourly Rate</Label>
+                    <FormLabel htmlFor="Hourly Rate">Hourly Rate</FormLabel>
                     <FormControl>
                       <Input placeholder="7" {...field} />
                     </FormControl>
@@ -219,6 +209,7 @@ export function InvoiceDetails({ form, setValue }: InvoiceDetailsProps) {
                 <button
                   type="button"
                   onClick={() => {
+                    setValue("items", []);
                     setValue("invoiceDetails.workType", value);
                   }}
                   className={cn(

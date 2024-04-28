@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { UserAvatar } from "./userAvatar";
+import { Icons } from "./ui/Icons";
+import { LogOut } from "lucide-react";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">;
@@ -38,10 +40,22 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <Link href="/dashboard" className="cursor-pointer">
-          <DropdownMenuItem>
-            {/* <I className="mr-2 h-4 w-4" /> */}
+        <Link href="/dashboard">
+          <DropdownMenuItem className="cursor-pointer">
+            <Icons.invoices className="mr-2 h-4 w-4" />
             <span>Dashboard</span>
+          </DropdownMenuItem>
+        </Link>
+        <Link href="/dashboard/details">
+          <DropdownMenuItem className="cursor-pointer">
+            <Icons.clients className="mr-2 h-4 w-4" />
+            <span>Client details</span>
+          </DropdownMenuItem>
+        </Link>
+        <Link href="dashboard/payments">
+          <DropdownMenuItem className="cursor-pointer">
+            <Icons.payments className="mr-2 h-4 w-4" />
+            <span>Payment details</span>
           </DropdownMenuItem>
         </Link>
 
@@ -55,7 +69,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
             });
           }}
         >
-          {/* <Icons.logout className="mr-2 h-4 w-4" /> */}
+          <LogOut className="mr-2 h-4 w-4" />
           <span>Sign out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
