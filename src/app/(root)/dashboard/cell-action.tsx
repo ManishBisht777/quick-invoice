@@ -15,6 +15,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
+//@ts-ignore
+import html2pdf from "html2pdf.js";
+
 interface CellActionProps {
   data: Invoice;
 }
@@ -43,26 +46,33 @@ export default function CellAction({ data }: CellActionProps) {
     setLoading(false);
   };
 
+  console.log(data.content);
+
   const savePdf = async () => {
     setLoading(true);
-    const response = await fetch("/api/invoice/generate", {
-      method: "POST",
-      body: JSON.stringify({
-        values: data,
-        templateId: data.template,
-      }),
-    });
-    const result = await response.blob();
 
-    if (result instanceof Blob && result.size > 0) {
-      const url = window.URL.createObjectURL(result);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "invoice.pdf";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
+    const URL = `${process.env.NEXT_PUBLIC_APP_URL}/template/${data.template}?data=${data.content}`;
+
+    const myWindow = window.open(URL, "_blank");
+
+    if (!myWindow) {
+      setLoading(false);
+      return;
     }
+    await new Promise((resolve) => {
+      myWindow.onload = resolve;
+    });
+
+    html2pdf(myWindow.document.body, {
+      margin: 10,
+      filename: "invoice.pdf", // Set the desired filename
+      image: { type: "jpeg", quality: 0.98 }, // Set image type and quality
+      html2canvas: { scale: 2, logging: true }, // Set scale and enable logging
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }, // Set PDF unit, format, and orientation
+    });
+
+    myWindow.close();
+
     setLoading(false);
   };
 
