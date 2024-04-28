@@ -18,7 +18,7 @@ export default function CreatePayment() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="flex border-dashed border-2 items-center justify-center rounded-md flex-col cursor-pointer h-full gap-1 capitalize hover:bg-slate-50/40">
+        <div className="flex border-dashed border-2 items-center justify-center rounded-md flex-col cursor-pointer h-full gap-1 capitalize hover:bg-slate-50/40 py-10">
           <Plus size={30} />
           Create new details
         </div>

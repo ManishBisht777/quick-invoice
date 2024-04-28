@@ -55,7 +55,6 @@ export const EditInvoiceStatus: React.FC<EditInvoiceStatusProps> = ({
   }
 
   const onSave = async () => {
-    console.log("cs");
     setLoading(true);
     try {
       const response = await updateInvoiceStatus(

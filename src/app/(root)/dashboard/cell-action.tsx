@@ -46,8 +46,6 @@ export default function CellAction({ data }: CellActionProps) {
     setLoading(false);
   };
 
-  console.log(data.content);
-
   const savePdf = async () => {
     setLoading(true);
 

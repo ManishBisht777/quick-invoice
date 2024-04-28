@@ -20,7 +20,7 @@ export default async function page() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-4">
         <CreatePayment />
         {paymentDetails.data?.map((detail) => (
           <div

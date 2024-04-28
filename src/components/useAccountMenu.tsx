@@ -52,7 +52,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
             <span>Client details</span>
           </DropdownMenuItem>
         </Link>
-        <Link href="dashboard/payments">
+        <Link href="/dashboard/payments">
           <DropdownMenuItem className="cursor-pointer">
             <Icons.payments className="mr-2 h-4 w-4" />
             <span>Payment details</span>
