@@ -9,11 +9,11 @@ export const AllTemplates: Record<string, any> = {
     component: lazy(() => import("@/components/templates/Modern")),
     image: "/images/templates/modern.png",
   },
-  sleek: {
-    name: "sleek",
-    component: lazy(() => import("@/components/templates/Sleek")),
-    image: "/images/templates/sleek.png",
-  },
+  // sleek: {
+  //   name: "sleek",
+  //   component: lazy(() => import("@/components/templates/Sleek")),
+  //   image: "/images/templates/sleek.png",
+  // },
 };
 
 export const AllTemplatesForServer: Record<string, any> = {
