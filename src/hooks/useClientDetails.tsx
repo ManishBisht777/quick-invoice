@@ -1,16 +1,14 @@
 import { getBasicDetails } from "@/server/actions/basicDetails";
 import { basicInvoiceDetails } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function useClientDetails() {
   const [loading, setLoading] = useState(false);
   const [basicDetails, setBasicDetails] = useState<basicInvoiceDetails[]>([]);
-  const user = useSession().data?.user;
 
   useEffect(() => {
-    if (!user) return;
+    // if (!user) return;
 
     setLoading(true);
 
