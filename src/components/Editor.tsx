@@ -32,7 +32,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 //@ts-ignore
 import html2pdf from "html2pdf.js";
 
-export default function Editor({ id }: { id: string }) {
+export default function Editor({
+  id,
+  userId,
+}: {
+  id: string;
+  userId: string | null;
+}) {
   const form = useForm<z.infer<typeof templatePropsSchema>>({
     resolver: zodResolver(templatePropsSchema),
     defaultValues: emptyTemplateProps,
@@ -40,7 +46,6 @@ export default function Editor({ id }: { id: string }) {
   });
 
   const [loading, setLoading] = useState(false);
-  // const user = useSession().data?.user;
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -72,10 +77,10 @@ export default function Editor({ id }: { id: string }) {
 
     html2pdf(myWindow.document.body, {
       margin: 10,
-      filename: "invoice.pdf", // Set the desired filename
-      image: { type: "jpeg", quality: 0.98 }, // Set image type and quality
-      html2canvas: { scale: 2, logging: true }, // Set scale and enable logging
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }, // Set PDF unit, format, and orientation
+      filename: "invoice.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, logging: true },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     });
 
     myWindow.close();
@@ -106,8 +111,8 @@ export default function Editor({ id }: { id: string }) {
                   className="relative space-y-2 mt-4 px-2"
                   value="user"
                 >
-                  {/* <div className="flex justify-end rounded-lg items-center mb-4">
-                    {!user ? (
+                  <div className="flex justify-end rounded-lg items-center mb-4">
+                    {!userId ? (
                       <div className="border p-4 rounded-md w-full">
                         <p className="font-medium flex gap-1 items-center">
                           <Info size={18} className="mr-1" />
@@ -117,7 +122,7 @@ export default function Editor({ id }: { id: string }) {
                     ) : (
                       <AutofillDetails setValue={form.setValue} />
                     )}
-                  </div> */}
+                  </div>
                   <UserDetails form={form} />
                 </TabsContent>
                 <TabsContent className="px-2" value="client">
@@ -132,7 +137,7 @@ export default function Editor({ id }: { id: string }) {
                   />
                 </TabsContent>
                 <TabsContent className="px-2" value="bank details">
-                  {/* {!user ? (
+                  {!userId ? (
                     <div className="border p-4 rounded-md w-full">
                       <p className="font-medium flex gap-1 items-center">
                         <Info size={18} className="mr-1" />
@@ -141,7 +146,7 @@ export default function Editor({ id }: { id: string }) {
                     </div>
                   ) : (
                     <AutofillPayment setValue={form.setValue} />
-                  )} */}
+                  )}
                   <PaymentDetails form={form} />
                 </TabsContent>
               </Tabs>
@@ -151,11 +156,11 @@ export default function Editor({ id }: { id: string }) {
 
         <div className="md:w-1/2 w-full space-y-4">
           <div className="flex justify-end gap-2">
-            {/* {!user ? (
+            {!userId ? (
               <Button variant="secondary">Sign in to save</Button>
             ) : (
               <SaveInvoice initialValues={form.watch()} />
-            )} */}
+            )}
 
             <Button onClick={savePdf} className="gap-2">
               {loading && <Loader2 size={18} className="animate-spin" />}
@@ -198,7 +203,7 @@ export default function Editor({ id }: { id: string }) {
                             value="user"
                           >
                             <div className="flex justify-end rounded-lg items-center mb-4">
-                              {/* {!user ? (
+                              {!userId ? (
                                 <div className="border p-4 rounded-md w-full">
                                   <p className="font-medium flex gap-1 items-center">
                                     <Info size={18} className="mr-1" />
@@ -207,7 +212,7 @@ export default function Editor({ id }: { id: string }) {
                                 </div>
                               ) : (
                                 <AutofillDetails setValue={form.setValue} />
-                              )} */}
+                              )}
                             </div>
                             <UserDetails form={form} />
                           </TabsContent>
@@ -226,7 +231,7 @@ export default function Editor({ id }: { id: string }) {
                             />
                           </TabsContent>
                           <TabsContent value="bank details" className="px-4">
-                            {/* {!user ? (
+                            {!userId ? (
                               <div className="border p-4 rounded-md w-full">
                                 <p className="font-medium flex gap-1 items-center">
                                   <Info size={18} className="mr-1" />
@@ -235,7 +240,7 @@ export default function Editor({ id }: { id: string }) {
                               </div>
                             ) : (
                               <AutofillPayment setValue={form.setValue} />
-                            )} */}
+                            )}
                             <PaymentDetails form={form} />
                           </TabsContent>
                         </Tabs>

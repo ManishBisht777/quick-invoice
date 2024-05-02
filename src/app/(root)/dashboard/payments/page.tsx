@@ -1,6 +1,6 @@
 import CreatePayment from "@/components/modal/CreatePayment";
 import { getPaymentDetails } from "@/server/actions/paymentDetails";
-import { ChevronRight, Landmark, UserRound } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 export default async function page() {

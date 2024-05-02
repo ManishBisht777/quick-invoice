@@ -1,24 +1,24 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/session";
 import { AllTemplates } from "@/lib/templates/util";
 import { ChevronRight, MoveRight } from "lucide-react";
 import CellAction from "./cell-action";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { currentUser } from "@clerk/nextjs/server";
 
 type Props = {};
 
 export default async function page({}: Props) {
-  const session = await getSession();
+  const user = await currentUser();
 
-  if (!session) {
+  if (!user) {
     return null;
   }
 
   const invoices = await db.invoice.findMany({
     where: {
-      userId: session.user.id,
+      userId: user.id,
     },
   });
 

@@ -2,13 +2,13 @@
 
 import { basicInvoiceDetailsSchema } from "@/components/form/basicDetailsForm";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { currentUser } from "@clerk/nextjs/server";
 import { z } from "zod";
 
 async function getBasicDetails() {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -16,7 +16,7 @@ async function getBasicDetails() {
     } else {
       const basicDetails = await db.basicInvoiceDetails.findMany({
         where: {
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 
@@ -38,8 +38,8 @@ async function saveBasicDetails(
   data: z.infer<typeof basicInvoiceDetailsSchema>
 ) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -48,7 +48,7 @@ async function saveBasicDetails(
       const basicDetails = await db.basicInvoiceDetails.create({
         data: {
           ...data,
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 
@@ -68,8 +68,8 @@ async function saveBasicDetails(
 
 async function getBasicDetailsById(id: string) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -78,7 +78,7 @@ async function getBasicDetailsById(id: string) {
       const basicDetails = await db.basicInvoiceDetails.findUnique({
         where: {
           id: id,
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 
@@ -101,8 +101,8 @@ async function updateBasicDetails(
   data: z.infer<typeof basicInvoiceDetailsSchema>
 ) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -111,7 +111,7 @@ async function updateBasicDetails(
       const basicDetails = await db.basicInvoiceDetails.update({
         where: {
           id: id,
-          userId: session.user.id,
+          userId: user.id,
         },
         data: {
           ...data,
@@ -134,8 +134,8 @@ async function updateBasicDetails(
 
 async function deleteBasicDetails(id: string) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -144,7 +144,7 @@ async function deleteBasicDetails(id: string) {
       await db.basicInvoiceDetails.delete({
         where: {
           id: id,
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 

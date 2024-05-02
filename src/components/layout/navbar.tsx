@@ -9,8 +9,6 @@ interface NavbarProps {}
 export default async function Navbar({}: NavbarProps) {
   const user = await currentUser();
 
-  console.log(user);
-
   return (
     <div className="md:my-10 my-5 flex">
       <div className="border w-fit p-3">

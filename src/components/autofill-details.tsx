@@ -124,11 +124,3 @@ export default function AutofillDetails({ setValue }: AutofillDetailsProps) {
     </Dialog>
   );
 }
-
-// setValue("basicDetails.to.address.address", detail.address);
-// setValue("basicDetails.to.address.city", detail.city);
-// setValue("basicDetails.to.address.country", detail.country);
-// setValue("basicDetails.to.address.state", detail.state);
-// setValue("basicDetails.to.phoneNumber", detail.phone);
-// setValue("basicDetails.to.address.zipCode", detail.zip);
-// setValue("basicDetails.to.name", detail.name);

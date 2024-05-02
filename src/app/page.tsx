@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "Quick Invoice",
   description: "The only invoice generator you will ever need.",
   openGraph: {

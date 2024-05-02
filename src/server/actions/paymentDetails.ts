@@ -2,13 +2,13 @@
 
 import { paymentDetailsSchema } from "@/components/form/paymentDetailsForm";
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/session";
 import { z } from "zod";
+import { currentUser } from "@clerk/nextjs/server";
 
 async function getPaymentDetails() {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -16,7 +16,7 @@ async function getPaymentDetails() {
     } else {
       const basicDetails = await db.paymentDetails.findMany({
         where: {
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 
@@ -36,8 +36,8 @@ async function getPaymentDetails() {
 
 async function savePaymentDetails(data: z.infer<typeof paymentDetailsSchema>) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",
@@ -46,7 +46,7 @@ async function savePaymentDetails(data: z.infer<typeof paymentDetailsSchema>) {
       const basicDetails = await db.paymentDetails.create({
         data: {
           ...data,
-          userId: session.user.id,
+          userId: user.id,
         },
       });
 
@@ -69,8 +69,8 @@ async function updatePaymentDetails(
   data: z.infer<typeof paymentDetailsSchema>
 ) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         status: "error",
         message: "User is not logged in",

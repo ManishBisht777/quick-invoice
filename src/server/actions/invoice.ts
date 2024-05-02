@@ -1,13 +1,13 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { currentUser } from "@clerk/nextjs/server";
 import { $Enums } from "@prisma/client";
 
 async function deleteInvoice(invoiceId: string) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         message: "User is not logged in",
       };
@@ -15,6 +15,7 @@ async function deleteInvoice(invoiceId: string) {
       const invoice = await db.invoice.delete({
         where: {
           id: invoiceId,
+          user: { id: user.id },
         },
       });
 
@@ -30,8 +31,8 @@ async function deleteInvoice(invoiceId: string) {
 
 async function updateInvoiceStatus(invoiceId: string, status: $Enums.Status) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         message: "User is not logged in",
       };

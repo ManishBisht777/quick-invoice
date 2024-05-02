@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getSession } from "../../lib/session";
+import { currentUser } from "@clerk/nextjs/server";
 import { $Enums } from "@prisma/client";
 
 async function saveInvoice(
@@ -13,8 +13,8 @@ async function saveInvoice(
   name: string
 ) {
   try {
-    const session = await getSession();
-    if (!session) {
+    const user = await currentUser();
+    if (!user) {
       return {
         message: "User is not logged in",
       };
@@ -22,7 +22,7 @@ async function saveInvoice(
       const invoice = await db.invoice.create({
         data: {
           name: invoiceName,
-          userId: session.user.id,
+          userId: user.id,
           content: JSON.stringify(templateValues),
           status: "Draft",
           template: templateType,
@@ -33,7 +33,7 @@ async function saveInvoice(
       if (saveClientDetails) {
         await db.basicInvoiceDetails.create({
           data: {
-            userId: session.user.id,
+            userId: user.id,
             address: templateValues.basicDetails.to?.address?.address,
             city: templateValues.basicDetails.to?.address?.city,
             country: templateValues.basicDetails.to?.address?.country,

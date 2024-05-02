@@ -7,6 +7,7 @@ import { ChevronLeft, Flower } from "lucide-react";
 import { UserAuthForm } from "@/components/form/userAuthForm";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "Login",
   description: "Login to your account",
 };
