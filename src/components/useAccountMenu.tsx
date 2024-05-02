@@ -1,9 +1,12 @@
 "use client";
 
 import { User } from "next-auth";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 
+import { SignOutButton } from "@clerk/nextjs";
+import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Icons } from "./ui/Icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { UserAvatar } from "./userAvatar";
-import { Icons } from "./ui/Icons";
-import { LogOut } from "lucide-react";
-
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">;
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
+  const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -64,13 +66,10 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault();
-            signOut({
-              callbackUrl: `${window.location.origin}/login`,
-            });
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Sign out</span>
+          <SignOutButton redirectUrl="/" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

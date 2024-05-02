@@ -3,8 +3,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { SessionProvider } from "next-auth/react";
 import { Inter, Noto_Serif } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -16,16 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <SessionProvider>
+    <ClerkProvider>
+      <html lang="en">
         <body
           className={cn(inter.className, notoSerif.variable, inter.variable)}
         >
           {children}
         </body>
-      </SessionProvider>
-      <Toaster />
-      <GoogleAnalytics gaId="G-NF2CY20H95" />
-    </html>
+        <Toaster />
+        <GoogleAnalytics gaId="G-NF2CY20H95" />
+      </html>
+    </ClerkProvider>
   );
 }

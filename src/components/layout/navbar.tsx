@@ -1,13 +1,15 @@
-import { getCurrentUser } from "@/lib/session";
 import { Flower } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { UserAccountNav } from "../useAccountMenu";
+import { SignInButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface NavbarProps {}
 
 export default async function Navbar({}: NavbarProps) {
-  const user = await getCurrentUser();
+  const user = await currentUser();
+
+  console.log(user);
 
   return (
     <div className="md:my-10 my-5 flex">
@@ -29,16 +31,17 @@ export default async function Navbar({}: NavbarProps) {
       {user ? (
         <div className="border border-l-0 px-6 flex justify-center items-center  transition-all">
           <UserAccountNav
-            user={{ name: user.name, image: user.image, email: user.email }}
+            user={{
+              name: user.firstName,
+              image: user.imageUrl,
+              email: user.emailAddresses[0].emailAddress,
+            }}
           />
         </div>
       ) : (
-        <Link
-          className="border border-l-0 px-6 flex justify-center items-center hover:bg-black hover:text-white transition-all"
-          href="/login"
-        >
-          Login
-        </Link>
+        <div className="border border-l-0 px-6 flex justify-center items-center hover:bg-black hover:text-white transition-all">
+          <SignInButton />
+        </div>
       )}
     </div>
   );

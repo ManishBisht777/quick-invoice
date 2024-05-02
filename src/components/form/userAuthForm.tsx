@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { signIn } from "next-auth/react";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -87,7 +86,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() => {
           setIsGitHubLoading(true);
-          signIn("github");
         }}
         disabled={isLoading || isGitHubLoading}
       >
@@ -103,7 +101,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         className={cn(buttonVariants({ variant: "outline" }), "-mt-3")}
         onClick={() => {
           setIsGoogleLoading(true);
-          signIn("google");
         }}
         disabled={isLoading || isGoogleLoading}
       >
