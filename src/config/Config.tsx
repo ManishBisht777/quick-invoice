@@ -18,5 +18,3 @@ export function GetTemplate(id: TemplateType) {
 
   return template;
 }
-
-// test commit
